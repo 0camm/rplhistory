@@ -22,7 +22,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border-bright);border-radius:3px}
 
 /* NAV */
-.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.93);backdrop-filter:blur(20px);padding:0 1.5rem;display:flex;align-items:center;gap:1.5rem;height:58px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;gap:1.5rem;height:58px}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.05em;color:var(--gold);text-decoration:none;flex-shrink:0}
 .nav-logo span{color:var(--text)}
 .nav-links{display:flex;gap:0.15rem;list-style:none;margin-left:auto}
@@ -166,7 +166,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
 <!-- NAV -->
 <nav class="nav">
-  <li><button onclick="adminClick()" id="nav-admin">Admin</button></li>
+  <a class="nav-logo" href="#">RPL <span>History Book</span></a>
+  <ul class="nav-links">
+    <li><button onclick="adminClick()" id="nav-admin">Admin</button></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
