@@ -6,457 +6,522 @@
 <title>RPL History Book</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
 :root{
-  --bg:#060608;
-  --surface:#0d0d10;
-  --surface2:#111115;
-  --surface3:#16161b;
-  --border:rgba(255,255,255,0.055);
-  --border-bright:rgba(255,255,255,0.10);
+  /* Core palette — black & shiny gold only */
+  --black:#05050a;
+  --black2:#080810;
+  --black3:#0c0c14;
+  --black4:#111118;
+  --black5:#181820;
 
-  /* Shiny dark-gold palette */
-  --gold:#c9922a;
-  --gold-hi:#e8b84b;
-  --gold-shine:#f5d278;
-  --gold-dim:rgba(201,146,42,0.10);
-  --gold-glow:rgba(232,184,75,0.18);
-  --gold-border:rgba(201,146,42,0.28);
+  --border-sub:rgba(255,255,255,0.04);
+  --border-mid:rgba(255,255,255,0.07);
+  --border-hi:rgba(255,255,255,0.11);
 
-  --text:#dddde8;
-  --text-dim:#7a7a94;
-  --text-muted:#444456;
-  --accent:#7c5cbf;
-  --red:#e03e3e;
-  --blue:#4a90e2;
-  --green:#3ecf8e;
+  --gold-deep:#7a4a05;
+  --gold-mid:#b8760f;
+  --gold:#d4922a;
+  --gold-hi:#f0b93c;
+  --gold-shine:#fcd97a;
+  --gold-pale:#ffe8a0;
+
+  --gold-dim:rgba(212,146,42,0.07);
+  --gold-glow:rgba(212,146,42,0.14);
+  --gold-border:rgba(212,146,42,0.22);
+  --gold-border-hi:rgba(240,185,60,0.35);
+
+  --text:#dddde6;
+  --text-dim:#8a8a9e;
+  --text-muted:#484858;
+
+  /* gradient helpers */
+  --grad-gold:linear-gradient(135deg, var(--gold-shine) 0%, var(--gold-hi) 35%, var(--gold) 70%, var(--gold-mid) 100%);
+  --grad-gold-subtle:linear-gradient(90deg, var(--gold-mid), var(--gold-hi), var(--gold-shine), var(--gold-hi), var(--gold-mid));
 }
 
 html{scroll-behavior:smooth}
 body{
-  background:var(--bg);
+  background:var(--black);
   color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  font-size:15px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:14px;
   line-height:1.6;
   min-height:100vh;
   overflow-x:hidden;
 }
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:rgba(201,146,42,0.25);border-radius:3px}
+
+/* scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--black)}
+::-webkit-scrollbar-thumb{background:var(--gold-border);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-border-hi)}
+
+/* ─── UTILITY ─── */
+.gold-text{
+  background:var(--grad-gold);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hidden{display:none!important}
 
 /* ─── NAV ─── */
 .nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(6,6,8,0.94);
-  backdrop-filter:blur(24px);
-  -webkit-backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
-  padding:0 1.5rem;
-  display:flex;align-items:center;gap:1.5rem;
-  height:56px;
+  position:sticky;top:0;z-index:200;
+  height:52px;
+  display:flex;align-items:center;justify-content:flex-end;padding:0 1.5rem;
+  background:rgba(5,5,10,0.92);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border-bottom:1px solid var(--border-sub);
 }
-.nav-logo{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.45rem;letter-spacing:0.06em;
-  text-decoration:none;
-  background:linear-gradient(135deg,var(--gold-shine) 0%,var(--gold) 55%,#a06e1a 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-  flex-shrink:0;
-}
-.nav-logo span{
-  background:linear-gradient(135deg,#c0c0d0 0%,var(--text) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.nav-links{display:flex;gap:0.15rem;list-style:none;margin-left:auto}
-.nav-links button{
-  background:none;border:none;
+.nav-right{display:flex;align-items:center;gap:0.5rem}
+.nav-btn{
+  background:none;border:1px solid var(--border-mid);
   color:var(--text-muted);
-  font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;
-  letter-spacing:0.07em;text-transform:uppercase;
-  padding:0.4rem 0.85rem;border-radius:6px;cursor:pointer;
-  transition:all .2s;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.35rem 0.9rem;border-radius:4px;cursor:pointer;
+  transition:all 0.2s;
 }
-.nav-links button:hover{color:var(--gold-hi);background:var(--gold-dim)}
-.nav-links button.active{color:var(--gold-hi);background:var(--gold-dim)}
-.nav-links button.admin-active{color:var(--green)}
+.nav-btn:hover{border-color:var(--gold-border);color:var(--gold-hi)}
+.nav-btn.admin-active{border-color:var(--gold-border-hi);color:var(--gold-hi);background:var(--gold-dim)}
 
 /* ─── HERO ─── */
 .hero{
+  position:relative;
+  padding:4rem 1.5rem 4rem;
   text-align:center;
-  padding:5rem 1.5rem 4rem;
-  position:relative;overflow:hidden;
+  overflow:hidden;
 }
+/* radial halo */
 .hero::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 55% 45% at 50% 0%,rgba(201,146,42,0.09) 0%,transparent 68%);
+  background:radial-gradient(ellipse 60% 50% at 50% -5%, rgba(212,146,42,0.10) 0%, transparent 65%);
   pointer-events:none;
 }
+/* thin gold rule at bottom */
 .hero::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold-border),transparent);
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold-border), transparent);
 }
+
 .hero-eyebrow{
-  font-family:'Space Mono',monospace;font-size:0.68rem;
-  letter-spacing:0.22em;
-  color:var(--gold);
-  text-transform:uppercase;margin-bottom:1.1rem;
-  opacity:0.8;
+  font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--gold);opacity:0.7;
+  margin-bottom:1.6rem;
 }
 .hero-title{
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3.2rem,11vw,7rem);
-  letter-spacing:0.04em;line-height:0.88;
-  margin-bottom:1rem;
-  color:#e8e8f0;
+  font-size:clamp(4rem,13vw,9rem);
+  letter-spacing:0.05em;line-height:0.85;
+  color:#e8e8f2;
+  margin-bottom:1.6rem;
 }
 .hero-title .g{
-  background:linear-gradient(135deg,var(--gold-shine) 0%,var(--gold-hi) 40%,var(--gold) 75%,#8c5e10 100%);
+  background:var(--grad-gold);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
+  display:block;
 }
-.hero-sub{color:var(--text-dim);font-size:0.88rem;max-width:400px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-sub{
+  color:var(--text-muted);font-size:0.72rem;letter-spacing:0.08em;
+  text-transform:uppercase;margin-bottom:3.5rem;
+}
 
-/* hero stats */
-.hero-stats{display:flex;justify-content:center;gap:0;flex-wrap:wrap}
-.hero-stat-item{
-  padding:0 2.2rem;
-  border-right:1px solid var(--border);
-  display:flex;flex-direction:column;align-items:center;
+/* stat strip */
+.hero-stats{
+  display:inline-flex;align-items:stretch;
+  border:1px solid var(--border-mid);
+  border-radius:8px;overflow:hidden;
+  background:var(--black2);
+  max-width:100%;
 }
-.hero-stat-item:last-child{border-right:none}
+.hs-item{
+  padding:0.9rem 1.5rem;display:flex;flex-direction:column;align-items:center;gap:0.3rem;
+  border-right:1px solid var(--border-mid);
+  transition:background 0.2s;flex:1;
+}
+.hs-item:last-child{border-right:none}
+.hs-item:hover{background:var(--gold-dim)}
 .hs-num{
-  font-family:'Bebas Neue',sans-serif;font-size:2.5rem;line-height:1;
-  background:linear-gradient(135deg,var(--gold-shine) 0%,var(--gold-hi) 50%,var(--gold) 100%);
+  font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1;
+  background:var(--grad-gold);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
 }
-.hs-label{font-size:0.66rem;letter-spacing:0.11em;text-transform:uppercase;color:var(--text-muted);margin-top:0.2rem}
+.hs-lbl{font-size:0.56rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)}
 
 /* ─── LAYOUT ─── */
-.container{max-width:1160px;margin:0 auto;padding:0 1.5rem}
-.section{padding:3.5rem 0}
-
-.section-header{display:flex;align-items:baseline;gap:0.85rem;margin-bottom:2rem}
-.section-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.04em;color:#e0e0ea}
-.section-tag{
-  font-family:'Space Mono',monospace;font-size:0.64rem;letter-spacing:0.15em;text-transform:uppercase;
-  color:var(--gold);
-  background:var(--gold-dim);
-  padding:.2rem .65rem;border-radius:4px;
-  border:1px solid var(--gold-border);
-}
-.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-bright) 30%,var(--border-bright) 70%,transparent);margin:0}
+.container{max-width:1140px;margin:0 auto;padding:0 1.5rem}
 
 /* ─── TABS ─── */
-.tabs{display:flex;gap:.4rem;margin-bottom:1.75rem;flex-wrap:wrap;padding-top:2rem}
-.tab-btn{
-  background:var(--surface);
-  border:1px solid var(--border);
-  color:var(--text-dim);
-  border-radius:7px;padding:.45rem 1.1rem;
-  font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;
-  cursor:pointer;transition:all .2s;
-  letter-spacing:0.02em;
+.tabs{
+  display:flex;gap:0;
+  justify-content:center;
+  border-bottom:1px solid var(--border-mid);
+  margin-bottom:0;
+  padding-top:2.5rem;
 }
-.tab-btn:hover{border-color:var(--border-bright);color:var(--text)}
-.tab-btn.active{
-  background:var(--gold-dim);
-  border-color:var(--gold-border);
-  color:var(--gold-hi);
+.tab-btn{
+  background:none;border:none;border-bottom:2px solid transparent;
+  color:var(--text-muted);
+  font-family:'IBM Plex Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.7rem 2rem;cursor:pointer;
+  transition:all 0.2s;
+  margin-bottom:-1px;
+}
+.tab-btn:hover{color:var(--text-dim)}
+.tab-btn.active{color:var(--gold-hi);border-bottom-color:var(--gold-hi)}
+
+/* ─── SECTION HEADER ─── */
+.section{padding:2.5rem 0}
+.section-header{
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:2rem;padding-bottom:1rem;
+  border-bottom:1px solid var(--border-mid);
+}
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.8rem;letter-spacing:0.05em;color:#e0e0ea;
+}
+.section-tag{
+  font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--gold);opacity:0.65;
 }
 
-/* ─── SEASON CARDS ─── */
-.seasons-grid{display:grid;gap:1px;background:var(--border)}
-.season-card{background:var(--surface);transition:background .2s}
-.season-card:hover{background:var(--surface2)}
-.season-card.open{background:var(--surface2)}
+/* ─── ADMIN BAR ─── */
+.admin-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:0.75rem 1.2rem;
+  border:1px solid var(--gold-border);
+  border-radius:6px;
+  background:var(--gold-dim);
+  margin-bottom:1.5rem;
+  flex-wrap:wrap;
+}
+.admin-label{font-size:0.63rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold)}
+.btn-row{display:flex;gap:0.5rem}
+.btn{
+  border:none;border-radius:4px;
+  padding:0.42rem 1.1rem;
+  font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.06em;
+  cursor:pointer;transition:opacity 0.2s;
+}
+.btn-gold{background:var(--gold);color:var(--black)}
+.btn-outline{background:transparent;border:1px solid var(--border-hi);color:var(--text-dim)}
+.btn:hover{opacity:0.75}
+
+/* ─── SEASONS ─── */
+.seasons-grid{display:flex;flex-direction:column;gap:1px;background:var(--border-mid);border:1px solid var(--border-mid);border-radius:8px;overflow:hidden}
+
+.season-card{background:var(--black2);transition:background 0.15s}
+.season-card:hover{background:var(--black3)}
+.season-card.open{background:var(--black3)}
 
 .season-hdr{
   display:grid;
-  grid-template-columns:3.4rem 1fr auto auto;
-  align-items:center;gap:1.3rem;
-  padding:1.1rem 1.4rem;cursor:pointer;user-select:none;
+  grid-template-columns:3.5rem 1fr auto auto;
+  align-items:center;gap:1.5rem;
+  padding:1.1rem 1.5rem;
+  cursor:pointer;user-select:none;
 }
 .s-num{
-  font-family:'Bebas Neue',sans-serif;font-size:2.8rem;
-  color:var(--text-muted);line-height:1;
-  transition:color .2s;
+  font-family:'Bebas Neue',sans-serif;font-size:2.6rem;line-height:1;
+  color:var(--text-muted);transition:all 0.25s;
 }
 .season-card.open .s-num{
-  background:linear-gradient(135deg,var(--gold-shine),var(--gold));
+  background:var(--grad-gold);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
 }
 .s-info h3{
-  font-family:'Bebas Neue',sans-serif;font-size:1.25rem;
-  letter-spacing:0.03em;color:#e0e0ea;
+  font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.04em;color:#e0e0ea;
 }
-.s-info .meta{font-size:0.76rem;color:var(--text-dim);margin-top:.12rem}
+.s-meta{font-size:0.68rem;color:var(--text-muted);margin-top:0.15rem;letter-spacing:0.02em}
+
 .s-badge{
-  font-family:'Space Mono',monospace;font-size:0.66rem;
-  background:var(--gold-dim);
-  color:var(--gold-hi);
-  border:1px solid var(--gold-border);
-  border-radius:6px;padding:.3rem .75rem;text-align:center;white-space:nowrap;
+  font-size:0.65rem;letter-spacing:0.08em;
+  background:var(--black4);border:1px solid var(--border-mid);
+  border-radius:4px;padding:0.35rem 0.8rem;text-align:center;white-space:nowrap;
 }
-.s-badge small{display:block;font-size:.58rem;color:var(--text-muted);margin-bottom:.05rem}
-.chevron{width:16px;height:16px;color:var(--text-muted);transition:transform .25s;flex-shrink:0}
+.s-badge small{display:block;font-size:0.56rem;color:var(--text-muted);margin-bottom:0.1rem;letter-spacing:0.1em;text-transform:uppercase}
+.s-badge span{color:var(--gold-hi)}
+
+.chevron{
+  width:14px;height:14px;
+  color:var(--text-muted);flex-shrink:0;
+  transition:transform 0.25s, color 0.25s;
+}
 .season-card.open .chevron{transform:rotate(180deg);color:var(--gold)}
 
-/* gold left accent on open */
+/* gold left accent */
 .season-card.open .season-hdr{
   border-left:2px solid var(--gold);
-  padding-left:calc(1.4rem - 2px);
+  padding-left:calc(1.5rem - 2px);
 }
 
-/* ─── SEASON BODY ─── */
-.season-body{display:none;padding:0 1.4rem 1.4rem;border-top:1px solid var(--border)}
+/* season body */
+.season-body{
+  display:none;
+  border-top:1px solid var(--border-mid);
+  padding:1.5rem;
+}
 .season-card.open .season-body{display:block}
 
+/* TOTY banner */
 .toty-row{
-  display:flex;align-items:center;gap:.6rem;
-  margin-top:1rem;margin-bottom:.6rem;
-  font-size:.82rem;
-  padding:.55rem .9rem;
-  background:var(--gold-dim);
-  border:1px solid var(--gold-border);
-  border-radius:6px;
-  color:var(--text-dim);
-}
-.toty-row strong{
-  background:linear-gradient(90deg,var(--gold-shine),var(--gold-hi));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-  font-weight:600;
+  display:inline-flex;align-items:center;gap:0.75rem;
+  background:var(--gold-dim);border:1px solid var(--gold-border);
+  border-radius:4px;padding:0.5rem 1rem;
+  margin-bottom:1rem;font-size:0.75rem;
 }
 .toty-label{
-  font-family:'Space Mono',monospace;font-size:.63rem;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--gold);opacity:.7;margin-right:.3rem;
+  font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--gold);opacity:0.7;
+}
+.toty-val{
+  font-weight:500;
+  background:var(--grad-gold);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
 }
 
-.chip-list{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.1rem}
+/* owners */
+.chip-list{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1.25rem}
 .chip{
-  background:var(--surface3);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:.18rem .65rem;font-size:.75rem;color:var(--text-dim);
+  background:var(--black4);border:1px solid var(--border-mid);
+  border-radius:20px;padding:0.2rem 0.7rem;
+  font-size:0.68rem;color:var(--text-muted);
 }
 
-.sb-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+/* body grid */
+.sb-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border-mid);
+  border:1px solid var(--border-mid);border-radius:6px;overflow:hidden;
+}
 @media(max-width:640px){
   .sb-grid{grid-template-columns:1fr}
-  .season-hdr{grid-template-columns:2.6rem 1fr auto}
+  .season-hdr{grid-template-columns:2.4rem 1fr auto;gap:0.75rem;padding:0.9rem 1rem}
+  .s-num{font-size:2rem}
+  .s-badge{display:none}
+  .season-body{padding:1rem}
+  .hero-stats{display:flex;width:100%}
+  .hs-item{padding:0.75rem 0.5rem}
+  .hs-num{font-size:1.8rem}
+  .tabs{padding-top:1.5rem}
+  .tab-btn{padding:0.6rem 1rem;font-size:0.65rem;letter-spacing:0.08em}
+  .section{padding:1.5rem 0}
+  .records-grid{grid-template-columns:1fr 1fr}
+  .hof-grid{grid-template-columns:1fr}
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+  .awards-2col{grid-template-columns:1fr}
 }
-.sb-blk{background:var(--surface3);padding:1rem 1.1rem}
 .full-span{grid-column:1/-1}
 
+.sb-blk{background:var(--black3);padding:1.1rem 1.25rem}
 .sb-blk-title{
-  font-family:'Space Mono',monospace;font-size:.62rem;
-  letter-spacing:.14em;text-transform:uppercase;
-  color:var(--gold);opacity:.75;
-  margin-bottom:.85rem;
-  padding-bottom:.5rem;
-  border-bottom:1px solid var(--border);
+  font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--gold);opacity:0.65;
+  margin-bottom:1rem;padding-bottom:0.6rem;
+  border-bottom:1px solid var(--border-mid);
 }
 
-/* award list */
-.award-list{display:flex;flex-direction:column;gap:.32rem}
-.award-row{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;gap:.5rem;padding:.28rem 0;border-bottom:1px solid var(--border)}
+/* awards */
+.award-list{display:flex;flex-direction:column}
+.award-row{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:0.75rem;padding:0.42rem 0;
+  border-bottom:1px solid var(--border-sub);
+  font-size:0.76rem;
+}
 .award-row:last-child{border-bottom:none}
-.award-lbl{color:var(--text-muted);font-size:.7rem;font-family:'Space Mono',monospace;letter-spacing:.04em;white-space:nowrap}
-.award-win{font-weight:500;color:var(--text);text-align:right}
+.award-lbl{color:var(--text-muted);font-size:0.63rem;letter-spacing:0.04em;white-space:nowrap}
+.award-win{color:var(--text);font-weight:400;text-align:right}
 
-/* all-rpl */
-.allrpl-tabs{display:flex;gap:.28rem;margin-bottom:.65rem;flex-wrap:wrap}
+/* All-RPL team tabs */
+.allrpl-tabs{display:flex;gap:0.25rem;margin-bottom:0.75rem;flex-wrap:wrap}
 .at-btn{
-  background:transparent;
-  border:1px solid var(--border);
-  color:var(--text-muted);
-  border-radius:4px;padding:.15rem .55rem;
-  font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.07em;
-  cursor:pointer;text-transform:uppercase;transition:all .15s;
+  background:transparent;border:1px solid var(--border-mid);
+  color:var(--text-muted);border-radius:3px;
+  padding:0.18rem 0.55rem;
+  font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.15s;
 }
-.at-btn:hover{color:var(--text-dim);border-color:var(--border-bright)}
+.at-btn:hover{color:var(--text-dim);border-color:var(--border-hi)}
 .at-btn.active{color:var(--gold-hi);background:var(--gold-dim);border-color:var(--gold-border)}
+
 .allrpl-tbl{width:100%;border-collapse:collapse}
-.allrpl-tbl tr{border-bottom:1px solid var(--border)}
+.allrpl-tbl tr{border-bottom:1px solid var(--border-sub)}
 .allrpl-tbl tr:last-child{border-bottom:none}
-.allrpl-tbl td{padding:.3rem .4rem;font-size:.79rem}
-.allrpl-tbl td:first-child{color:var(--text-muted);font-family:'Space Mono',monospace;font-size:.66rem;width:2.4rem}
+.allrpl-tbl td{padding:0.35rem 0.4rem;font-size:0.75rem}
+.allrpl-tbl td:first-child{color:var(--text-muted);font-size:0.63rem;width:2.5rem;letter-spacing:0.05em}
 
 /* stat leaders */
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
-.stat-item .stat-lbl{font-size:.63rem;color:var(--text-muted);font-family:'Space Mono',monospace;letter-spacing:.05em}
-.stat-item .stat-val{font-size:.82rem;font-weight:500;color:var(--text)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem}
+.stat-item .stat-lbl{font-size:0.6rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.2rem}
+.stat-item .stat-val{font-size:0.82rem;color:var(--text)}
 
 /* ─── RECORDS ─── */
-.records-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.rec-card{
-  background:var(--surface);
-  padding:1.2rem 1.3rem;
-  position:relative;overflow:hidden;
-  transition:background .2s;
+.records-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:1px;background:var(--border-mid);
+  border:1px solid var(--border-mid);border-radius:8px;overflow:hidden;
 }
-.rec-card:hover{background:var(--surface2)}
-.rec-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-
-/* gold shimmer accent line */
-.rec-card.pts::before{background:linear-gradient(90deg,#8c5e10,var(--gold-hi),var(--gold-shine),var(--gold-hi),#8c5e10)}
-.rec-card.ast::before{background:linear-gradient(90deg,var(--blue),#7ab8ff)}
-.rec-card.reb::before{background:linear-gradient(90deg,var(--green),#5fffbd)}
-.rec-card.stl::before{background:linear-gradient(90deg,var(--red),#ff7070)}
-.rec-card.blk::before{background:linear-gradient(90deg,var(--accent),#b08aff)}
-.rec-card.tov::before{background:linear-gradient(90deg,#ff8c42,#ffd180)}
-
+.rec-card{
+  background:var(--black2);padding:1.5rem;
+  position:relative;overflow:hidden;
+  transition:background 0.2s;
+}
+.rec-card:hover{background:var(--black3)}
+.rec-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--grad-gold-subtle);
+  opacity:0.5;
+}
 .rec-stat{
-  font-family:'Space Mono',monospace;font-size:.64rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--text-muted);margin-bottom:.7rem;
+  font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:0.9rem;
 }
 .rec-val{
-  font-family:'Bebas Neue',sans-serif;font-size:3.2rem;line-height:1;margin-bottom:.3rem;
+  font-family:'Bebas Neue',sans-serif;font-size:3.5rem;line-height:1;margin-bottom:0.4rem;
+  background:var(--grad-gold);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
 }
-.rec-card.pts .rec-val{
-  background:linear-gradient(135deg,var(--gold-shine) 0%,var(--gold-hi) 45%,var(--gold) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.rec-card.ast .rec-val{color:var(--blue)}
-.rec-card.reb .rec-val{color:var(--green)}
-.rec-card.stl .rec-val{color:var(--red)}
-.rec-card.blk .rec-val{color:var(--accent)}
-.rec-card.tov .rec-val{color:#ff8c42}
-
-.rec-holder{font-size:.83rem;font-weight:600;color:var(--text);margin-bottom:.18rem}
-.rec-team{font-size:.72rem;color:var(--text-muted)}
+.rec-holder{font-size:0.8rem;color:var(--text);margin-bottom:0.15rem}
+.rec-team{font-size:0.65rem;color:var(--text-muted)}
 
 /* ─── HOF ─── */
-.hof-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-@media(max-width:640px){.hof-grid{grid-template-columns:1fr}}
-
-.hof-card{background:var(--surface)}
+.hof-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border-mid);
+  border:1px solid var(--border-mid);border-radius:8px;overflow:hidden;
+}
+.hof-card{background:var(--black2)}
 .hof-hdr{
-  padding:1.1rem 1.3rem;
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:.75rem;
+  padding:1.2rem 1.5rem;
+  border-bottom:1px solid var(--border-mid);
+  display:flex;align-items:center;gap:1rem;
 }
 .hof-icon-wrap{
-  width:36px;height:36px;border-radius:8px;
+  width:34px;height:34px;border-radius:6px;
   background:var(--gold-dim);border:1px solid var(--gold-border);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:1rem;
 }
-.hof-icon{font-size:1.1rem}
-.hof-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.04em;color:#e0e0ea}
-.hof-sub{font-size:.71rem;color:var(--text-muted)}
-.hof-reqs{padding:1.1rem 1.3rem;display:flex;flex-direction:column;gap:.65rem}
+.hof-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.04em;color:#e0e0ea;
+}
+.hof-sub{font-size:0.62rem;color:var(--text-muted);letter-spacing:0.04em;margin-top:0.1rem}
+.hof-reqs{padding:1.2rem 1.5rem;display:flex;flex-direction:column;gap:0.7rem}
 .hof-req{
-  display:flex;align-items:flex-start;gap:.65rem;
-  font-size:.82rem;line-height:1.55;color:var(--text-dim);
+  display:flex;align-items:flex-start;gap:0.7rem;
+  font-size:0.76rem;color:var(--text-dim);line-height:1.6;
 }
 .hof-req-dot{
-  width:5px;height:5px;border-radius:50%;
-  background:var(--gold);flex-shrink:0;margin-top:.52rem;opacity:.7;
+  width:4px;height:4px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;margin-top:0.6rem;opacity:0.6;
 }
 
-/* ─── ADMIN ─── */
-.admin-bar{
-  background:rgba(124,92,191,0.08);
-  border:1px solid rgba(124,92,191,0.2);
-  border-radius:8px;padding:.7rem 1.1rem;
-  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
-  margin-bottom:1.5rem;flex-wrap:wrap;
-}
-.admin-badge{font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
-.btn-row{display:flex;gap:.5rem}
-.btn{border:none;border-radius:6px;padding:.42rem .95rem;font-family:'DM Sans',sans-serif;font-size:.81rem;font-weight:500;cursor:pointer;transition:opacity .2s}
-.btn-purple{background:var(--accent);color:#fff}
-.btn-red{background:var(--red);color:#fff}
-.btn:hover{opacity:.82}
-
-/* ─── MODAL ─── */
+/* ─── MODAL / OVERLAY ─── */
 .overlay{
   position:fixed;inset:0;
-  background:rgba(0,0,0,0.78);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  z-index:200;display:flex;align-items:center;justify-content:center;padding:1.5rem;
+  background:rgba(0,0,0,0.82);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  z-index:300;display:flex;align-items:center;justify-content:center;padding:1.5rem;
 }
 .modal{
-  background:var(--surface2);
-  border:1px solid var(--border-bright);
-  border-radius:14px;padding:1.75rem;
-  width:100%;max-width:520px;max-height:85vh;overflow-y:auto;
+  background:var(--black3);
+  border:1px solid var(--border-hi);
+  border-radius:10px;padding:2rem;
+  width:100%;max-width:520px;max-height:88vh;overflow-y:auto;
 }
-.modal-title{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;margin-bottom:1.25rem;letter-spacing:.04em;color:#e8e8f0}
-.form-group{margin-bottom:.8rem}
-.form-label{display:block;font-size:.7rem;font-family:'Space Mono',monospace;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase;margin-bottom:.32rem}
+.modal-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.05em;
+  color:#e8e8f0;margin-bottom:1.5rem;
+}
+.form-group{margin-bottom:0.75rem}
+.form-label{
+  display:block;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:0.3rem;
+}
 .form-input{
-  width:100%;background:var(--surface3);
-  border:1px solid var(--border);border-radius:7px;
-  padding:.58rem .85rem;color:var(--text);
-  font-family:'DM Sans',sans-serif;font-size:.85rem;
-  outline:none;transition:border-color .2s;
+  width:100%;background:var(--black4);
+  border:1px solid var(--border-mid);border-radius:5px;
+  padding:0.55rem 0.9rem;color:var(--text);
+  font-family:'IBM Plex Mono',monospace;font-size:0.78rem;
+  outline:none;transition:border-color 0.2s;
 }
-.form-input:focus{border-color:var(--gold-border)}
+.form-input:focus{border-color:var(--gold-border-hi)}
 .form-input::placeholder{color:var(--text-muted)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
-.modal-actions{display:flex;gap:.65rem;margin-top:1.25rem;justify-content:flex-end}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem}
+.awards-2col{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem}
+.modal-actions{display:flex;gap:0.6rem;justify-content:flex-end;margin-top:1.25rem}
 .btn-cancel{
-  background:var(--surface3);border:1px solid var(--border);
-  color:var(--text-dim);border-radius:7px;padding:.5rem 1.1rem;
-  font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer;transition:border-color .2s;
+  background:transparent;border:1px solid var(--border-mid);
+  color:var(--text-dim);border-radius:4px;
+  padding:0.48rem 1rem;
+  font-family:'IBM Plex Mono',monospace;font-size:0.72rem;
+  cursor:pointer;transition:border-color 0.2s;
 }
-.btn-cancel:hover{border-color:var(--border-bright)}
-.err-box{background:rgba(224,62,62,0.1);border:1px solid rgba(224,62,62,0.22);border-radius:6px;padding:.52rem .85rem;font-size:.79rem;color:var(--red);margin-bottom:.75rem}
-.divider{border:none;border-top:1px solid var(--border);margin:.9rem 0}
-.awards-2col{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.btn-cancel:hover{border-color:var(--border-hi);color:var(--text)}
+.divider{border:none;border-top:1px solid var(--border-mid);margin:1rem 0}
+.err-box{
+  background:rgba(180,40,40,0.1);border:1px solid rgba(180,40,40,0.2);
+  border-radius:4px;padding:0.5rem 0.9rem;
+  font-size:0.72rem;color:#e06060;margin-bottom:0.75rem;
+}
+.modal-desc{color:var(--text-muted);font-size:0.72rem;margin-bottom:1.2rem;line-height:1.7}
 
 /* ─── FOOTER ─── */
 .footer{
-  border-top:1px solid var(--border);
-  padding:2rem 1.5rem;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;
+  border-top:1px solid var(--border-sub);
+  padding:2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:0.75rem;
+  margin-top:3rem;
 }
 .footer-logo{
-  font-family:'Bebas Neue',sans-serif;font-size:.88rem;
-  letter-spacing:.14em;color:var(--text-muted);
+  font-family:'Bebas Neue',sans-serif;font-size:0.85rem;
+  letter-spacing:0.2em;color:var(--text-muted);
 }
-.footer-copy{font-size:.72rem;color:var(--text-muted);font-family:'Space Mono',monospace}
-
-.hidden{display:none!important}
+.footer-copy{font-size:0.62rem;color:var(--text-muted);letter-spacing:0.08em}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav class="nav">
-  <a class="nav-logo" href="#">RPL <span>History Book</span></a>
-  <ul class="nav-links">
-    <li><button onclick="adminClick()" id="nav-admin">Admin</button></li>
-  </ul>
+  <div class="nav-right">
+    <button class="nav-btn" id="nav-admin" onclick="adminClick()">Admin</button>
+  </div>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-eyebrow">Official RPL Archive</div>
-  <h1 class="hero-title">HISTORY<br><span class="g">BOOK</span></h1>
-  <p class="hero-sub">Every season. Every award. Every record. Documented.</p>
+  <h1 class="hero-title">
+    History<span class="g">Book</span>
+  </h1>
+  <p class="hero-sub">Every season. Every award. Every record.</p>
   <div class="hero-stats">
-    <div class="hero-stat-item">
+    <div class="hs-item">
       <span class="hs-num" id="hero-seasons">10</span>
-      <span class="hs-label">Seasons</span>
+      <span class="hs-lbl">Seasons</span>
     </div>
-    <div class="hero-stat-item">
+    <div class="hs-item">
       <span class="hs-num" id="hero-owners">—</span>
-      <span class="hs-label">Total Owners</span>
+      <span class="hs-lbl">Total Owners</span>
     </div>
-    <div class="hero-stat-item">
+    <div class="hs-item">
       <span class="hs-num">6</span>
-      <span class="hs-label">Record Categories</span>
+      <span class="hs-lbl">Record Categories</span>
     </div>
   </div>
 </div>
@@ -465,21 +530,21 @@ body{
 
   <!-- TABS -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('seasons')" data-tab="seasons">Seasons</button>
-    <button class="tab-btn" onclick="showTab('records')" data-tab="records">Records</button>
-    <button class="tab-btn" onclick="showTab('hof')" data-tab="hof">Hall of Fame</button>
+    <button class="tab-btn active" data-tab="seasons" onclick="showTab('seasons')">Seasons</button>
+    <button class="tab-btn" data-tab="records" onclick="showTab('records')">Records</button>
+    <button class="tab-btn" data-tab="hof" onclick="showTab('hof')">Hall of Fame</button>
   </div>
 
   <!-- ADMIN BAR -->
   <div class="admin-bar hidden" id="admin-bar">
-    <span class="admin-badge">Admin Mode Active</span>
+    <span class="admin-label">Admin Mode Active</span>
     <div class="btn-row">
-      <button class="btn btn-purple" onclick="openAddSeason()">+ Add Season</button>
-      <button class="btn btn-red" onclick="logoutAdmin()">Logout</button>
+      <button class="btn btn-gold" onclick="openAddSeason()">+ Add Season</button>
+      <button class="btn btn-outline" onclick="logoutAdmin()">Logout</button>
     </div>
   </div>
 
-  <!-- SEASONS PANE -->
+  <!-- SEASONS -->
   <div id="pane-seasons">
     <div class="section">
       <div class="section-header">
@@ -490,7 +555,7 @@ body{
     </div>
   </div>
 
-  <!-- RECORDS PANE -->
+  <!-- RECORDS -->
   <div id="pane-records" class="hidden">
     <div class="section">
       <div class="section-header">
@@ -501,7 +566,7 @@ body{
     </div>
   </div>
 
-  <!-- HOF PANE -->
+  <!-- HOF -->
   <div id="pane-hof" class="hidden">
     <div class="section">
       <div class="section-header">
@@ -523,7 +588,7 @@ body{
 <div class="overlay hidden" id="login-overlay" onclick="closeLogin(event)">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-title">Admin Access</div>
-    <p style="color:var(--text-dim);font-size:.83rem;margin-bottom:1rem">Enter the admin password to unlock editing.</p>
+    <p class="modal-desc">Enter the admin password to unlock editing.</p>
     <div class="err-box hidden" id="login-err">Incorrect password.</div>
     <div class="form-group">
       <label class="form-label">Password</label>
@@ -531,7 +596,7 @@ body{
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="document.getElementById('login-overlay').classList.add('hidden')">Cancel</button>
-      <button class="btn btn-purple" onclick="doLogin()">Login</button>
+      <button class="btn btn-gold" onclick="doLogin()">Login</button>
     </div>
   </div>
 </div>
@@ -555,7 +620,7 @@ body{
     <div class="form-group"><label class="form-label">Owners (comma-separated)</label><input class="form-input" id="f-owners" placeholder="Tom, Zpud, Minis" /></div>
     <div class="form-group"><label class="form-label">Team of the Year</label><input class="form-input" id="f-toty" placeholder="Team Name" /></div>
     <hr class="divider" />
-    <div class="form-label" style="margin-bottom:.6rem">Awards</div>
+    <div class="form-label" style="margin-bottom:0.6rem">Awards</div>
     <div class="awards-2col">
       <div class="form-group"><label class="form-label">MVP</label><input class="form-input" id="f-mvp" placeholder="Player" /></div>
       <div class="form-group"><label class="form-label">OPOTY</label><input class="form-input" id="f-opoty" placeholder="Player" /></div>
@@ -567,23 +632,22 @@ body{
       <div class="form-group"><label class="form-label">4MOTY / 5MOTY</label><input class="form-input" id="f-4moty" placeholder="Player" /></div>
     </div>
     <hr class="divider" />
-    <div class="form-label" style="margin-bottom:.5rem">Stat Leaders (Scoring:Name, Assists:Name)</div>
+    <div class="form-label" style="margin-bottom:0.4rem">Stat Leaders — format: Scoring:Name, Assists:Name</div>
     <div class="form-group"><input class="form-input" id="f-stats" placeholder="Scoring:Dom, Assists:Kevv, Rebounds:Roji" /></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="document.getElementById('add-overlay').classList.add('hidden')">Cancel</button>
-      <button class="btn btn-purple" onclick="saveNewSeason()">Save Season</button>
+      <button class="btn btn-gold" onclick="saveNewSeason()">Save Season</button>
     </div>
   </div>
 </div>
 
 <script>
-// ─── DATA ───────────────────────────────────────────────────────
 const AWARD_LABELS = {
   MVP:'MVP', OPOTY:'Off. Player of the Year', DPOTY:'Def. Player of the Year',
   PMOTY:'Play-Making of the Year', ROTY:'Rookie of the Year',
   MIP:'Most Improved Player', CPOTY:'Clutch Player of the Year',
   '4MOTY':'4th Man of the Year', '5MOTY':'5th Man of the Year',
-  BMOTY:'Best Man of the Year', DEVOTY:'Development of the Year', COTY:'Coach of the Year',
+  BMOTY:'Best Man of the Year', DEVOTY:'Development of the Year', COTY:'Coach of the Year', ROY:'Rookie of the Year',
 };
 const TEAM_KEYS = {first:'1st',second:'2nd',third:'3rd',defensive:'Def'};
 
@@ -672,12 +736,12 @@ let seasons = [
 ];
 
 const records = {
-  pts:{label:'Points',cls:'pts',value:169,holder:'@meeeeeeooooow',team:'Spurs'},
-  ast:{label:'Assists',cls:'ast',value:64,holder:'@ionk_c & @v33223fs',team:'Rockets'},
-  reb:{label:'Rebounds',cls:'reb',value:54,holder:'@ionk_c',team:'Rockets'},
-  stl:{label:'Steals',cls:'stl',value:29,holder:'@ionk_c',team:'Celtics'},
-  blk:{label:'Blocks',cls:'blk',value:22,holder:'@ionk_c',team:'Rockets'},
-  tov:{label:'Turnovers',cls:'tov',value:40,holder:'@treymeow11',team:'Trailblazers'},
+  pts:{label:'Points',value:169,holder:'@meeeeeeooooow',team:'Spurs'},
+  ast:{label:'Assists',value:64,holder:'@ionk_c & @v33223fs',team:'Rockets'},
+  reb:{label:'Rebounds',value:54,holder:'@ionk_c',team:'Rockets'},
+  stl:{label:'Steals',value:29,holder:'@ionk_c',team:'Celtics'},
+  blk:{label:'Blocks',value:22,holder:'@ionk_c',team:'Rockets'},
+  tov:{label:'Turnovers',value:40,holder:'@treymeow11',team:'Trailblazers'},
 };
 
 const hofReqs = {
@@ -712,7 +776,6 @@ function renderSeasons(){
     const card = document.createElement('div');
     card.className = 'season-card';
     card.id = `season-${s.id}`;
-
     const teamKeys = Object.keys(s.allRPL);
 
     card.innerHTML = `
@@ -720,14 +783,14 @@ function renderSeasons(){
         <div class="s-num">S${s.id}</div>
         <div class="s-info">
           <h3>${s.champion}</h3>
-          <div class="meta">def. ${s.defeated} (${s.defeatedRecord}) — ${s.seriesResult}</div>
+          <div class="s-meta">def. ${s.defeated} (${s.defeatedRecord}) — ${s.seriesResult}</div>
         </div>
-        <div class="s-badge"><small>Record</small>${s.record}</div>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        <div class="s-badge"><small>Record</small><span>${s.record}</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="season-body">
-        ${s.toty?`<div class="toty-row"><span class="toty-label">Team of the Year</span><strong>${s.toty}</strong></div>`:''}
-        ${s.owners?.length?`<div class="chip-list">${s.owners.map(o=>`<span class="chip">${o}</span>`).join('')}</div>`:''}
+        ${s.toty ? `<div class="toty-row"><span class="toty-label">Team of the Year</span><span class="toty-val">${s.toty}</span></div>` : ''}
+        ${s.owners?.length ? `<div class="chip-list">${s.owners.map(o=>`<span class="chip">${o}</span>`).join('')}</div>` : ''}
         <div class="sb-grid">
           <div class="sb-blk">
             <div class="sb-blk-title">Season Awards</div>
@@ -751,7 +814,7 @@ function renderSeasons(){
                 </tbody></table>
               </div>`).join('')}
           </div>
-          ${s.statLeaders?`
+          ${s.statLeaders ? `
           <div class="sb-blk full-span">
             <div class="sb-blk-title">Stat Leaders</div>
             <div class="stat-grid">
@@ -761,7 +824,7 @@ function renderSeasons(){
                   <div class="stat-val">${v}</div>
                 </div>`).join('')}
             </div>
-          </div>`:''}
+          </div>` : ''}
         </div>
       </div>`;
     grid.appendChild(card);
@@ -776,13 +839,13 @@ function switchTeam(sid,key,btn){
   document.getElementById(`at-${sid}`).querySelectorAll('.at-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById(`season-${sid}`).querySelectorAll('[id^="allrpl-"]').forEach(el=>{
-    el.style.display = el.id===`allrpl-${sid}-${key}`?'':'none';
+    el.style.display = el.id===`allrpl-${sid}-${key}` ? '' : 'none';
   });
 }
 
 function renderRecords(){
   document.getElementById('records-grid').innerHTML = Object.values(records).map(r=>`
-    <div class="rec-card ${r.cls}">
+    <div class="rec-card">
       <div class="rec-stat">${r.label}</div>
       <div class="rec-val">${r.value}</div>
       <div class="rec-holder">${r.holder}</div>
@@ -794,75 +857,100 @@ function renderHOF(){
   document.getElementById('hof-grid').innerHTML = `
     <div class="hof-card">
       <div class="hof-hdr">
-        <div class="hof-icon-wrap"><span class="hof-icon">🏀</span></div>
-        <div><div class="hof-title">Players HOF</div><div class="hof-sub">Player eligibility criteria</div></div>
+        <div class="hof-icon-wrap">🏀</div>
+        <div>
+          <div class="hof-title">Players HOF</div>
+          <div class="hof-sub">Player eligibility criteria</div>
+        </div>
       </div>
       <div class="hof-reqs">${hofReqs.players.map(r=>`<div class="hof-req"><div class="hof-req-dot"></div>${r}</div>`).join('')}</div>
     </div>
     <div class="hof-card">
       <div class="hof-hdr">
-        <div class="hof-icon-wrap"><span class="hof-icon">📋</span></div>
-        <div><div class="hof-title">Coaches HOF</div><div class="hof-sub">Owner / Coach eligibility criteria</div></div>
+        <div class="hof-icon-wrap">📋</div>
+        <div>
+          <div class="hof-title">Coaches HOF</div>
+          <div class="hof-sub">Owner / Coach eligibility criteria</div>
+        </div>
       </div>
       <div class="hof-reqs">${hofReqs.coaches.map(r=>`<div class="hof-req"><div class="hof-req-dot"></div>${r}</div>`).join('')}</div>
     </div>`;
 }
 
-// ─── TABS ────────────────────────────────────────────────────────
+// ─── TABS ─────────────────────────────────────────────────────
 function showTab(tab){
   ['seasons','records','hof'].forEach(t=>{
-    document.getElementById(`pane-${t}`).classList.toggle('hidden',t!==tab);
+    document.getElementById(`pane-${t}`).classList.toggle('hidden', t!==tab);
   });
   document.querySelectorAll('.tab-btn').forEach(b=>{
-    b.classList.toggle('active',b.dataset.tab===tab);
+    b.classList.toggle('active', b.dataset.tab===tab);
   });
 }
 
-// ─── ADMIN ───────────────────────────────────────────────────────
-let isAdmin=false;
+// ─── ADMIN ────────────────────────────────────────────────────
+let isAdmin = false;
 function adminClick(){
   if(isAdmin){logoutAdmin();return;}
   document.getElementById('login-overlay').classList.remove('hidden');
-  setTimeout(()=>document.getElementById('pw-input').focus(),100);
+  setTimeout(()=>document.getElementById('pw-input').focus(), 80);
 }
-function closeLogin(e){if(e.target===document.getElementById('login-overlay'))document.getElementById('login-overlay').classList.add('hidden');}
-async function doLogin(){
-  const pw=document.getElementById('pw-input').value;
-  const errEl=document.getElementById('login-err');
-  errEl.classList.add('hidden');
-  const ADMIN_HASH='b42f12b1540564489141a4277a848aade59609c6bcec49259941a52c064b5a20';
-  const enc=new TextEncoder();
-  const buf=await crypto.subtle.digest('SHA-256',enc.encode(pw));
-  const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-  if(hex===ADMIN_HASH){
-    isAdmin=true;
+function closeLogin(e){
+  if(e.target===document.getElementById('login-overlay'))
     document.getElementById('login-overlay').classList.add('hidden');
-    document.getElementById('pw-input').value='';
+}
+async function doLogin(){
+  const pw = document.getElementById('pw-input').value;
+  const errEl = document.getElementById('login-err');
+  errEl.classList.add('hidden');
+  const ADMIN_HASH = 'b42f12b1540564489141a4277a848aade59609c6bcec49259941a52c064b5a20';
+  const enc = new TextEncoder();
+  const buf = await crypto.subtle.digest('SHA-256', enc.encode(pw));
+  const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  if(hex===ADMIN_HASH){
+    isAdmin = true;
+    document.getElementById('login-overlay').classList.add('hidden');
+    document.getElementById('pw-input').value = '';
     document.getElementById('admin-bar').classList.remove('hidden');
-    const btn=document.getElementById('nav-admin');
-    btn.textContent='Admin Active';btn.classList.add('admin-active');
-  }else{errEl.classList.remove('hidden');}
+    const btn = document.getElementById('nav-admin');
+    btn.textContent = 'Admin Active';
+    btn.classList.add('admin-active');
+  } else {
+    errEl.classList.remove('hidden');
+  }
 }
 function logoutAdmin(){
-  isAdmin=false;
+  isAdmin = false;
   document.getElementById('admin-bar').classList.add('hidden');
-  const btn=document.getElementById('nav-admin');
-  btn.textContent='Admin';btn.classList.remove('admin-active');
+  const btn = document.getElementById('nav-admin');
+  btn.textContent = 'Admin';
+  btn.classList.remove('admin-active');
 }
-function openAddSeason(){document.getElementById('add-overlay').classList.remove('hidden');}
-function closeAdd(e){if(e.target===document.getElementById('add-overlay'))document.getElementById('add-overlay').classList.add('hidden');}
+function openAddSeason(){
+  document.getElementById('add-overlay').classList.remove('hidden');
+}
+function closeAdd(e){
+  if(e.target===document.getElementById('add-overlay'))
+    document.getElementById('add-overlay').classList.add('hidden');
+}
 function saveNewSeason(){
-  const g=id=>document.getElementById(id).value.trim();
-  const statsRaw=g('f-stats');
-  const statLeaders={};
-  if(statsRaw)statsRaw.split(',').forEach(part=>{const[k,v]=part.split(':');if(k&&v)statLeaders[k.trim()]=v.trim();});
-  const newS={
-    id:parseInt(g('f-id'))||seasons.length+1,
-    champion:g('f-champ'),record:g('f-rec'),defeated:g('f-def'),
-    defeatedRecord:g('f-drec'),seriesResult:g('f-series'),
-    owners:g('f-owners').split(',').map(s=>s.trim()).filter(Boolean),
-    toty:g('f-toty'),
-    awards:{MVP:g('f-mvp'),OPOTY:g('f-opoty'),DPOTY:g('f-dpoty'),PMOTY:g('f-pmoty'),ROTY:g('f-roty'),MIP:g('f-mip'),CPOTY:g('f-cpoty'),'4MOTY':g('f-4moty')},
+  const g = id => document.getElementById(id).value.trim();
+  const statsRaw = g('f-stats');
+  const statLeaders = {};
+  if(statsRaw) statsRaw.split(',').forEach(part=>{
+    const [k,v] = part.split(':');
+    if(k&&v) statLeaders[k.trim()] = v.trim();
+  });
+  const newS = {
+    id: parseInt(g('f-id'))||seasons.length+1,
+    champion: g('f-champ'), record: g('f-rec'), defeated: g('f-def'),
+    defeatedRecord: g('f-drec'), seriesResult: g('f-series'),
+    owners: g('f-owners').split(',').map(s=>s.trim()).filter(Boolean),
+    toty: g('f-toty'),
+    awards: {
+      MVP:g('f-mvp'), OPOTY:g('f-opoty'), DPOTY:g('f-dpoty'),
+      PMOTY:g('f-pmoty'), ROTY:g('f-roty'), MIP:g('f-mip'),
+      CPOTY:g('f-cpoty'), '4MOTY':g('f-4moty'),
+    },
     allRPL:{first:[]},
     ...(Object.keys(statLeaders).length?{statLeaders}:{}),
   };
@@ -872,7 +960,7 @@ function saveNewSeason(){
   renderSeasons();
 }
 
-// ─── INIT ────────────────────────────────────────────────────────
+// ─── INIT ──────────────────────────────────────────────────────
 renderSeasons();
 renderRecords();
 renderHOF();
