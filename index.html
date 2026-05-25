@@ -7,25 +7,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --red:      #e8001d;
-    --red-dim:  rgba(232,0,29,.12);
-    --bg:       #07070c;
-    --surface:  #0f0f16;
-    --surface2: #161620;
-    --surface3: #1c1c28;
-    --border:   rgba(255,255,255,.08);
-    --border2:  rgba(255,255,255,.04);
-    --muted:    #56566a;
-    --muted2:   #3a3a4e;
-    --text:     #e0e0f0;
-    --green:    #22c55e;
-    --green-dim:rgba(34,197,94,.12);
-    --amber:    #f59e0b;
-    --amber-dim:rgba(245,158,11,.12);
-    --blue:     #60a5fa;
-    --blue-dim: rgba(96,165,250,.12);
-    --win:      #4ade80;
-    --lose:     #f87171;
+    --gold:      #d4922a;
+    --gold-hi:   #f0b93c;
+    --gold-dim:  rgba(212,146,42,.12);
+    --gold-border: rgba(212,146,42,.28);
+    --bg:        #07070c;
+    --surface:   #0f0f16;
+    --surface2:  #161620;
+    --surface3:  #1c1c28;
+    --border:    rgba(255,255,255,.08);
+    --border2:   rgba(255,255,255,.04);
+    --muted:     #56566a;
+    --muted2:    #3a3a4e;
+    --text:      #e0e0f0;
+    --green:     #22c55e;
+    --green-dim: rgba(34,197,94,.12);
+    --amber:     #f59e0b;
+    --amber-dim: rgba(245,158,11,.12);
+    --blue:      #60a5fa;
+    --blue-dim:  rgba(96,165,250,.12);
+    --win:       #4ade80;
+    --lose:      #f87171;
   }
 
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -38,32 +40,40 @@
     font-size: 14px;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   /* ── NAV ── */
   nav {
     position: sticky; top:0; z-index:100;
     height: 52px;
-    display: flex; align-items:center; justify-content:space-between;
+    width: 100%;
+    display: flex; align-items:center; justify-content:center;
     padding: 0 20px;
     background: rgba(7,7,12,.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
   }
+  .nav-inner {
+    width: 100%; max-width: 1100px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
   .nav-left { display:flex; align-items:center; gap:12px; }
   .nav-logo {
     width:28px; height:28px; border-radius:6px;
-    background: var(--red);
+    background: var(--gold);
     display:flex; align-items:center; justify-content:center;
-    font-family:'Bebas Neue',sans-serif; font-size:15px; color:#fff;
+    font-family:'Bebas Neue',sans-serif; font-size:15px; color:#07070c;
     letter-spacing:.02em; flex-shrink:0;
   }
   .nav-title {
     font-family:'Bebas Neue',sans-serif;
     font-size:17px; letter-spacing:.08em; color:#fff;
   }
-  .nav-title em { color:var(--red); font-style:normal; }
+  .nav-title em { color:var(--gold-hi); font-style:normal; }
   .nav-pill {
     font-size:10px; font-weight:600; letter-spacing:.08em;
     color:var(--muted); text-transform:uppercase;
@@ -82,16 +92,21 @@
     transition:all .2s;
   }
   .nav-btn:hover { border-color:rgba(255,255,255,.18); color:var(--text); }
-  .nav-btn.active { border-color:var(--red); color:var(--red); background:var(--red-dim); }
+  .nav-btn.active { border-color:var(--gold-border); color:var(--gold-hi); background:var(--gold-dim); }
 
   /* ── PAGE ── */
-  .page { max-width:1100px; margin:0 auto; padding:0 16px 80px; }
+  .page {
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 16px 80px;
+  }
 
   /* ── HERO ── */
   .hero {
     padding:28px 0 24px;
     border-bottom:1px solid var(--border2);
     margin-bottom:24px;
+    text-align: center;
   }
   .hero-eyebrow {
     font-size:10px; font-weight:600; letter-spacing:.18em;
@@ -102,16 +117,17 @@
     font-size:36px; letter-spacing:.04em; color:#fff; line-height:1;
     margin-bottom:6px;
   }
-  .hero-title em { color:var(--red); font-style:normal; }
+  .hero-title em { color:var(--gold-hi); font-style:normal; }
   .hero-sub { font-size:11px; color:var(--muted); letter-spacing:.02em; margin-bottom:20px; }
 
+  .hero-stats-wrap { display:flex; justify-content:center; }
   .hero-stats {
     display:inline-flex; align-items:stretch;
     background:var(--surface); border:1px solid var(--border);
     border-radius:10px; overflow:hidden;
   }
   .hs-item {
-    padding:12px 22px; display:flex; flex-direction:column;
+    padding:12px 28px; display:flex; flex-direction:column;
     align-items:center; gap:3px;
     border-right:1px solid var(--border);
     transition:background .15s;
@@ -120,7 +136,7 @@
   .hs-item:hover { background:var(--surface2); }
   .hs-num {
     font-family:'Bebas Neue',sans-serif; font-size:28px; line-height:1;
-    color:var(--red);
+    color:var(--gold-hi);
   }
   .hs-lbl {
     font-size:9px; font-weight:600; letter-spacing:.12em;
@@ -129,7 +145,7 @@
 
   /* ── TABS ── */
   .tabs {
-    display:flex; gap:0;
+    display:flex; gap:0; justify-content:center;
     border-bottom:1px solid var(--border);
     margin-bottom:24px;
   }
@@ -142,7 +158,7 @@
     transition:all .2s; margin-bottom:-1px;
   }
   .tab-btn:hover { color:var(--text); }
-  .tab-btn.active { color:var(--red); border-bottom-color:var(--red); }
+  .tab-btn.active { color:var(--gold-hi); border-bottom-color:var(--gold-hi); }
 
   /* ── SECTION ── */
   .section-header {
@@ -162,13 +178,13 @@
   .admin-bar {
     display:flex; align-items:center; justify-content:space-between; gap:12px;
     padding:10px 16px;
-    background:var(--red-dim); border:1px solid rgba(232,0,29,.25);
+    background:var(--gold-dim); border:1px solid var(--gold-border);
     border-radius:8px; margin-bottom:16px;
     flex-wrap:wrap;
   }
   .admin-label {
     font-size:10px; font-weight:700; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--red);
+    text-transform:uppercase; color:var(--gold-hi);
   }
   .btn-row { display:flex; gap:8px; }
   .btn {
@@ -177,7 +193,7 @@
     font-family:'Inter',sans-serif; font-size:11px; font-weight:600;
     letter-spacing:.06em; cursor:pointer; transition:opacity .2s;
   }
-  .btn-red { background:var(--red); color:#fff; }
+  .btn-gold { background:var(--gold); color:#07070c; }
   .btn-outline { background:transparent; border:1px solid var(--border); color:var(--muted); }
   .btn:hover { opacity:.78; }
 
@@ -203,7 +219,7 @@
     font-size:28px; line-height:1; color:var(--muted2);
     transition:color .25s;
   }
-  .season-card.open .s-num { color:var(--red); }
+  .season-card.open .s-num { color:var(--gold-hi); }
 
   .s-info h3 {
     font-family:'Bebas Neue',sans-serif;
@@ -226,27 +242,24 @@
     width:14px; height:14px; color:var(--muted); flex-shrink:0;
     transition:transform .25s, color .25s;
   }
-  .season-card.open .chevron { transform:rotate(180deg); color:var(--red); }
-  .season-card.open .season-hdr { border-left:2px solid var(--red); padding-left:16px; }
+  .season-card.open .chevron { transform:rotate(180deg); color:var(--gold); }
+  .season-card.open .season-hdr { border-left:2px solid var(--gold); padding-left:16px; }
 
-  /* season body */
   .season-body { display:none; border-top:1px solid var(--border2); padding:16px 18px; }
   .season-card.open .season-body { display:block; }
 
-  /* toty row */
   .toty-row {
     display:inline-flex; align-items:center; gap:10px;
-    background:var(--amber-dim); border:1px solid rgba(245,158,11,.22);
+    background:var(--gold-dim); border:1px solid var(--gold-border);
     border-radius:6px; padding:6px 12px;
     margin-bottom:12px; font-size:12px;
   }
   .toty-label {
     font-size:9px; font-weight:700; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--amber); opacity:.8;
+    text-transform:uppercase; color:var(--gold); opacity:.9;
   }
-  .toty-val { color:var(--amber); font-weight:600; }
+  .toty-val { color:var(--gold-hi); font-weight:600; }
 
-  /* owner chips */
   .chip-list { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:16px; }
   .chip {
     background:var(--surface3); border:1px solid var(--border);
@@ -254,7 +267,6 @@
     font-size:10px; font-weight:500; color:var(--muted); letter-spacing:.03em;
   }
 
-  /* body grid */
   .sb-grid {
     display:grid; grid-template-columns:1fr 1fr;
     gap:1px; background:var(--border2);
@@ -265,12 +277,11 @@
   .sb-blk { background:var(--surface3); padding:14px 16px; }
   .sb-blk-title {
     font-size:9px; font-weight:700; letter-spacing:.16em;
-    text-transform:uppercase; color:var(--muted);
+    text-transform:uppercase; color:var(--gold); opacity:.7;
     margin-bottom:12px; padding-bottom:8px;
     border-bottom:1px solid var(--border2);
   }
 
-  /* awards */
   .award-row {
     display:flex; justify-content:space-between; align-items:center;
     gap:10px; padding:5px 0;
@@ -280,7 +291,6 @@
   .award-lbl { color:var(--muted); font-size:10px; letter-spacing:.03em; white-space:nowrap; }
   .award-win { color:var(--text); font-weight:500; text-align:right; }
 
-  /* All-RPL */
   .allrpl-tabs { display:flex; gap:4px; margin-bottom:10px; flex-wrap:wrap; }
   .at-btn {
     background:transparent; border:1px solid var(--border);
@@ -291,7 +301,7 @@
     cursor:pointer; transition:all .15s;
   }
   .at-btn:hover { color:var(--text); border-color:rgba(255,255,255,.18); }
-  .at-btn.active { color:var(--red); background:var(--red-dim); border-color:rgba(232,0,29,.25); }
+  .at-btn.active { color:var(--gold-hi); background:var(--gold-dim); border-color:var(--gold-border); }
 
   .allrpl-tbl { width:100%; border-collapse:collapse; }
   .allrpl-tbl tr { border-bottom:1px solid var(--border2); }
@@ -299,7 +309,6 @@
   .allrpl-tbl td { padding:4px 4px; font-size:12px; }
   .allrpl-tbl td:first-child { color:var(--muted); font-size:10px; font-weight:600; letter-spacing:.06em; width:34px; }
 
-  /* stat leaders */
   .stat-grid {
     display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
     gap:10px;
@@ -325,7 +334,7 @@
   .rec-card::before {
     content:''; position:absolute;
     top:0; left:0; right:0; height:2px;
-    background:var(--red); opacity:.6;
+    background:var(--gold); opacity:.7;
   }
   .rec-stat {
     font-size:9px; font-weight:700; letter-spacing:.18em;
@@ -333,7 +342,7 @@
   }
   .rec-val {
     font-family:'Bebas Neue',sans-serif; font-size:48px; line-height:1;
-    color:var(--red); margin-bottom:6px;
+    color:var(--gold-hi); margin-bottom:6px;
   }
   .rec-holder { font-size:13px; color:var(--text); font-weight:500; margin-bottom:2px; }
   .rec-team { font-size:10px; color:var(--muted); }
@@ -355,7 +364,7 @@
   }
   .hof-icon-wrap {
     width:32px; height:32px; border-radius:8px;
-    background:var(--red-dim); border:1px solid rgba(232,0,29,.25);
+    background:var(--gold-dim); border:1px solid var(--gold-border);
     display:flex; align-items:center; justify-content:center;
     flex-shrink:0; font-size:15px;
   }
@@ -371,7 +380,7 @@
   }
   .hof-req-dot {
     width:4px; height:4px; border-radius:50%;
-    background:var(--red); flex-shrink:0; margin-top:6px; opacity:.7;
+    background:var(--gold); flex-shrink:0; margin-top:6px; opacity:.8;
   }
 
   /* ── MODAL ── */
@@ -404,7 +413,7 @@
     font-family:'Inter',sans-serif; font-size:12px;
     outline:none; transition:border-color .2s;
   }
-  .form-input:focus { border-color:rgba(232,0,29,.5); }
+  .form-input:focus { border-color:var(--gold-border); }
   .form-input::placeholder { color:var(--muted2); }
   .form-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
   .awards-2col { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
@@ -418,13 +427,12 @@
   .btn-cancel:hover { border-color:rgba(255,255,255,.18); color:var(--text); }
   .divider { border:none; border-top:1px solid var(--border2); margin:14px 0; }
   .err-box {
-    background:rgba(232,0,29,.08); border:1px solid rgba(232,0,29,.2);
+    background:rgba(212,146,42,.08); border:1px solid rgba(212,146,42,.22);
     border-radius:6px; padding:8px 12px;
-    font-size:12px; color:var(--red); margin-bottom:12px; display:none;
+    font-size:12px; color:var(--gold-hi); margin-bottom:12px; display:none;
   }
   .err-box.show { display:block; }
 
-  /* ── HIDDEN ── */
   .hidden { display:none !important; }
 
   /* ── FOOTER ── */
@@ -437,7 +445,7 @@
     font-family:'Bebas Neue',sans-serif; font-size:14px;
     letter-spacing:.16em; color:var(--muted);
   }
-  .footer-logo em { color:var(--red); font-style:normal; }
+  .footer-logo em { color:var(--gold); font-style:normal; }
   .footer-copy { font-size:11px; color:var(--muted2); letter-spacing:.06em; }
 
   /* ── RESPONSIVE ── */
@@ -460,56 +468,57 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-left">
-    <span class="nav-pill">Archive</span>
-  </div>
-  <div class="nav-right">
-    <button class="nav-btn" id="nav-admin" onclick="adminClick()">Admin</button>
+  <div class="nav-inner">
+    <div class="nav-left">
+      <div class="nav-logo">R</div>
+      <span class="nav-title"><em>RPL</em> History Book</span>
+      <span class="nav-pill">Archive</span>
+    </div>
+    <div class="nav-right">
+      <button class="nav-btn" id="nav-admin" onclick="adminClick()">Admin</button>
+    </div>
   </div>
 </nav>
 
 <div class="page">
 
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow">Official RPL Archive · All-Time</div>
     <div class="hero-title">Season <em>History</em></div>
     <div class="hero-sub">Every season · Every award · Every record</div>
-    <div class="hero-stats">
-      <div class="hs-item">
-        <span class="hs-num" id="hero-seasons">10</span>
-        <span class="hs-lbl">Seasons</span>
-      </div>
-      <div class="hs-item">
-        <span class="hs-num" id="hero-owners">—</span>
-        <span class="hs-lbl">Total Owners</span>
-      </div>
-      <div class="hs-item">
-        <span class="hs-num">6</span>
-        <span class="hs-lbl">Record Cats</span>
+    <div class="hero-stats-wrap">
+      <div class="hero-stats">
+        <div class="hs-item">
+          <span class="hs-num" id="hero-seasons">10</span>
+          <span class="hs-lbl">Seasons</span>
+        </div>
+        <div class="hs-item">
+          <span class="hs-num" id="hero-owners">—</span>
+          <span class="hs-lbl">Total Owners</span>
+        </div>
+        <div class="hs-item">
+          <span class="hs-num">6</span>
+          <span class="hs-lbl">Record Cats</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ADMIN BAR -->
   <div class="admin-bar hidden" id="admin-bar">
     <span class="admin-label">Admin Mode Active</span>
     <div class="btn-row">
-      <button class="btn btn-red" onclick="openAddSeason()">+ Add Season</button>
+      <button class="btn btn-gold" onclick="openAddSeason()">+ Add Season</button>
       <button class="btn btn-outline" onclick="logoutAdmin()">Logout</button>
     </div>
   </div>
 
-  <!-- TABS -->
   <div class="tabs">
     <button class="tab-btn active" data-tab="seasons" onclick="showTab('seasons')">Seasons</button>
     <button class="tab-btn" data-tab="records" onclick="showTab('records')">Records</button>
     <button class="tab-btn" data-tab="hof" onclick="showTab('hof')">Hall of Fame</button>
   </div>
 
-  <!-- SEASONS -->
   <div id="pane-seasons">
     <div class="section-header">
       <span class="section-title">All Seasons</span>
@@ -518,7 +527,6 @@
     <div class="seasons-grid" id="seasons-grid"></div>
   </div>
 
-  <!-- RECORDS -->
   <div id="pane-records" class="hidden">
     <div class="section-header">
       <span class="section-title">All-Time Records</span>
@@ -527,7 +535,6 @@
     <div class="records-grid" id="records-grid"></div>
   </div>
 
-  <!-- HOF -->
   <div id="pane-hof" class="hidden">
     <div class="section-header">
       <span class="section-title">Hall of Fame</span>
@@ -536,13 +543,11 @@
     <div class="hof-grid" id="hof-grid"></div>
   </div>
 
-</div>
-
-<div class="page">
   <footer>
     <div class="footer-logo"><em>RPL</em> History Book</div>
     <div class="footer-copy">All seasons documented · Season 11 in progress</div>
   </footer>
+
 </div>
 
 <!-- LOGIN MODAL -->
@@ -557,7 +562,7 @@
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="document.getElementById('login-overlay').classList.remove('show')">Cancel</button>
-      <button class="btn btn-red" onclick="doLogin()">Login</button>
+      <button class="btn btn-gold" onclick="doLogin()">Login</button>
     </div>
   </div>
 </div>
@@ -597,7 +602,7 @@
     <div class="form-group"><input class="form-input" id="f-stats" placeholder="Scoring:Dom, Assists:Kevv, Rebounds:Roji" /></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="document.getElementById('add-overlay').classList.remove('show')">Cancel</button>
-      <button class="btn btn-red" onclick="saveNewSeason()">Save Season</button>
+      <button class="btn btn-gold" onclick="saveNewSeason()">Save Season</button>
     </div>
   </div>
 </div>
@@ -620,13 +625,11 @@ let seasons = [
    allRPL:{first:[{pos:'PG',name:'Mari Simons'},{pos:'SG',name:'Omx Finney-Smith'},{pos:'SF',name:'Chris James'},{pos:'PF',name:'Drake Tatum'},{pos:'C',name:'Ben Anthony-Towns'}],
            second:[{pos:'PG',name:'Javon Dončić'},{pos:'SG',name:'Cal Brown'},{pos:'SF',name:'Zion Edwards'},{pos:'PF',name:'Carter Durant'},{pos:'C',name:'2Pund Jokić'}],
            third:[{pos:'PG',name:'Bosh Brunson'},{pos:'SG',name:'Bomber Pritchard'},{pos:'SF',name:'Bones Bridges'},{pos:'PF',name:'Minis Johnson'},{pos:'C',name:'Carson Holmgren'}]}},
-
   {id:2,champion:'Chicago Bulls',record:'8-1',defeated:'Golden State Warriors',defeatedRecord:'17-1',seriesResult:'2-0 (2 Games)',
    owners:['Minis','Zpud','Northside','Chef_7s','Solarstix','zulifix'],toty:'Chicago Bulls',
    awards:{MVP:'Tsu',OPOTY:'Zpud',DPOTY:'Mari',PMOTY:'Erro',ROTY:'fearsvamp',MIP:'24kslxckz',CPOTY:'Tsutsumi','4MOTY':'Chef',DEVOTY:'24kslxckz',COTY:'miniszl'},
    allRPL:{first:[{pos:'PG',name:'Cal'},{pos:'SG',name:'Tsu'},{pos:'SF',name:'Javon'},{pos:'PF',name:'Zpund'},{pos:'C',name:'Fear'}],
            second:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Slack'},{pos:'SF',name:'Omx'},{pos:'PF',name:'Dohziez'},{pos:'C',name:'Chip'}]}},
-
   {id:3,champion:'Golden State Warriors',record:'3-2',defeated:'Toronto Raptors',defeatedRecord:'3-1',seriesResult:'2-0 (2 Games)',
    owners:['Dvloz','Counted','Slapclosed','picking_expertise','Mack','Kvqry'],toty:'Cleveland Cavaliers',
    awards:{MVP:'Drake',OPOTY:'Camm',DPOTY:'Mari',PMOTY:'Yair',ROTY:'Mack',MIP:'Erro','4MOTY':'Slack'},
@@ -634,7 +637,6 @@ let seasons = [
    allRPL:{first:[{pos:'—',name:'Drake'},{pos:'—',name:'Camm'},{pos:'—',name:'Chris'},{pos:'—',name:'Tom'},{pos:'—',name:'Counted'}],
            second:[{pos:'—',name:'Erro'},{pos:'—',name:'Durkio'},{pos:'—',name:'Cal'},{pos:'—',name:'Mari'},{pos:'—',name:'Chip'}],
            defensive:[{pos:'—',name:'Durkio'},{pos:'—',name:'Mari'},{pos:'—',name:'Tom'},{pos:'—',name:'Pelon'},{pos:'—',name:'Chris'}]}},
-
   {id:4,champion:'San Antonio Spurs',record:'13-2',defeated:'Charlotte Hornets',defeatedRecord:'5-4',seriesResult:'2-0 (2 Games)',
    owners:['Carter','Mari','Drake','Roji','Tax','Cam'],toty:'San Antonio Spurs',
    awards:{MVP:'Mari',OPOTY:'Javon',DPOTY:'Mari',PMOTY:'Kevv',ROTY:'Dom',CPOTY:'Chef',MIP:'Curryxiz','4MOTY':'Cameron'},
@@ -643,7 +645,6 @@ let seasons = [
            second:[{pos:'PG',name:'Logs'},{pos:'SG',name:'Dom'},{pos:'SF',name:'Cal'},{pos:'PF',name:'Ayemoney'},{pos:'C',name:'Wobble'}],
            third:[{pos:'PG',name:'Combat'},{pos:'SG',name:'Chris'},{pos:'SF',name:'Gray'},{pos:'PF',name:'Ire'},{pos:'C',name:'Ben'}],
            defensive:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Tom'},{pos:'SF',name:'Durkio'},{pos:'PF',name:'Wobble'},{pos:'C',name:'Cartier'}]}},
-
   {id:5,champion:'Los Angeles Lakers',record:'17-1',defeated:'Atlanta Hawks',defeatedRecord:'5-2',seriesResult:'2-0 (2 Games)',
    owners:['Shawn','Cal','Logs','Trigg'],toty:'Los Angeles Lakers',
    awards:{MVP:'Shawn',OPOTY:'Dom',DPOTY:'Cal',PMOTY:'Kevv',ROTY:'Yurr',CPOTY:'Logs',MIP:'lfwq','4MOTY':'jacce99'},
@@ -652,7 +653,6 @@ let seasons = [
            second:[{pos:'PG',name:'Erro'},{pos:'SG',name:'Logs'},{pos:'SF',name:'lfwq'},{pos:'PF',name:'Pelon'},{pos:'C',name:'jacce99'}],
            third:[{pos:'PG',name:'tysoneatsbruh'},{pos:'SG',name:'Roji'},{pos:'SF',name:'Trigga'},{pos:'PF',name:'Ire'},{pos:'C',name:'Ben'}],
            defensive:[{pos:'PG',name:'tysoneatsbruh'},{pos:'SG',name:'Kevv'},{pos:'SF',name:'Cal'},{pos:'PF',name:'Pelon'},{pos:'C',name:'Durkio'}]}},
-
   {id:6,champion:'Los Angeles Lakers',record:'21-8',defeated:'Boston Celtics',defeatedRecord:'15-0',seriesResult:'2-0 (2 Games)',
    owners:['Tom','Zpud','Tsu','Cahmmie','Pekka'],toty:'Boston Celtics',
    awards:{MVP:'Shawn',OPOTY:'Tax',DPOTY:'Cal',PMOTY:'Logs',ROTY:'Pekka',CPOTY:'Combat',MIP:'Slack','4MOTY':'Izumi'},
@@ -660,7 +660,6 @@ let seasons = [
            second:[{pos:'PG',name:'Javon'},{pos:'SG',name:'Tax'},{pos:'SF',name:'Tom'},{pos:'PF',name:'Minis'},{pos:'C',name:'Haz'}],
            third:[{pos:'PG',name:'Chris'},{pos:'SG',name:'Carter'},{pos:'SF',name:'Bones'},{pos:'PF',name:'Jax'},{pos:'C',name:'Chef'}],
            defensive:[{pos:'PG',name:'Tom'},{pos:'SG',name:'Carter'},{pos:'SF',name:'Cal'},{pos:'PF',name:'Wobble'},{pos:'C',name:'Haz'}]}},
-
   {id:7,champion:'Charlotte Hornets',record:'14-9',defeated:'Dallas Mavericks',defeatedRecord:'12-3',seriesResult:'2-1 (3 Games)',
    owners:['Shawn','Cal','Tsu','Trig','Jax','Cameron'],toty:'Charlotte Hornets',
    awards:{MVP:'Shawn',OPOTY:'Cahmmie',DPOTY:'Cartier',PMOTY:'Partum',ROTY:'Odipapedoit',CPOTY:'Chris',MIP:'Cam','4MOTY':'Jax'},
@@ -668,7 +667,6 @@ let seasons = [
            second:[{pos:'PG',name:'Chris'},{pos:'SG',name:'Javon'},{pos:'SF',name:'Carter'},{pos:'PF',name:'Tax'},{pos:'C',name:'Zion'}],
            third:[{pos:'PG',name:'Pud'},{pos:'SG',name:'Partum'},{pos:'SF',name:'Lamelo'},{pos:'PF',name:'Combat'},{pos:'C',name:'Pelon'}],
            defensive:[{pos:'PG',name:'Combat'},{pos:'SG',name:'Cal'},{pos:'SF',name:'Carter'},{pos:'PF',name:'Trigg'},{pos:'C',name:'Tax'}]}},
-
   {id:8,champion:'Boston Celtics',record:'22-14',defeated:'Oklahoma City Thunder',defeatedRecord:'47-13',seriesResult:'2-1 (3 Games)',
    owners:['Tom','Slapclosed','UN90247807','spazfromyukatan','LeBewwy','vAcevx','Dv0lz'],toty:'Oklahoma City Thunder',
    awards:{MVP:'Cal',OPOTY:'Tsu',DPOTY:'Minis',PMOTY:'Kai',ROTY:'Aether',CPOTY:'Tsu',MIP:'Partum','4MOTY':'Love'},
@@ -677,7 +675,6 @@ let seasons = [
            second:[{pos:'PG',name:'Roji'},{pos:'SG',name:'Aether'},{pos:'SF',name:'Tom'},{pos:'PF',name:'Acro'},{pos:'C',name:'Loq'}],
            third:[{pos:'PG',name:'Tax'},{pos:'SG',name:'Partum'},{pos:'SF',name:'Chris'},{pos:'PF',name:'Javon'},{pos:'C',name:'Mikey'}],
            defensive:[{pos:'PG',name:'Durkio'},{pos:'SG',name:'Minis'},{pos:'SF',name:'Love'},{pos:'PF',name:'Cal'},{pos:'C',name:'Carter'}]}},
-
   {id:9,champion:'Houston Rockets',record:'27-17',defeated:'Miami Heat',defeatedRecord:'26-5',seriesResult:'1-0 (1 Game)',
    owners:['Tom','Aether','Durkio','Peeka','Pox','K20'],toty:'Miami Heat',
    awards:{MVP:'Loq',OPOTY:'Aether',DPOTY:'Love',PMOTY:'Tax',ROTY:'Oil',CPOTY:'Roji',MIP:'Ire','4MOTY':'Pox'},
@@ -686,7 +683,6 @@ let seasons = [
            second:[{pos:'PG',name:'Love'},{pos:'SG',name:'Roji'},{pos:'SF',name:'Minis'},{pos:'PF',name:'Shawn'},{pos:'C',name:'Carter'}],
            third:[{pos:'PG',name:'Aimcancel'},{pos:'SG',name:'Chris'},{pos:'SF',name:'Tax'},{pos:'PF',name:'Cal'},{pos:'C',name:'Logs'}],
            defensive:[{pos:'PG',name:'Minis'},{pos:'SG',name:'Love'},{pos:'SF',name:'Loq'},{pos:'PF',name:'Tom'},{pos:'C',name:'Carter'}]}},
-
   {id:10,champion:'San Antonio Spurs',record:'11-5',defeated:'Philadelphia 76ers',defeatedRecord:'11-4',seriesResult:'2-1 (1 Game)',
    owners:['Tom','bugwars','conzlx','MELO','dohziez','1v_k','North','Pox','ZPud'],toty:'Philadelphia 76ers',
    awards:{MVP:'Chris',OPOTY:'Cahmmie',DPOTY:'Minis',PMOTY:'Roji',ROTY:'Pop',CPOTY:'Tsu',MIP:'Pox','5MOTY':'Eazy'},
@@ -725,7 +721,6 @@ const hofReqs = {
   ],
 };
 
-// ── RENDER ───────────────────────────────────────────────────────
 function renderSeasons() {
   const grid = document.getElementById('seasons-grid');
   const totalOwners = seasons.reduce((a,s) => a + (s.owners?.length||0), 0);
@@ -733,13 +728,11 @@ function renderSeasons() {
   document.getElementById('hero-seasons').textContent = seasons.length;
   document.getElementById('season-range-tag').textContent = `S1 – S${seasons.length}`;
   grid.innerHTML = '';
-
   [...seasons].reverse().forEach(s => {
     const card = document.createElement('div');
     card.className = 'season-card';
     card.id = `season-${s.id}`;
     const teamKeys = Object.keys(s.allRPL);
-
     card.innerHTML = `
       <div class="season-hdr" onclick="toggleSeason(${s.id})">
         <div class="s-num">S${s.id}</div>
@@ -748,9 +741,7 @@ function renderSeasons() {
           <div class="s-meta">def. ${s.defeated} (${s.defeatedRecord}) &mdash; ${s.seriesResult}</div>
         </div>
         <div class="s-badge"><small>Record</small><strong>${s.record}</strong></div>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"/>
-        </svg>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="season-body">
         ${s.toty ? `<div class="toty-row"><span class="toty-label">Team of the Year</span><span class="toty-val">${s.toty}</span></div>` : ''}
@@ -798,7 +789,6 @@ function renderSeasons() {
 function toggleSeason(id) {
   document.getElementById(`season-${id}`).classList.toggle('open');
 }
-
 function switchTeam(sid, key, btn) {
   document.getElementById(`at-${sid}`).querySelectorAll('.at-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -806,7 +796,6 @@ function switchTeam(sid, key, btn) {
     el.style.display = el.id === `allrpl-${sid}-${key}` ? '' : 'none';
   });
 }
-
 function renderRecords() {
   document.getElementById('records-grid').innerHTML = Object.values(records).map(r => `
     <div class="rec-card">
@@ -816,32 +805,23 @@ function renderRecords() {
       <div class="rec-team">${r.team}</div>
     </div>`).join('');
 }
-
 function renderHOF() {
   document.getElementById('hof-grid').innerHTML = `
     <div class="hof-card">
       <div class="hof-hdr">
         <div class="hof-icon-wrap">🏀</div>
-        <div>
-          <div class="hof-title">Players HOF</div>
-          <div class="hof-sub">Player eligibility criteria</div>
-        </div>
+        <div><div class="hof-title">Players HOF</div><div class="hof-sub">Player eligibility criteria</div></div>
       </div>
       <div class="hof-reqs">${hofReqs.players.map(r=>`<div class="hof-req"><div class="hof-req-dot"></div>${r}</div>`).join('')}</div>
     </div>
     <div class="hof-card">
       <div class="hof-hdr">
         <div class="hof-icon-wrap">📋</div>
-        <div>
-          <div class="hof-title">Coaches HOF</div>
-          <div class="hof-sub">Owner / Coach eligibility criteria</div>
-        </div>
+        <div><div class="hof-title">Coaches HOF</div><div class="hof-sub">Owner / Coach eligibility criteria</div></div>
       </div>
       <div class="hof-reqs">${hofReqs.coaches.map(r=>`<div class="hof-req"><div class="hof-req-dot"></div>${r}</div>`).join('')}</div>
     </div>`;
 }
-
-// ── TABS ─────────────────────────────────────────────────────────
 function showTab(tab) {
   ['seasons','records','hof'].forEach(t => {
     document.getElementById(`pane-${t}`).classList.toggle('hidden', t !== tab);
@@ -850,8 +830,6 @@ function showTab(tab) {
     b.classList.toggle('active', b.dataset.tab === tab);
   });
 }
-
-// ── ADMIN ─────────────────────────────────────────────────────────
 let isAdmin = false;
 function adminClick() {
   if (isAdmin) { logoutAdmin(); return; }
@@ -889,9 +867,7 @@ function logoutAdmin() {
   btn.textContent = 'Admin';
   btn.classList.remove('active');
 }
-function openAddSeason() {
-  document.getElementById('add-overlay').classList.add('show');
-}
+function openAddSeason() { document.getElementById('add-overlay').classList.add('show'); }
 function closeAdd(e) {
   if (e.target === document.getElementById('add-overlay'))
     document.getElementById('add-overlay').classList.remove('show');
@@ -923,8 +899,6 @@ function saveNewSeason() {
   document.getElementById('add-overlay').classList.remove('show');
   renderSeasons();
 }
-
-// ── INIT ──────────────────────────────────────────────────────────
 renderSeasons();
 renderRecords();
 renderHOF();
