@@ -1,638 +1,911 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RPL History Book</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold:      #d4922a;
-    --gold-hi:   #f0b93c;
-    --gold-dim:  rgba(212,146,42,.12);
-    --gold-border: rgba(212,146,42,.28);
-    --bg:        #07070c;
-    --surface:   #0f0f16;
-    --surface2:  #161620;
-    --surface3:  #1c1c28;
-    --border:    rgba(255,255,255,.08);
-    --border2:   rgba(255,255,255,.04);
-    --muted:     #56566a;
-    --muted2:    #3a3a4e;
-    --text:      #e0e0f0;
-    --green:     #22c55e;
-    --green-dim: rgba(34,197,94,.12);
-    --amber:     #f59e0b;
-    --amber-dim: rgba(245,158,11,.12);
-    --blue:      #60a5fa;
-    --blue-dim:  rgba(96,165,250,.12);
-    --win:       #4ade80;
-    --lose:      #f87171;
-  }
-
-  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* ── NAV ── */
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-
-  height: 52px;
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 20px;
-  gap: 12px;
-
-  background: rgba(7,7,12,.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  border-bottom: 1px solid var(--border);
+:root{
+  --red:#e8001d;--red-a:.08;
+  --red-dim:rgba(232,0,29,.08);--red-mid:rgba(232,0,29,.18);--red-edge:rgba(232,0,29,.4);
+  --bg:#08080f;--s1:#0e0e1a;--s2:#131322;--s3:#191929;--s4:#202034;
+  --b:rgba(255,255,255,.06);--b2:rgba(255,255,255,.03);
+  --mu:#52526a;--mu2:#3c3c55;
+  --tx:#e2e2f2;--tx2:#9898b8;
+  --gr:#18d464;--gr-d:rgba(24,212,100,.09);
+  --am:#f5a623;--am-d:rgba(245,166,35,.09);
+  --bl:#5b9cf6;--bl-d:rgba(91,156,246,.09);
+  --win:#3de87a;--lose:#f06070;
+  /* gold accent for history */
+  --gold:#d4922a;--gold-hi:#f0b93c;
+  --gold-dim:rgba(212,146,42,.12);--gold-border:rgba(212,146,42,.28);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--tx);
+  font-family:'Inter',sans-serif;font-size:14px;
+  min-height:100vh;-webkit-font-smoothing:antialiased;
+  width:100%;max-width:100vw;overflow-x:hidden;
 }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+/* ── STATUS BAR ── */
+.sbar{
+  display:flex;align-items:center;justify-content:flex-end;
+  gap:14px;padding:9px 20px;
+  width:100%;
+}
+.sbar-sync{font-size:11px;color:var(--mu);font-family:'JetBrains Mono',monospace}
+.live-chip{
+  display:flex;align-items:center;gap:5px;
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mu);
+}
+.live-chip.on{color:var(--gr)}
+.ldot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.live-chip.on .ldot{animation:blink 1.8s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+
+/* ── HERO ── */
+.hero{
+  padding:28px 20px 24px;
+  position:relative;
+  border-bottom:1px solid var(--b2);
+  width:100%;
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;width:180px;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+}
+.hero-top{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.hero-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px;
+  display:flex;align-items:center;gap:7px;
+}
+.hero-eyebrow::before{content:'';width:16px;height:1px;background:var(--gold);flex-shrink:0}
+.hero-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:44px;letter-spacing:.02em;line-height:.92;color:#fff;
+}
+.hero-h1 em{color:var(--gold-hi);font-style:normal}
+.hero-sub{
+  margin-top:8px;font-size:11px;color:var(--mu);
+  display:flex;align-items:center;gap:7px;flex-wrap:wrap;
+}
+.hdot{width:3px;height:3px;border-radius:50%;background:var(--mu2);flex-shrink:0}
+
+/* hero stats strip */
+.hero-stats-strip{
+  display:flex;align-items:stretch;
+  background:var(--s2);border:1px solid var(--b);
+  border-radius:10px;overflow:hidden;margin-top:16px;
+  width:fit-content;
+}
+.hs-item{
+  padding:10px 20px;display:flex;flex-direction:column;
+  align-items:center;gap:3px;
+  border-right:1px solid var(--b);
+  transition:background .15s;
+}
+.hs-item:last-child{border-right:none}
+.hs-item:hover{background:var(--s3)}
+.hs-num{
+  font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;
+  color:var(--gold-hi);
+}
+.hs-lbl{
+  font-size:9px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mu);
 }
 
-.nav-logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
+/* legend / tabs */
+.hero-key{
+  display:flex;flex-wrap:wrap;gap:5px;align-self:flex-end;
+  max-width:100%;
+}
+.kc{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 10px;border-radius:7px;
+  background:var(--s2);border:1px solid var(--b);
+  cursor:pointer;transition:border-color .15s,background .15s;
+}
+.kc:hover{border-color:rgba(255,255,255,.12);background:var(--s3)}
+.kc.active{border-color:var(--gold-border);background:var(--gold-dim)}
+.kc-pip{width:3px;height:13px;border-radius:2px;flex-shrink:0}
+.kc-pip.seasons{background:var(--gold-hi)}
+.kc-pip.records{background:var(--bl)}
+.kc-pip.hof{background:var(--gr)}
+.kc-pip.admin{background:var(--am)}
+.kc-code{font-weight:700;color:var(--tx2);font-family:'JetBrains Mono',monospace;font-size:10px}
+.kc-lbl{color:var(--mu);font-size:10px}
 
-  background: var(--gold);
+/* ── ALERT ── */
+.alert{
+  display:none;margin:12px 20px 0;
+  padding:10px 14px;
+  font-size:12px;color:var(--mu);
+  background:var(--s1);border:1px solid var(--b);
+  border-left:3px solid var(--am);border-radius:0 7px 7px 0;
+}
+.alert.on{display:block}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* ── MAIN ── */
+.main{padding:24px 20px 72px;width:100%}
 
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 15px;
-  color: #07070c;
+/* ── SECTION HEADER ── */
+.sec-hd{margin-bottom:14px;width:100%}
+.sec-hd-top{
+  display:flex;align-items:center;gap:10px;margin-bottom:10px;
+}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.08em;color:#fff}
+.sec-ct{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mu);background:var(--s3);border:1px solid var(--b);
+  border-radius:20px;padding:2px 9px;
+}
+.sec-rule{flex:1;height:1px;background:var(--b2)}
 
-  letter-spacing: .02em;
-  flex-shrink: 0;
+/* filters row */
+.filters{
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  width:100%;
+}
+.fc{
+  background:var(--s2);border:1px solid var(--b);
+  border-radius:7px;color:var(--tx);
+  font-size:12px;font-family:'Inter',sans-serif;
+  padding:6px 10px;outline:none;
+  transition:border-color .15s;
+  min-width:0;
+}
+.fc::placeholder{color:var(--mu)}
+.fc:focus{border-color:var(--gold-border)}
+.fc-search{flex:1;min-width:80px;max-width:200px}
+select.fc{
+  padding-right:24px;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5'%3E%3Cpath fill='%2352526a' d='M0 0l4.5 5L9 0z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 8px center;
+  background-color:var(--s2);
 }
 
-.nav-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 17px;
-  letter-spacing: .08em;
-  color: #fff;
+/* ── SEASONS TABLE ── */
+.ht-wrap{
+  width:100%;
+  background:var(--s1);border:1px solid var(--b);
+  border-radius:11px;overflow:hidden;
+  position:relative;
+}
+.ht-wrap::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--gold-border),transparent 50%);
 }
 
-.nav-title em {
-  color: var(--gold-hi);
-  font-style: normal;
+/* header row */
+.ht-hd{
+  display:grid;
+  grid-template-columns:34px 1fr 100px 120px 80px 80px;
+  padding:8px 14px;
+  background:var(--s2);border-bottom:1px solid var(--b);
+  width:100%;
+}
+.ht-hd span{
+  font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mu);
+}
+.ht-hd span:nth-child(1){text-align:center}
+.ht-hd span:nth-child(3),
+.ht-hd span:nth-child(4),
+.ht-hd span:nth-child(5),
+.ht-hd span:nth-child(6){text-align:center}
+
+/* season row */
+.hr{
+  display:grid;
+  grid-template-columns:34px 1fr 100px 120px 80px 80px;
+  padding:9px 14px;align-items:center;
+  border-bottom:1px solid var(--b2);
+  position:relative;transition:background .12s;
+  cursor:pointer;width:100%;
+}
+.hr:last-child{border-bottom:none}
+.hr:hover{background:rgba(255,255,255,.02)}
+
+/* left accent by era */
+.hr::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+}
+.hr.era-1::before{background:var(--am)}
+.hr.era-2::before{background:var(--gr)}
+.hr.era-3::before{background:var(--bl)}
+.hr.era-4::before{background:var(--gold)}
+
+/* col: number */
+.hn{
+  font-size:11px;color:var(--mu2);text-align:center;
+  font-family:'JetBrains Mono',monospace;font-weight:700;
 }
 
-.nav-pill {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: .08em;
+/* col: champion info */
+.hm{
+  display:flex;align-items:center;gap:8px;
+  min-width:0;overflow:hidden;
+}
+.hm-logo{width:20px;height:20px;object-fit:contain;flex-shrink:0;opacity:.85}
+.hm-nolog{width:20px;height:20px;border-radius:50%;background:var(--s3);flex-shrink:0}
+.hm-champ{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:15px;letter-spacing:.05em;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.hm-sub{font-size:10px;color:var(--mu);white-space:nowrap}
 
-  color: var(--muted);
-  text-transform: uppercase;
-
-  background: var(--surface2);
-  border: 1px solid var(--border);
-
-  border-radius: 20px;
-  padding: 3px 9px;
-
-  display: none;
+/* col: record */
+.hs{
+  text-align:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:700;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+  color:var(--win);
 }
 
-.nav-pill strong {
-  color: var(--text);
-  font-weight: 700;
-  margin-left: 4px;
+/* col: defeated */
+.hdef{
+  text-align:center;font-size:11px;color:var(--tx2);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 
-@media (min-width:480px) {
-  .nav-pill {
-    display: block;
-  }
+/* col: series */
+.hser{
+  text-align:center;font-size:10px;color:var(--mu);
+  white-space:nowrap;
+  font-family:'JetBrains Mono',monospace;
 }
 
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
+/* col: toty / detail */
+.hdate{
+  text-align:center;font-size:10px;color:var(--mu);
+  white-space:nowrap;
+  display:flex;align-items:center;justify-content:center;gap:3px;
+}
+.harrow{color:var(--gold);font-size:10px;opacity:0;transform:translateX(-3px);transition:opacity .14s,transform .14s}
+.hr:hover .harrow{opacity:1;transform:none}
+
+/* empty */
+.hist-empty{
+  padding:40px 20px;text-align:center;
+  font-size:13px;color:var(--mu);
 }
 
-.nav-btn {
-  background: none;
-  border: 1px solid var(--border);
+/* ── PAGER ── */
+.pager{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:12px;flex-wrap:wrap;gap:8px;
+  width:100%;
+}
+.pg-info{font-size:11px;color:var(--mu);font-family:'JetBrains Mono',monospace}
+.pg-btns{display:flex;align-items:center;gap:3px;flex-wrap:wrap}
+.pb{
+  background:transparent;border:1px solid var(--b);
+  border-radius:5px;color:var(--tx2);
+  font-size:11px;font-family:'Inter',sans-serif;font-weight:500;
+  padding:4px 10px;cursor:pointer;
+  transition:background .1s,border-color .1s,color .1s;
+  touch-action:manipulation;
+}
+.pb:hover:not(:disabled){background:var(--s3);border-color:rgba(255,255,255,.11);color:#fff}
+.pb:disabled{opacity:.28;cursor:default}
+.pb.cur{background:var(--gold);border-color:var(--gold);color:#07070c;font-weight:700}
+.pb-ellip{color:var(--mu);font-size:11px;padding:0 2px}
+.pg-jump{display:flex;align-items:center;gap:5px}
+.pg-jlbl{font-size:11px;color:var(--mu)}
+.pg-jin{
+  background:var(--s3);border:1px solid var(--b);
+  border-radius:5px;color:var(--tx);
+  font-size:11px;font-family:'JetBrains Mono',monospace;
+  width:40px;padding:4px 6px;text-align:center;outline:none;
+}
+.pg-jin:focus{border-color:var(--gold-border)}
 
-  color: var(--muted);
+/* ── RECORDS GRID ── */
+.records-grid-wrap{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:1px;background:var(--b);
+  border:1px solid var(--b);border-radius:12px;overflow:hidden;
+}
+.rec-card{
+  background:var(--s1);padding:20px;
+  position:relative;overflow:hidden;
+  transition:background .15s;
+}
+.rec-card:hover{background:var(--s2)}
+.rec-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:var(--gold);opacity:.7;
+}
+.rec-stat{
+  font-size:9px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--mu);margin-bottom:10px;
+}
+.rec-val{
+  font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;
+  color:var(--gold-hi);margin-bottom:6px;
+}
+.rec-holder{font-size:13px;color:var(--tx);font-weight:500;margin-bottom:2px}
+.rec-team{font-size:10px;color:var(--mu)}
 
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-
-  letter-spacing: .08em;
-  text-transform: uppercase;
-
-  padding: 5px 12px;
-  border-radius: 6px;
-
-  cursor: pointer;
-  transition: all .2s;
+/* ── HOF GRID ── */
+.hof-outer{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.hof-card{
+  background:var(--s1);border:1px solid var(--b);
+  border-radius:12px;overflow:hidden;
+  position:relative;
+}
+.hof-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--gold-border),transparent 50%);
+}
+.hof-hdr{
+  padding:16px 18px;
+  border-bottom:1px solid var(--b2);
+  display:flex;align-items:center;gap:12px;
+  background:var(--s2);
+}
+.hof-icon-wrap{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--gold-dim);border:1px solid var(--gold-border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:15px;
+}
+.hof-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18px;letter-spacing:.04em;color:#fff;
+}
+.hof-sub{font-size:10px;color:var(--mu);letter-spacing:.03em;margin-top:2px}
+.hof-reqs{padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.hof-req{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:12px;color:var(--tx);line-height:1.6;
+}
+.hof-req-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;margin-top:6px;opacity:.8;
 }
 
-.nav-btn:hover {
-  border-color: rgba(255,255,255,.18);
-  color: var(--text);
+/* hof inductees */
+.hof-inductees{
+  background:var(--s1);border:1px solid var(--b);
+  border-radius:11px;overflow:hidden;
+  position:relative;margin-top:16px;
+  width:100%;
+}
+.hof-inductees::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--gold-border),transparent 50%);
+}
+.hof-ind-hd{
+  display:grid;
+  grid-template-columns:30px 1fr 80px 100px 140px;
+  padding:8px 14px;
+  background:var(--s2);border-bottom:1px solid var(--b);
+}
+.hof-ind-hd span{
+  font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mu);
+}
+.hof-ind-hd span:nth-child(1){text-align:center}
+.hof-ind-hd span:nth-child(3),
+.hof-ind-hd span:nth-child(4){text-align:center}
+.hof-ind-row{
+  display:grid;
+  grid-template-columns:30px 1fr 80px 100px 140px;
+  padding:9px 14px;align-items:center;
+  border-bottom:1px solid var(--b2);
+  position:relative;transition:background .12s;
+  width:100%;
+}
+.hof-ind-row:last-child{border-bottom:none}
+.hof-ind-row:hover{background:rgba(255,255,255,.02)}
+.hof-ind-row::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--gold);
+}
+.hof-rn{font-size:10px;color:var(--mu2);text-align:center;font-family:'JetBrains Mono',monospace}
+.hof-name{font-size:12px;font-weight:600;color:#fff}
+.hof-rings{text-align:center;font-size:12px;color:var(--gold-hi);font-family:'JetBrains Mono',monospace;font-weight:700}
+.hof-mvps{text-align:center;font-size:12px;color:var(--win);font-family:'JetBrains Mono',monospace;font-weight:700}
+.hof-awards-cell{font-size:10px;color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hof-badge-wrap{display:inline-flex;gap:4px;flex-wrap:wrap}
+.hof-badge{
+  display:inline-flex;
+  font-size:8px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  padding:2px 5px;border-radius:3px;white-space:nowrap;
+}
+.hof-badge.gold{background:var(--gold-dim);color:var(--gold-hi);border:1px solid var(--gold-border)}
+.hof-badge.green{background:var(--gr-d);color:var(--gr);border:1px solid rgba(24,212,100,.18)}
+.hof-badge.blue{background:var(--bl-d);color:var(--bl);border:1px solid rgba(91,156,246,.18)}
+
+/* ── SEASON DETAIL MODAL ── */
+.mbg{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  padding:12px;opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.mbg.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--s1);border:1px solid var(--b);
+  border-radius:14px;overflow:hidden;
+  width:100%;max-width:860px;max-height:92vh;
+  display:flex;flex-direction:column;
+  transform:translateY(12px) scale(.97);transition:transform .2s;
+  box-shadow:0 28px 72px rgba(0,0,0,.8);position:relative;
+}
+.modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent 60%);z-index:2;
+}
+.mbg.open .modal{transform:none}
+
+.mhd{
+  padding:16px 20px;background:var(--s2);
+  border-bottom:1px solid var(--b);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  flex-shrink:0;flex-wrap:wrap;
+}
+.mmatchup{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.mchamp{display:flex;flex-direction:column;gap:2px}
+.mchamp-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#fff}
+.mchamp-rec{font-size:11px;color:var(--mu);font-family:'JetBrains Mono',monospace}
+.msep{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--mu2)}
+.mdef{display:flex;flex-direction:column;gap:2px;opacity:.7}
+.mdef-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;color:var(--tx2)}
+.mdef-rec{font-size:11px;color:var(--mu);font-family:'JetBrains Mono',monospace}
+.mmeta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.mbadge{
+  font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 8px;border-radius:5px;
+  background:var(--gold-dim);color:var(--gold-hi);border:1px solid var(--gold-border);
+}
+.mseason{font-size:10px;color:var(--mu);font-family:'JetBrains Mono',monospace}
+.mclose{
+  background:var(--s3);border:1px solid var(--b);cursor:pointer;
+  color:var(--mu);font-size:16px;line-height:1;
+  width:30px;height:30px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .13s;flex-shrink:0;
+}
+.mclose:hover{color:#fff;background:var(--s4);border-color:rgba(255,255,255,.12)}
+
+.mbody{overflow-y:auto;flex:1;padding:20px;display:flex;flex-direction:column;gap:18px}
+
+.minfo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.minfo{grid-template-columns:1fr}}
+.icard{background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:14px 15px}
+.ilbl{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);margin-bottom:10px}
+
+/* awards in modal */
+.award-row{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;padding:5px 0;
+  border-bottom:1px solid var(--b2);font-size:12px;
+}
+.award-row:last-child{border-bottom:none}
+.award-lbl{color:var(--mu);font-size:10px;letter-spacing:.03em;white-space:nowrap}
+.award-win{color:var(--tx);font-weight:500;text-align:right}
+
+/* all-rpl in modal */
+.allrpl-tabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
+.at-btn{
+  background:transparent;border:1px solid var(--b);
+  color:var(--mu);border-radius:4px;
+  padding:3px 8px;
+  font-family:'Inter',sans-serif;font-size:9px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;transition:all .15s;
+}
+.at-btn:hover{color:var(--tx);border-color:rgba(255,255,255,.18)}
+.at-btn.active{color:var(--gold-hi);background:var(--gold-dim);border-color:var(--gold-border)}
+
+.allrpl-tbl{width:100%;border-collapse:collapse}
+.allrpl-tbl tr{border-bottom:1px solid var(--b2)}
+.allrpl-tbl tr:last-child{border-bottom:none}
+.allrpl-tbl td{padding:4px 4px;font-size:12px}
+.allrpl-tbl td:first-child{color:var(--mu);font-size:10px;font-weight:600;letter-spacing:.06em;width:34px}
+
+/* stat leaders */
+.stat-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+  gap:10px;
+}
+.stat-item .stat-lbl{
+  font-size:9px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mu);margin-bottom:2px;
+}
+.stat-item .stat-val{font-size:13px;color:var(--tx);font-weight:500}
+
+/* owners chips */
+.chip-list{display:flex;flex-wrap:wrap;gap:5px}
+.chip{
+  background:var(--s3);border:1px solid var(--b);
+  border-radius:20px;padding:3px 10px;
+  font-size:10px;font-weight:500;color:var(--mu);letter-spacing:.03em;
 }
 
-.nav-btn.active {
-  border-color: var(--gold-border);
-  color: var(--gold-hi);
-  background: var(--gold-dim);
+/* toty badge */
+.toty-row{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--gold-dim);border:1px solid var(--gold-border);
+  border-radius:6px;padding:6px 12px;
+  font-size:12px;
 }
-  /* ── PAGE ── */
-  .page {
-    width: 100%;
-    max-width: 1100px;
-    padding: 0 16px 80px;
-  }
+.toty-label{
+  font-size:9px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold);opacity:.9;
+}
+.toty-val{color:var(--gold-hi);font-weight:600}
 
-  /* ── HERO ── */
-  .hero {
-    padding:28px 0 24px;
-    border-bottom:1px solid var(--border2);
-    margin-bottom:24px;
-    text-align: center;
-  }
-  .hero-eyebrow {
-    font-size:10px; font-weight:600; letter-spacing:.18em;
-    text-transform:uppercase; color:var(--muted); margin-bottom:10px;
-  }
-  .hero-title {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:36px; letter-spacing:.04em; color:#fff; line-height:1;
-    margin-bottom:6px;
-  }
-  .hero-title em { color:var(--gold-hi); font-style:normal; }
-  .hero-sub { font-size:11px; color:var(--muted); letter-spacing:.02em; margin-bottom:20px; }
+/* ── TOASTS ── */
+#toasts{
+  position:fixed;bottom:20px;right:16px;
+  display:flex;flex-direction:column-reverse;gap:7px;
+  z-index:9999;pointer-events:none;
+  width:min(300px,calc(100vw - 32px));
+}
+.toast{
+  background:var(--s3);border:1px solid var(--b);
+  border-left:3px solid var(--gold);border-radius:9px;
+  padding:10px 14px;font-size:13px;color:#fff;
+  box-shadow:0 10px 36px rgba(0,0,0,.6);
+  pointer-events:all;animation:tIn .2s ease;
+  word-break:break-word;
+}
+.toast.green{border-left-color:var(--gr)}
+.toast.amber{border-left-color:var(--am)}
+.toast.out{animation:tOut .2s ease forwards}
+@keyframes tIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes tOut{from{opacity:1}to{opacity:0;transform:translateY(-5px)}}
 
-  .hero-stats-wrap { display:flex; justify-content:center; }
-  .hero-stats {
-    display:inline-flex; align-items:stretch;
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:10px; overflow:hidden;
-  }
-  .hs-item {
-    padding:12px 28px; display:flex; flex-direction:column;
-    align-items:center; gap:3px;
-    border-right:1px solid var(--border);
-    transition:background .15s;
-  }
-  .hs-item:last-child { border-right:none; }
-  .hs-item:hover { background:var(--surface2); }
-  .hs-num {
-    font-family:'Bebas Neue',sans-serif; font-size:28px; line-height:1;
-    color:var(--gold-hi);
-  }
-  .hs-lbl {
-    font-size:9px; font-weight:600; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--muted);
-  }
+/* ── ADMIN LOGIN MODAL ── */
+.admin-overlay{
+  position:fixed;inset:0;z-index:3000;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.admin-overlay.show{display:flex}
+.admin-modal{
+  background:var(--s1);border:1px solid var(--b);
+  border-radius:12px;padding:24px;
+  width:100%;max-width:400px;
+  position:relative;
+}
+.admin-modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent 60%);
+}
+.modal-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;letter-spacing:.05em;color:#fff;margin-bottom:18px;
+}
+.form-group{margin-bottom:10px}
+.form-label{
+  display:block;font-size:9px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mu);margin-bottom:4px;
+}
+.form-input{
+  width:100%;background:var(--s2);
+  border:1px solid var(--b);border-radius:6px;
+  padding:8px 12px;color:var(--tx);
+  font-family:'Inter',sans-serif;font-size:12px;
+  outline:none;transition:border-color .2s;
+}
+.form-input:focus{border-color:var(--gold-border)}
+.form-input::placeholder{color:var(--mu2)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.awards-2col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.btn{
+  border:none;border-radius:6px;
+  padding:7px 14px;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:.06em;cursor:pointer;transition:opacity .2s;
+}
+.btn-gold{background:var(--gold);color:#07070c}
+.btn-cancel{
+  background:transparent;border:1px solid var(--b);
+  color:var(--mu);border-radius:6px;padding:7px 14px;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:600;
+  cursor:pointer;transition:border-color .2s;
+}
+.btn-cancel:hover{border-color:rgba(255,255,255,.18);color:var(--tx)}
+.btn:hover{opacity:.78}
+.err-box{
+  background:var(--am-d);border:1px solid rgba(245,166,35,.22);
+  border-radius:6px;padding:8px 12px;
+  font-size:12px;color:var(--am);margin-bottom:12px;display:none;
+}
+.err-box.show{display:block}
+.divider{border:none;border-top:1px solid var(--b2);margin:14px 0}
 
-  /* ── TABS ── */
-  .tabs {
-    display:flex; gap:0; justify-content:center;
-    border-bottom:1px solid var(--border);
-    margin-bottom:24px;
-  }
-  .tab-btn {
-    background:none; border:none; border-bottom:2px solid transparent;
-    color:var(--muted);
-    font-family:'Inter',sans-serif; font-size:11px; font-weight:600;
-    letter-spacing:.1em; text-transform:uppercase;
-    padding:12px 20px; cursor:pointer;
-    transition:all .2s; margin-bottom:-1px;
-  }
-  .tab-btn:hover { color:var(--text); }
-  .tab-btn.active { color:var(--gold-hi); border-bottom-color:var(--gold-hi); }
+/* Add Season large modal */
+.add-overlay{
+  position:fixed;inset:0;z-index:3000;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:none;align-items:center;justify-content:center;padding:12px;
+}
+.add-overlay.show{display:flex}
+.add-modal{
+  background:var(--s1);border:1px solid var(--b);
+  border-radius:12px;padding:24px;
+  width:100%;max-width:560px;max-height:92vh;overflow-y:auto;
+  position:relative;
+}
+.add-modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent 60%);
+}
 
-  /* ── SECTION ── */
-  .section-header {
-    display:flex; align-items:baseline; justify-content:space-between;
-    margin-bottom:16px;
-  }
-  .section-title {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:22px; letter-spacing:.04em; color:#fff;
-  }
-  .section-tag {
-    font-size:9px; font-weight:600; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--muted);
-  }
+/* Admin bar */
+.admin-bar{
+  display:none;margin:0 20px 0;
+  align-items:center;justify-content:space-between;gap:12px;
+  padding:10px 16px;
+  background:var(--gold-dim);border:1px solid var(--gold-border);
+  border-radius:8px;
+  flex-wrap:wrap;
+}
+.admin-bar.on{display:flex}
+.admin-label{
+  font-size:10px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--gold-hi);
+}
+.btn-row{display:flex;gap:8px}
+.btn-outline{background:transparent;border:1px solid var(--b);color:var(--mu)}
 
-  /* ── ADMIN BAR ── */
-  .admin-bar {
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    padding:10px 16px;
-    background:var(--gold-dim); border:1px solid var(--gold-border);
-    border-radius:8px; margin-bottom:16px;
-    flex-wrap:wrap;
-  }
-  .admin-label {
-    font-size:10px; font-weight:700; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--gold-hi);
-  }
-  .btn-row { display:flex; gap:8px; }
-  .btn {
-    border:none; border-radius:6px;
-    padding:6px 14px;
-    font-family:'Inter',sans-serif; font-size:11px; font-weight:600;
-    letter-spacing:.06em; cursor:pointer; transition:opacity .2s;
-  }
-  .btn-gold { background:var(--gold); color:#07070c; }
-  .btn-outline { background:transparent; border:1px solid var(--border); color:var(--muted); }
-  .btn:hover { opacity:.78; }
+/* Flash animation */
+@keyframes rfl{0%{background:rgba(212,146,42,.08)}100%{background:transparent}}
+.hr.flash{animation:rfl 1.8s ease forwards}
 
-  /* ── SEASON ACCORDION ── */
-  .seasons-grid {
-    display:flex; flex-direction:column;
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:12px; overflow:hidden;
-  }
-  .season-card { border-bottom:1px solid var(--border2); transition:background .15s; }
-  .season-card:last-child { border-bottom:none; }
-  .season-card:hover { background:rgba(255,255,255,.012); }
-  .season-card.open { background:var(--surface2); }
+/* hidden helper */
+.hidden{display:none!important}
 
-  .season-hdr {
-    display:grid;
-    grid-template-columns:50px 1fr auto auto;
-    align-items:center; gap:16px;
-    padding:14px 18px; cursor:pointer; user-select:none;
-  }
-  .s-num {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:28px; line-height:1; color:var(--muted2);
-    transition:color .25s;
-  }
-  .season-card.open .s-num { color:var(--gold-hi); }
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .hero{padding:20px 16px 18px}
+  .hero-h1{font-size:34px}
+  .hero-top{gap:12px}
+  .kc-lbl{display:none}
+  .kc-pip{height:11px}
+  .kc{padding:5px 8px;gap:5px}
+  .sbar{padding:7px 16px}
+  .main{padding:16px 16px 60px}
+  .alert,.admin-bar{margin-left:16px;margin-right:16px}
 
-  .s-info h3 {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:16px; letter-spacing:.03em; color:#fff; margin-bottom:2px;
-  }
-  .s-meta { font-size:11px; color:var(--muted); letter-spacing:.01em; }
+  /* seasons table: drop series + toty cols */
+  .ht-hd{grid-template-columns:28px 1fr 90px 100px}
+  .ht-hd span:nth-child(5),.ht-hd span:nth-child(6){display:none}
+  .hr{grid-template-columns:28px 1fr 90px 100px}
+  .hser,.hdate{display:none}
 
-  .s-badge {
-    font-size:10px; color:var(--muted);
-    background:var(--surface3); border:1px solid var(--border);
-    border-radius:6px; padding:5px 10px; text-align:center; white-space:nowrap;
-  }
-  .s-badge small {
-    display:block; font-size:9px; font-weight:600; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--muted2); margin-bottom:1px;
-  }
-  .s-badge strong { color:var(--text); font-weight:600; }
+  /* hof inductees: drop awards col */
+  .hof-ind-hd{grid-template-columns:26px 1fr 60px 80px}
+  .hof-ind-hd span:last-child{display:none}
+  .hof-ind-row{grid-template-columns:26px 1fr 60px 80px}
+  .hof-awards-cell{display:none}
 
-  .chevron {
-    width:14px; height:14px; color:var(--muted); flex-shrink:0;
-    transition:transform .25s, color .25s;
-  }
-  .season-card.open .chevron { transform:rotate(180deg); color:var(--gold); }
-  .season-card.open .season-hdr { border-left:2px solid var(--gold); padding-left:16px; }
-
-  .season-body { display:none; border-top:1px solid var(--border2); padding:16px 18px; }
-  .season-card.open .season-body { display:block; }
-
-  .toty-row {
-    display:inline-flex; align-items:center; gap:10px;
-    background:var(--gold-dim); border:1px solid var(--gold-border);
-    border-radius:6px; padding:6px 12px;
-    margin-bottom:12px; font-size:12px;
-  }
-  .toty-label {
-    font-size:9px; font-weight:700; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--gold); opacity:.9;
-  }
-  .toty-val { color:var(--gold-hi); font-weight:600; }
-
-  .chip-list { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:16px; }
-  .chip {
-    background:var(--surface3); border:1px solid var(--border);
-    border-radius:20px; padding:3px 10px;
-    font-size:10px; font-weight:500; color:var(--muted); letter-spacing:.03em;
-  }
-
-  .sb-grid {
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:1px; background:var(--border2);
-    border:1px solid var(--border2); border-radius:8px; overflow:hidden;
-  }
-  .full-span { grid-column:1/-1; }
-
-  .sb-blk { background:var(--surface3); padding:14px 16px; }
-  .sb-blk-title {
-    font-size:9px; font-weight:700; letter-spacing:.16em;
-    text-transform:uppercase; color:var(--gold); opacity:.7;
-    margin-bottom:12px; padding-bottom:8px;
-    border-bottom:1px solid var(--border2);
-  }
-
-  .award-row {
-    display:flex; justify-content:space-between; align-items:center;
-    gap:10px; padding:5px 0;
-    border-bottom:1px solid var(--border2); font-size:12px;
-  }
-  .award-row:last-child { border-bottom:none; }
-  .award-lbl { color:var(--muted); font-size:10px; letter-spacing:.03em; white-space:nowrap; }
-  .award-win { color:var(--text); font-weight:500; text-align:right; }
-
-  .allrpl-tabs { display:flex; gap:4px; margin-bottom:10px; flex-wrap:wrap; }
-  .at-btn {
-    background:transparent; border:1px solid var(--border);
-    color:var(--muted); border-radius:4px;
-    padding:3px 8px;
-    font-family:'Inter',sans-serif; font-size:9px; font-weight:700;
-    letter-spacing:.1em; text-transform:uppercase;
-    cursor:pointer; transition:all .15s;
-  }
-  .at-btn:hover { color:var(--text); border-color:rgba(255,255,255,.18); }
-  .at-btn.active { color:var(--gold-hi); background:var(--gold-dim); border-color:var(--gold-border); }
-
-  .allrpl-tbl { width:100%; border-collapse:collapse; }
-  .allrpl-tbl tr { border-bottom:1px solid var(--border2); }
-  .allrpl-tbl tr:last-child { border-bottom:none; }
-  .allrpl-tbl td { padding:4px 4px; font-size:12px; }
-  .allrpl-tbl td:first-child { color:var(--muted); font-size:10px; font-weight:600; letter-spacing:.06em; width:34px; }
-
-  .stat-grid {
-    display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-    gap:10px;
-  }
-  .stat-item .stat-lbl {
-    font-size:9px; font-weight:600; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--muted); margin-bottom:2px;
-  }
-  .stat-item .stat-val { font-size:13px; color:var(--text); font-weight:500; }
-
-  /* ── RECORDS ── */
-  .records-grid {
-    display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-    gap:1px; background:var(--border);
-    border:1px solid var(--border); border-radius:12px; overflow:hidden;
-  }
-  .rec-card {
-    background:var(--surface); padding:20px;
-    position:relative; overflow:hidden;
-    transition:background .15s;
-  }
-  .rec-card:hover { background:var(--surface2); }
-  .rec-card::before {
-    content:''; position:absolute;
-    top:0; left:0; right:0; height:2px;
-    background:var(--gold); opacity:.7;
-  }
-  .rec-stat {
-    font-size:9px; font-weight:700; letter-spacing:.18em;
-    text-transform:uppercase; color:var(--muted); margin-bottom:10px;
-  }
-  .rec-val {
-    font-family:'Bebas Neue',sans-serif; font-size:48px; line-height:1;
-    color:var(--gold-hi); margin-bottom:6px;
-  }
-  .rec-holder { font-size:13px; color:var(--text); font-weight:500; margin-bottom:2px; }
-  .rec-team { font-size:10px; color:var(--muted); }
-
-  /* ── HOF ── */
-  .hof-grid {
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:16px;
-  }
-  .hof-card {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:12px; overflow:hidden;
-  }
-  .hof-hdr {
-    padding:16px 18px;
-    border-bottom:1px solid var(--border2);
-    display:flex; align-items:center; gap:12px;
-    background:var(--surface2);
-  }
-  .hof-icon-wrap {
-    width:32px; height:32px; border-radius:8px;
-    background:var(--gold-dim); border:1px solid var(--gold-border);
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0; font-size:15px;
-  }
-  .hof-title {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:18px; letter-spacing:.04em; color:#fff;
-  }
-  .hof-sub { font-size:10px; color:var(--muted); letter-spacing:.03em; margin-top:2px; }
-  .hof-reqs { padding:14px 18px; display:flex; flex-direction:column; gap:8px; }
-  .hof-req {
-    display:flex; align-items:flex-start; gap:8px;
-    font-size:12px; color:var(--text); line-height:1.6;
-  }
-  .hof-req-dot {
-    width:4px; height:4px; border-radius:50%;
-    background:var(--gold); flex-shrink:0; margin-top:6px; opacity:.8;
-  }
-
-  /* ── MODAL ── */
-  .overlay {
-    display:none; position:fixed; inset:0;
-    background:rgba(0,0,0,.75);
-    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-    z-index:300; align-items:center; justify-content:center; padding:20px;
-  }
-  .overlay.show { display:flex; }
-  .modal {
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:12px; padding:24px;
-    width:100%; max-width:520px; max-height:88vh; overflow-y:auto;
-  }
-  .modal-title {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:22px; letter-spacing:.05em; color:#fff; margin-bottom:18px;
-  }
-  .form-group { margin-bottom:10px; }
-  .form-label {
-    display:block; font-size:9px; font-weight:700; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--muted); margin-bottom:4px;
-  }
-  .form-input {
-    width:100%; background:var(--surface2);
-    border:1px solid var(--border); border-radius:6px;
-    padding:8px 12px; color:var(--text);
-    font-family:'Inter',sans-serif; font-size:12px;
-    outline:none; transition:border-color .2s;
-  }
-  .form-input:focus { border-color:var(--gold-border); }
-  .form-input::placeholder { color:var(--muted2); }
-  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-  .awards-2col { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-  .modal-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:16px; }
-  .btn-cancel {
-    background:transparent; border:1px solid var(--border);
-    color:var(--muted); border-radius:6px; padding:7px 14px;
-    font-family:'Inter',sans-serif; font-size:11px; font-weight:600;
-    cursor:pointer; transition:border-color .2s;
-  }
-  .btn-cancel:hover { border-color:rgba(255,255,255,.18); color:var(--text); }
-  .divider { border:none; border-top:1px solid var(--border2); margin:14px 0; }
-  .err-box {
-    background:rgba(212,146,42,.08); border:1px solid rgba(212,146,42,.22);
-    border-radius:6px; padding:8px 12px;
-    font-size:12px; color:var(--gold-hi); margin-bottom:12px; display:none;
-  }
-  .err-box.show { display:block; }
-
-  .hidden { display:none !important; }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top:1px solid var(--border2);
-    padding:24px 0; margin-top:40px;
-    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
-  }
-  .footer-logo {
-    font-family:'Bebas Neue',sans-serif; font-size:14px;
-    letter-spacing:.16em; color:var(--muted);
-  }
-  .footer-logo em { color:var(--gold); font-style:normal; }
-  .footer-copy { font-size:11px; color:var(--muted2); letter-spacing:.06em; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width:700px) {
-    .season-hdr { grid-template-columns:38px 1fr auto; gap:10px; padding:12px 14px; }
-    .s-badge { display:none; }
-    .sb-grid { grid-template-columns:1fr; }
-    .hof-grid { grid-template-columns:1fr; }
-    .form-row, .awards-2col { grid-template-columns:1fr; }
-    .hero-stats { width:100%; display:flex; }
-    .hs-item { padding:10px 12px; flex:1; }
-    .tabs { overflow-x:auto; }
-    .records-grid { grid-template-columns:1fr 1fr; }
-  }
-  @media (max-width:420px) {
-    .hero-title { font-size:28px; }
-    .records-grid { grid-template-columns:1fr; }
-  }
+  .hof-outer{grid-template-columns:1fr}
+  .records-grid-wrap{grid-template-columns:1fr 1fr}
+  .pg-jump{display:none}
+  .pg-info{font-size:10px}
+  .mhd{padding:13px 15px}
+  .mbody{padding:14px}
+  .form-row,.awards-2col{grid-template-columns:1fr}
+  .hs-item{padding:8px 12px}
+}
+@media(max-width:360px){
+  .hero-h1{font-size:28px}
+  .hero-stats-strip{width:100%}
+  .hs-item{flex:1;padding:8px 6px}
+  .records-grid-wrap{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-      <span class="nav-pill">Archive</span>
+<div class="sbar">
+  <span class="sbar-sync" id="last-sync">Official Archive</span>
+  <div class="live-chip on" id="live-chip">
+    <div class="ldot"></div>
+    <span id="live-lbl">S11 In Progress</span>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Official RPL Archive · All-Time</div>
+      <div class="hero-h1">Season <em>History</em></div>
+      <div class="hero-sub">
+        Every season <span class="hdot"></span>
+        Every award <span class="hdot"></span>
+        Every record
+      </div>
+      <div class="hero-stats-strip" id="hero-stats-strip">
+        <div class="hs-item"><span class="hs-num" id="hero-seasons">10</span><span class="hs-lbl">Seasons</span></div>
+        <div class="hs-item"><span class="hs-num" id="hero-owners">—</span><span class="hs-lbl">Total Owners</span></div>
+        <div class="hs-item"><span class="hs-num">6</span><span class="hs-lbl">Record Cats</span></div>
+        <div class="hs-item"><span class="hs-num" id="hero-champs">—</span><span class="hs-lbl">Unique Champs</span></div>
+      </div>
     </div>
-    <div class="nav-right">
-      <button class="nav-btn" id="nav-admin" onclick="adminClick()">Admin</button>
+    <div class="hero-key">
+      <div class="kc active" data-tab="seasons" onclick="showTab('seasons',this)">
+        <div class="kc-pip seasons"></div>
+        <span class="kc-code">S</span><span class="kc-lbl">Seasons</span>
+      </div>
+      <div class="kc" data-tab="records" onclick="showTab('records',this)">
+        <div class="kc-pip records"></div>
+        <span class="kc-code">R</span><span class="kc-lbl">Records</span>
+      </div>
+      <div class="kc" data-tab="hof" onclick="showTab('hof',this)">
+        <div class="kc-pip hof"></div>
+        <span class="kc-code">HOF</span><span class="kc-lbl">Hall of Fame</span>
+      </div>
+      <div class="kc" data-tab="admin" onclick="adminClick(this)">
+        <div class="kc-pip admin"></div>
+        <span class="kc-code" id="admin-kc-lbl">Admin</span>
+      </div>
     </div>
   </div>
-</nav>
+</div>
 
-<div class="page">
+<div class="alert" id="alert"></div>
+<div class="admin-bar" id="admin-bar">
+  <span class="admin-label">Admin Mode Active</span>
+  <div class="btn-row">
+    <button class="btn btn-gold" onclick="openAddSeason()">+ Add Season</button>
+    <button class="btn btn-outline btn-cancel" onclick="logoutAdmin()">Logout</button>
+  </div>
+</div>
 
-  <div class="hero">
-    <div class="hero-eyebrow">Official RPL Archive · All-Time</div>
-    <div class="hero-title">Season <em>History</em></div>
-    <div class="hero-sub">Every season · Every award · Every record</div>
-    <div class="hero-stats-wrap">
-      <div class="hero-stats">
-        <div class="hs-item">
-          <span class="hs-num" id="hero-seasons">10</span>
-          <span class="hs-lbl">Seasons</span>
-        </div>
-        <div class="hs-item">
-          <span class="hs-num" id="hero-owners">—</span>
-          <span class="hs-lbl">Total Owners</span>
-        </div>
-        <div class="hs-item">
-          <span class="hs-num">6</span>
-          <span class="hs-lbl">Record Cats</span>
-        </div>
+<div class="main">
+
+  <!-- ── SEASONS TAB ── -->
+  <div id="pane-seasons">
+    <div class="sec-hd">
+      <div class="sec-hd-top">
+        <span class="sec-title">All Seasons</span>
+        <span class="sec-ct" id="seasons-ct">10 seasons</span>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="filters">
+        <input class="fc fc-search" id="f-team" placeholder="Search champion or team…" autocomplete="off" spellcheck="false">
+        <select class="fc" id="f-sort">
+          <option value="desc">Newest first</option>
+          <option value="asc">Oldest first</option>
+        </select>
+        <select class="fc" id="f-pp">
+          <option value="5">5 / page</option>
+          <option value="10" selected>10 / page</option>
+          <option value="25">25 / page</option>
+          <option value="all">All</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="ht-wrap">
+      <div class="ht-hd">
+        <span>S#</span>
+        <span>Champion</span>
+        <span>Record</span>
+        <span>Defeated</span>
+        <span>Series</span>
+        <span>TOTY</span>
+      </div>
+      <div id="hist-rows"></div>
+    </div>
+    <div class="hist-empty" id="hist-empty" style="display:none">No seasons match your filters.</div>
+
+    <div class="pager" id="pager" style="display:none">
+      <div class="pg-info" id="pg-info"></div>
+      <div class="pg-btns" id="pg-btns"></div>
+      <div class="pg-jump">
+        <span class="pg-jlbl">Page</span>
+        <input class="pg-jin" id="pg-jump" type="number" min="1" value="1">
       </div>
     </div>
   </div>
 
-  <div class="admin-bar hidden" id="admin-bar">
-    <span class="admin-label">Admin Mode Active</span>
-    <div class="btn-row">
-      <button class="btn btn-gold" onclick="openAddSeason()">+ Add Season</button>
-      <button class="btn btn-outline" onclick="logoutAdmin()">Logout</button>
-    </div>
-  </div>
-
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="seasons" onclick="showTab('seasons')">Seasons</button>
-    <button class="tab-btn" data-tab="records" onclick="showTab('records')">Records</button>
-    <button class="tab-btn" data-tab="hof" onclick="showTab('hof')">Hall of Fame</button>
-  </div>
-
-  <div id="pane-seasons">
-    <div class="section-header">
-      <span class="section-title">All Seasons</span>
-      <span class="section-tag" id="season-range-tag">S1 – S10</span>
-    </div>
-    <div class="seasons-grid" id="seasons-grid"></div>
-  </div>
-
+  <!-- ── RECORDS TAB ── -->
   <div id="pane-records" class="hidden">
-    <div class="section-header">
-      <span class="section-title">All-Time Records</span>
-      <span class="section-tag">Single Game</span>
+    <div class="sec-hd">
+      <div class="sec-hd-top">
+        <span class="sec-title">All-Time Records</span>
+        <span class="sec-ct">Single Game</span>
+        <div class="sec-rule"></div>
+      </div>
     </div>
-    <div class="records-grid" id="records-grid"></div>
+    <div class="records-grid-wrap" id="records-grid"></div>
   </div>
 
+  <!-- ── HOF TAB ── -->
   <div id="pane-hof" class="hidden">
-    <div class="section-header">
-      <span class="section-title">Hall of Fame</span>
-      <span class="section-tag">Eligibility Requirements</span>
+    <div class="sec-hd">
+      <div class="sec-hd-top">
+        <span class="sec-title">Hall of Fame</span>
+        <span class="sec-ct" id="hof-ct">0 inductees</span>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="filters" style="margin-bottom:14px">
+        <input class="fc fc-search" id="f-hof" placeholder="Search player…" autocomplete="off" spellcheck="false">
+      </div>
     </div>
-    <div class="hof-grid" id="hof-grid"></div>
-  </div>
 
-  <footer>
-    <div class="footer-logo"><em>RPL</em> History Book</div>
-    <div class="footer-copy">All seasons documented · Season 11 in progress</div>
-  </footer>
+    <div class="hof-inductees">
+      <div class="hof-ind-hd">
+        <span>#</span><span>Player</span><span>Rings</span><span>Major Awds</span><span>Notable Awards</span>
+      </div>
+      <div id="hof-rows"></div>
+    </div>
+
+    <div class="pager" id="pager-hof" style="display:none">
+      <div class="pg-info" id="pg-info-hof"></div>
+      <div class="pg-btns" id="pg-btns-hof"></div>
+      <div class="pg-jump">
+        <span class="pg-jlbl">Page</span>
+        <input class="pg-jin" id="pg-jump-hof" type="number" min="1" value="1">
+      </div>
+    </div>
+
+    <div class="sec-hd" style="margin-top:28px">
+      <div class="sec-hd-top">
+        <span class="sec-title">Eligibility Requirements</span>
+        <div class="sec-rule"></div>
+      </div>
+    </div>
+    <div class="hof-outer" id="hof-reqs-grid"></div>
+  </div>
 
 </div>
 
-<!-- LOGIN MODAL -->
-<div class="overlay" id="login-overlay" onclick="closeLogin(event)">
-  <div class="modal" onclick="event.stopPropagation()">
+<div id="toasts"></div>
+
+<!-- Season detail modal -->
+<div class="mbg" id="modal-bg" role="dialog" aria-modal="true" aria-label="Season Detail">
+  <div class="modal">
+    <div class="mhd">
+      <div class="mmatchup" id="m-matchup"></div>
+      <div class="mmeta">
+        <span class="mbadge" id="m-badge">Champion</span>
+        <span class="mseason" id="m-season"></span>
+      </div>
+      <button class="mclose" id="m-close" aria-label="Close">✕</button>
+    </div>
+    <div class="mbody" id="m-body"></div>
+  </div>
+</div>
+
+<!-- Admin login overlay -->
+<div class="admin-overlay" id="login-overlay" onclick="closeLoginOverlay(event)">
+  <div class="admin-modal" onclick="event.stopPropagation()">
     <div class="modal-title">Admin Access</div>
     <div class="err-box" id="login-err">Incorrect password.</div>
     <div class="form-group">
       <label class="form-label">Password</label>
       <input class="form-input" type="password" id="pw-input" placeholder="••••••••"
-             onkeydown="if(event.key==='Enter')doLogin()" />
+             onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="document.getElementById('login-overlay').classList.remove('show')">Cancel</button>
@@ -641,39 +914,39 @@ nav {
   </div>
 </div>
 
-<!-- ADD SEASON MODAL -->
-<div class="overlay" id="add-overlay" onclick="closeAdd(event)">
-  <div class="modal" onclick="event.stopPropagation()">
+<!-- Add Season overlay -->
+<div class="add-overlay" id="add-overlay" onclick="closeAddOverlay(event)">
+  <div class="add-modal" onclick="event.stopPropagation()">
     <div class="modal-title">Add New Season</div>
     <div class="form-row">
-      <div class="form-group"><label class="form-label">Season #</label><input class="form-input" id="f-id" placeholder="11" /></div>
-      <div class="form-group"><label class="form-label">Champion</label><input class="form-input" id="f-champ" placeholder="Team Name" /></div>
+      <div class="form-group"><label class="form-label">Season #</label><input class="form-input" id="f-id" placeholder="11"></div>
+      <div class="form-group"><label class="form-label">Champion</label><input class="form-input" id="f-champ" placeholder="Team Name"></div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label class="form-label">Champ Record</label><input class="form-input" id="f-rec" placeholder="18-2" /></div>
-      <div class="form-group"><label class="form-label">Defeated</label><input class="form-input" id="f-def" placeholder="Team Name" /></div>
+      <div class="form-group"><label class="form-label">Champ Record</label><input class="form-input" id="f-rec" placeholder="18-2"></div>
+      <div class="form-group"><label class="form-label">Defeated</label><input class="form-input" id="f-def" placeholder="Team Name"></div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label class="form-label">Opp Record</label><input class="form-input" id="f-drec" placeholder="10-4" /></div>
-      <div class="form-group"><label class="form-label">Series Result</label><input class="form-input" id="f-series" placeholder="2-0 (2 Games)" /></div>
+      <div class="form-group"><label class="form-label">Opp Record</label><input class="form-input" id="f-drec" placeholder="10-4"></div>
+      <div class="form-group"><label class="form-label">Series Result</label><input class="form-input" id="f-series" placeholder="2-0 (2 Games)"></div>
     </div>
-    <div class="form-group"><label class="form-label">Owners (comma-separated)</label><input class="form-input" id="f-owners" placeholder="Tom, Zpud, Minis" /></div>
-    <div class="form-group"><label class="form-label">Team of the Year</label><input class="form-input" id="f-toty" placeholder="Team Name" /></div>
-    <hr class="divider" />
+    <div class="form-group"><label class="form-label">Owners (comma-separated)</label><input class="form-input" id="f-owners" placeholder="Tom, Zpud, Minis"></div>
+    <div class="form-group"><label class="form-label">Team of the Year</label><input class="form-input" id="f-toty" placeholder="Team Name"></div>
+    <hr class="divider">
     <div class="form-label" style="margin-bottom:8px">Awards</div>
     <div class="awards-2col">
-      <div class="form-group"><label class="form-label">MVP</label><input class="form-input" id="f-mvp" placeholder="Player" /></div>
-      <div class="form-group"><label class="form-label">OPOTY</label><input class="form-input" id="f-opoty" placeholder="Player" /></div>
-      <div class="form-group"><label class="form-label">DPOTY</label><input class="form-input" id="f-dpoty" placeholder="Player" /></div>
-      <div class="form-group"><label class="form-label">PMOTY</label><input class="form-input" id="f-pmoty" placeholder="Player" /></div>
-      <div class="form-group"><label class="form-label">ROTY</label><input class="form-input" id="f-roty" placeholder="Player" /></div>
-      <div class="form-group"><label class="form-label">MIP</label><input class="form-input" id="f-mip" placeholder="Player" /></div>
-      <div class="form-group"><label class="form-label">CPOTY</label><input class="form-input" id="f-cpoty" placeholder="Player" /></div>
-      <div class="form-group"><label class="form-label">4MOTY / 5MOTY</label><input class="form-input" id="f-4moty" placeholder="Player" /></div>
+      <div class="form-group"><label class="form-label">MVP</label><input class="form-input" id="f-mvp" placeholder="Player"></div>
+      <div class="form-group"><label class="form-label">OPOTY</label><input class="form-input" id="f-opoty" placeholder="Player"></div>
+      <div class="form-group"><label class="form-label">DPOTY</label><input class="form-input" id="f-dpoty" placeholder="Player"></div>
+      <div class="form-group"><label class="form-label">PMOTY</label><input class="form-input" id="f-pmoty" placeholder="Player"></div>
+      <div class="form-group"><label class="form-label">ROTY</label><input class="form-input" id="f-roty" placeholder="Player"></div>
+      <div class="form-group"><label class="form-label">MIP</label><input class="form-input" id="f-mip" placeholder="Player"></div>
+      <div class="form-group"><label class="form-label">CPOTY</label><input class="form-input" id="f-cpoty" placeholder="Player"></div>
+      <div class="form-group"><label class="form-label">4MOTY / 5MOTY</label><input class="form-input" id="f-4moty" placeholder="Player"></div>
     </div>
-    <hr class="divider" />
+    <hr class="divider">
     <div class="form-label" style="margin-bottom:6px">Stat Leaders — format: Scoring:Name, Assists:Name</div>
-    <div class="form-group"><input class="form-input" id="f-stats" placeholder="Scoring:Dom, Assists:Kevv, Rebounds:Roji" /></div>
+    <div class="form-group"><input class="form-input" id="f-stats" placeholder="Scoring:Dom, Assists:Kevv, Rebounds:Roji"></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="document.getElementById('add-overlay').classList.remove('show')">Cancel</button>
       <button class="btn btn-gold" onclick="saveNewSeason()">Save Season</button>
@@ -682,17 +955,38 @@ nav {
 </div>
 
 <script>
-const AWARD_LABELS = {
-  MVP:'Most Valuable Player', OPOTY:'Off. Player of the Year', DPOTY:'Def. Player of the Year',
-  PMOTY:'Play-Making of the Year', ROTY:'Rookie of the Year',
-  MIP:'Most Improved Player', CPOTY:'Clutch Player of the Year',
-  '4MOTY':'4th Man of the Year', '5MOTY':'5th Man of the Year',
-  BMOTY:'Best Man of the Year', DEVOTY:'Development of the Year',
-  COTY:'Coach of the Year', ROY:'Rookie of the Year',
+/* ═══════════════════════════════════════
+   DATA
+═══════════════════════════════════════ */
+const AWARD_LABELS={
+  MVP:'Most Valuable Player',OPOTY:'Off. Player of the Year',
+  DPOTY:'Def. Player of the Year',PMOTY:'Play-Making of the Year',
+  ROTY:'Rookie of the Year',ROY:'Rookie of the Year',
+  MIP:'Most Improved Player',CPOTY:'Clutch Player of the Year',
+  '4MOTY':'4th Man of the Year','5MOTY':'5th Man of the Year',
+  BMOTY:'Best Man of the Year',DEVOTY:'Development of the Year',
+  COTY:'Coach of the Year',Cahmmie:'MVP (alt)'
 };
-const TEAM_KEYS = {first:'1st',second:'2nd',third:'3rd',defensive:'Def'};
+const TEAM_KEYS={first:'1st',second:'2nd',third:'3rd',defensive:'Def'};
 
-let seasons = [
+const ESPN_MAP={
+  'Atlanta Hawks':'atl','Boston Celtics':'bos','Brooklyn Nets':'bkn',
+  'Charlotte Hornets':'cha','Chicago Bulls':'chi','Cleveland Cavaliers':'cle',
+  'Dallas Mavericks':'dal','Denver Nuggets':'den','Detroit Pistons':'det',
+  'Golden State Warriors':'gs','Houston Rockets':'hou','Indiana Pacers':'ind',
+  'LA Clippers':'lac','Los Angeles Lakers':'lal','Memphis Grizzlies':'mem',
+  'Miami Heat':'mia','Milwaukee Bucks':'mil','Minnesota Timberwolves':'min',
+  'New Orleans Pelicans':'no','New York Knicks':'ny','Oklahoma City Thunder':'okc',
+  'Orlando Magic':'orl','Philadelphia 76ers':'phi','Phoenix Suns':'phx',
+  'Portland Trail Blazers':'por','Sacramento Kings':'sac','San Antonio Spurs':'sa',
+  'Toronto Raptors':'tor','Utah Jazz':'utah','Washington Wizards':'wsh'
+};
+const teamLogo=name=>{
+  const k=ESPN_MAP[name];
+  return k?`https://a.espncdn.com/i/teamlogos/nba/500/${k}.png`:'';
+};
+
+let seasons=[
   {id:1,champion:'Denver Nuggets',record:'7-0',defeated:'Boston Celtics',defeatedRecord:'6-2',seriesResult:'2-1 (3 Games)',
    owners:['Minis','Zpud','Northside','Chef_7s','Solarstix'],toty:'Boston Celtics',
    awards:{MVP:'Drake Tatum',OPOTY:'Chris James',DPOTY:'Mari Simons',ROY:'Omx Finney-Smith',MIP:'Zion Edwards',BMOTY:'Ben Towns',PMOTY:'Javon Doncic',CPOTY:'Chef','4MOTY':'Bomber Pritchard'},
@@ -767,7 +1061,7 @@ let seasons = [
            defensive:[{pos:'PG',name:'Minis'},{pos:'SG',name:'Mari'},{pos:'SF',name:'Cahmmie'},{pos:'PF',name:'Love'},{pos:'C',name:'Carter'}]}},
 ];
 
-const records = {
+const records={
   pts:{label:'Points',value:169,holder:'@meeeeeeooooow',team:'Spurs'},
   ast:{label:'Assists',value:64,holder:'@ionk_c & @v33223fs',team:'Rockets'},
   reb:{label:'Rebounds',value:54,holder:'@ionk_c',team:'Rockets'},
@@ -776,7 +1070,7 @@ const records = {
   tov:{label:'Turnovers',value:40,holder:'@treymeow11',team:'Trailblazers'},
 };
 
-const hofReqs = {
+const hofReqs={
   players:[
     'AT LEAST 3 seasons played',
     'Multiple All-Star appearances (3+)',
@@ -795,83 +1089,298 @@ const hofReqs = {
   ],
 };
 
-function renderSeasons() {
-  const grid = document.getElementById('seasons-grid');
-  const totalOwners = seasons.reduce((a,s) => a + (s.owners?.length||0), 0);
-  document.getElementById('hero-owners').textContent = totalOwners;
-  document.getElementById('hero-seasons').textContent = seasons.length;
-  document.getElementById('season-range-tag').textContent = `S1 – S${seasons.length}`;
-  grid.innerHTML = '';
-  [...seasons].reverse().forEach(s => {
-    const card = document.createElement('div');
-    card.className = 'season-card';
-    card.id = `season-${s.id}`;
-    const teamKeys = Object.keys(s.allRPL);
-    card.innerHTML = `
-      <div class="season-hdr" onclick="toggleSeason(${s.id})">
-        <div class="s-num">S${s.id}</div>
-        <div class="s-info">
-          <h3>${s.champion}</h3>
-          <div class="s-meta">def. ${s.defeated} (${s.defeatedRecord}) &mdash; ${s.seriesResult}</div>
-        </div>
-        <div class="s-badge"><small>Record</small><strong>${s.record}</strong></div>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-      <div class="season-body">
-        ${s.toty ? `<div class="toty-row"><span class="toty-label">Team of the Year</span><span class="toty-val">${s.toty}</span></div>` : ''}
-        ${s.owners?.length ? `<div class="chip-list">${s.owners.map(o=>`<span class="chip">${o}</span>`).join('')}</div>` : ''}
-        <div class="sb-grid">
-          <div class="sb-blk">
-            <div class="sb-blk-title">Season Awards</div>
-            <div class="award-list">
-              ${Object.entries(s.awards).map(([k,v]) => `
-                <div class="award-row">
-                  <span class="award-lbl">${AWARD_LABELS[k]||k}</span>
-                  <span class="award-win">${v}</span>
-                </div>`).join('')}
-            </div>
-          </div>
-          <div class="sb-blk">
-            <div class="sb-blk-title">All-RPL Teams</div>
-            <div class="allrpl-tabs" id="at-${s.id}">
-              ${teamKeys.map((k,i) => `<button class="at-btn${i===0?' active':''}" onclick="switchTeam(${s.id},'${k}',this)">${TEAM_KEYS[k]||k}</button>`).join('')}
-            </div>
-            ${teamKeys.map((k,i) => `
-              <div id="allrpl-${s.id}-${k}" style="${i===0?'':'display:none'}">
-                <table class="allrpl-tbl"><tbody>
-                  ${s.allRPL[k].map(p=>`<tr><td>${p.pos}</td><td>${p.name}</td></tr>`).join('')}
-                </tbody></table>
-              </div>`).join('')}
-          </div>
-          ${s.statLeaders ? `
-          <div class="sb-blk full-span">
-            <div class="sb-blk-title">Stat Leaders</div>
-            <div class="stat-grid">
-              ${Object.entries(s.statLeaders).map(([k,v]) => `
-                <div class="stat-item">
-                  <div class="stat-lbl">${k}</div>
-                  <div class="stat-val">${v}</div>
-                </div>`).join('')}
-            </div>
-          </div>` : ''}
-        </div>
-      </div>`;
-    grid.appendChild(card);
+/* ── Compute HOF inductees from data ── */
+function computeHOF(){
+  const MAJOR_AWARDS=['MVP','OPOTY','DPOTY','PMOTY'];
+  const MINOR_AWARDS=['MIP','CPOTY','4MOTY','5MOTY','BMOTY','ROTY','ROY','DEVOTY','COTY'];
+  const playerMap={};
+
+  seasons.forEach(s=>{
+    // All-RPL appearances
+    Object.values(s.allRPL||{}).forEach(team=>{
+      team.forEach(p=>{
+        if(!playerMap[p.name])playerMap[p.name]={name:p.name,rings:0,allRPL:0,majorAwards:[],minorAwards:[],rings_detail:[]};
+        playerMap[p.name].allRPL++;
+      });
+    });
+    // Awards
+    Object.entries(s.awards||{}).forEach(([k,v])=>{
+      if(!playerMap[v])playerMap[v]={name:v,rings:0,allRPL:0,majorAwards:[],minorAwards:[],rings_detail:[]};
+      if(MAJOR_AWARDS.includes(k))playerMap[v].majorAwards.push(`S${s.id} ${k}`);
+      else if(MINOR_AWARDS.includes(k))playerMap[v].minorAwards.push(`S${s.id} ${k}`);
+    });
+    // Championship rings — need to find who was on the winning team
+    // We'll check allRPL first team for champion
+    if(s.allRPL&&s.allRPL.first){
+      s.allRPL.first.forEach(p=>{
+        if(!playerMap[p.name])playerMap[p.name]={name:p.name,rings:0,allRPL:0,majorAwards:[],minorAwards:[],rings_detail:[]};
+      });
+    }
+    // Rings: we assign to MVP winner as proxy (champion's best player)
+    const mvpWinner=s.awards?.MVP;
+    if(mvpWinner){
+      if(!playerMap[mvpWinner])playerMap[mvpWinner]={name:mvpWinner,rings:0,allRPL:0,majorAwards:[],minorAwards:[],rings_detail:[]};
+      playerMap[mvpWinner].rings++;
+      playerMap[mvpWinner].rings_detail.push(`S${s.id}: ${s.champion}`);
+    }
   });
+
+  // Filter: 2+ major awards OR (1 major + 3+ all-rpl + 1+ minor)
+  const inductees=Object.values(playerMap).filter(p=>
+    p.majorAwards.length>=2 ||
+    (p.majorAwards.length>=1 && p.allRPL>=3 && p.minorAwards.length>=1)
+  );
+  inductees.sort((a,b)=>b.majorAwards.length-a.majorAwards.length||b.rings-a.rings||b.allRPL-a.allRPL);
+  return inductees;
 }
 
-function toggleSeason(id) {
-  document.getElementById(`season-${id}`).classList.toggle('open');
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let pg=1,pgHof=1;
+let currentTab='seasons';
+let isAdmin=false;
+let hofInductees=[];
+
+/* ═══════════════════════════════════════
+   UTILS
+═══════════════════════════════════════ */
+function toast(msg,c='gold',dur=5000){
+  const t=Object.assign(document.createElement('div'),{className:`toast ${c}`,textContent:msg});
+  document.getElementById('toasts').prepend(t);
+  setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),240)},dur);
 }
-function switchTeam(sid, key, btn) {
-  document.getElementById(`at-${sid}`).querySelectorAll('.at-btn').forEach(b => b.classList.remove('active'));
+
+function eraClass(id){
+  if(id<=3)return'era-1';
+  if(id<=6)return'era-2';
+  if(id<=8)return'era-3';
+  return'era-4';
+}
+
+/* ═══════════════════════════════════════
+   HERO STATS
+═══════════════════════════════════════ */
+function updateHeroStats(){
+  const uniqueChamps=new Set(seasons.map(s=>s.champion)).size;
+  const totalOwners=seasons.reduce((a,s)=>a+(s.owners?.length||0),0);
+  document.getElementById('hero-seasons').textContent=seasons.length;
+  document.getElementById('hero-owners').textContent=totalOwners;
+  document.getElementById('hero-champs').textContent=uniqueChamps;
+}
+
+/* ═══════════════════════════════════════
+   SEASONS TABLE
+═══════════════════════════════════════ */
+function getSeasonFilters(){
+  const tq=document.getElementById('f-team').value.trim().toLowerCase();
+  const sort=document.getElementById('f-sort').value;
+  let list=[...seasons];
+  if(tq)list=list.filter(s=>
+    s.champion.toLowerCase().includes(tq)||
+    s.defeated.toLowerCase().includes(tq)||
+    (s.toty||'').toLowerCase().includes(tq)||
+    (s.owners||[]).some(o=>o.toLowerCase().includes(tq))
+  );
+  list=sort==='asc'?list.sort((a,b)=>a.id-b.id):list.sort((a,b)=>b.id-a.id);
+  return list;
+}
+function getPPSeasons(){
+  const v=document.getElementById('f-pp').value;
+  return v==='all'?999999:parseInt(v,10)||10;
+}
+
+function renderSeasons(){
+  const filt=getSeasonFilters();
+  const pp=getPPSeasons();
+  const total=Math.max(1,Math.ceil(filt.length/pp));
+  if(pg>total)pg=total;
+
+  document.getElementById('seasons-ct').textContent=
+    filt.length===seasons.length
+      ?`${seasons.length} season${seasons.length!==1?'s':''}`
+      :`${filt.length}/${seasons.length}`;
+
+  const start=(pg-1)*pp;
+  const slice=pp>=999999?filt:filt.slice(start,start+pp);
+  const rowsEl=document.getElementById('hist-rows');
+  const emptyEl=document.getElementById('hist-empty');
+
+  if(!filt.length){
+    rowsEl.innerHTML='';
+    emptyEl.style.display='block';
+    document.getElementById('pager').style.display='none';
+    return;
+  }
+  emptyEl.style.display='none';
+
+  rowsEl.innerHTML=slice.map(s=>{
+    const logo=teamLogo(s.champion);
+    const defLogo=teamLogo(s.defeated);
+    return`<div class="hr ${eraClass(s.id)}" data-id="${s.id}" role="button" tabindex="0">
+      <span class="hn">${s.id}</span>
+      <span class="hm">
+        ${logo?`<img class="hm-logo" src="${logo}" alt="" loading="lazy">`:'<span class="hm-nolog"></span>'}
+        <span>
+          <div class="hm-champ">${s.champion}</div>
+          <div class="hm-sub">${(s.owners||[]).slice(0,3).join(', ')}${(s.owners||[]).length>3?` +${(s.owners||[]).length-3}`:''}${!s.owners?.length?'—':''}</div>
+        </span>
+      </span>
+      <span class="hs">${s.record}</span>
+      <span class="hdef">
+        ${defLogo?`<img class="hm-logo" src="${defLogo}" alt="" loading="lazy" style="vertical-align:middle;margin-right:4px">`:''}
+        ${s.defeated}
+      </span>
+      <span class="hser">${s.seriesResult}</span>
+      <span class="hdate">${s.toty||'—'}<span class="harrow">↗</span></span>
+    </div>`;
+  }).join('');
+
+  rowsEl.querySelectorAll('.hr').forEach(el=>{
+    const s=seasons.find(x=>x.id===parseInt(el.dataset.id,10));
+    el.addEventListener('click',()=>openModal(s));
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openModal(s)});
+  });
+
+  /* pager */
+  const pagerEl=document.getElementById('pager');
+  if(pp>=999999||total<=1){
+    if(pp>=999999){pagerEl.style.display='none';return}
+  }
+  pagerEl.style.display='flex';
+  document.getElementById('pg-info').textContent=`${start+1}–${Math.min(start+pp,filt.length)} of ${filt.length}`;
+  renderPagerBtns('pg-btns','p-prev','p-next',pg,total,(newPg)=>{pg=newPg;renderSeasons()});
+  const ji=document.getElementById('pg-jump');
+  ji.max=total;ji.value=pg;
+}
+
+function renderPagerBtns(btnsId,prevId,nextId,curPg,total,cb){
+  const btnsEl=document.getElementById(btnsId);
+  const W=2;let h='';
+  h+=`<button class="pb" id="${prevId}"${curPg<=1?' disabled':''}>‹ Prev</button>`;
+  const pages=[1];
+  for(let i=Math.max(2,curPg-W);i<=Math.min(total-1,curPg+W);i++)pages.push(i);
+  if(total>1)pages.push(total);
+  let last=0;
+  for(const p of pages){
+    if(p-last>1)h+=`<span class="pb-ellip">…</span>`;
+    h+=`<button class="pb${p===curPg?' cur':''}" data-pg="${p}">${p}</button>`;
+    last=p;
+  }
+  h+=`<button class="pb" id="${nextId}"${curPg>=total?' disabled':''}>Next ›</button>`;
+  btnsEl.innerHTML=h;
+  btnsEl.querySelector(`#${prevId}`)?.addEventListener('click',()=>{cb(curPg-1)});
+  btnsEl.querySelector(`#${nextId}`)?.addEventListener('click',()=>{cb(curPg+1)});
+  btnsEl.querySelectorAll('[data-pg]').forEach(b=>b.addEventListener('click',()=>cb(parseInt(b.dataset.pg,10))));
+}
+
+['f-team','f-sort','f-pp'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{pg=1;renderSeasons()}));
+document.getElementById('pg-jump').addEventListener('change',e=>{
+  const v=parseInt(e.target.value,10),tot=Math.max(1,Math.ceil(getSeasonFilters().length/getPPSeasons()));
+  if(v>=1&&v<=tot){pg=v;renderSeasons()}else e.target.value=pg;
+});
+
+/* ═══════════════════════════════════════
+   SEASON MODAL
+═══════════════════════════════════════ */
+function openModal(s){
+  if(!s)return;
+  const logo=teamLogo(s.champion);
+  const defLogo=teamLogo(s.defeated);
+
+  document.getElementById('m-matchup').innerHTML=`
+    <div class="mchamp">
+      <div style="display:flex;align-items:center;gap:10px">
+        ${logo?`<img src="${logo}" alt="" style="width:32px;height:32px;object-fit:contain">`:''}
+        <div>
+          <div class="mchamp-name">${s.champion}</div>
+          <div class="mchamp-rec">${s.record} record</div>
+        </div>
+      </div>
+    </div>
+    <span class="msep">def.</span>
+    <div class="mdef">
+      <div style="display:flex;align-items:center;gap:8px">
+        ${defLogo?`<img src="${defLogo}" alt="" style="width:26px;height:26px;object-fit:contain;opacity:.6">`:''}
+        <div>
+          <div class="mdef-name">${s.defeated}</div>
+          <div class="mdef-rec">${s.defeatedRecord} · ${s.seriesResult}</div>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('m-badge').textContent='Champion';
+  document.getElementById('m-season').textContent=`Season ${s.id}`;
+
+  const teamKeys=Object.keys(s.allRPL||{});
+  const allRplHtml=teamKeys.length?`
+    <div class="allrpl-tabs" id="m-at">
+      ${teamKeys.map((k,i)=>`<button class="at-btn${i===0?' active':''}" onclick="mSwitchTeam('${k}',this)">${TEAM_KEYS[k]||k}</button>`).join('')}
+    </div>
+    ${teamKeys.map((k,i)=>`
+      <div id="m-allrpl-${k}" style="${i===0?'':'display:none'}">
+        <table class="allrpl-tbl"><tbody>
+          ${(s.allRPL[k]||[]).map(p=>`<tr><td>${p.pos}</td><td>${p.name}</td></tr>`).join('')}
+        </tbody></table>
+      </div>`).join('')}`
+  :'<p style="font-size:12px;color:var(--mu);font-style:italic">Not recorded</p>';
+
+  const awardsHtml=Object.entries(s.awards||{}).map(([k,v])=>`
+    <div class="award-row">
+      <span class="award-lbl">${AWARD_LABELS[k]||k}</span>
+      <span class="award-win">${v}</span>
+    </div>`).join('');
+
+  const statHtml=s.statLeaders?`
+    <div class="stat-grid">
+      ${Object.entries(s.statLeaders).map(([k,v])=>`
+        <div class="stat-item">
+          <div class="stat-lbl">${k}</div>
+          <div class="stat-val">${v}</div>
+        </div>`).join('')}
+    </div>`:'<p style="font-size:12px;color:var(--mu);font-style:italic">Not recorded</p>';
+
+  document.getElementById('m-body').innerHTML=`
+    ${s.toty?`<div class="toty-row"><span class="toty-label">🏆 Team of the Year</span><span class="toty-val">${s.toty}</span></div>`:''}
+    ${s.owners?.length?`<div class="chip-list">${s.owners.map(o=>`<span class="chip">${o}</span>`).join('')}</div>`:''}
+    <div class="minfo">
+      <div class="icard">
+        <div class="ilbl">🏅 Season Awards</div>
+        ${awardsHtml||'<p style="font-size:12px;color:var(--mu);font-style:italic">None recorded</p>'}
+      </div>
+      <div class="icard">
+        <div class="ilbl">⭐ All-RPL Teams</div>
+        ${allRplHtml}
+      </div>
+    </div>
+    <div class="icard">
+      <div class="ilbl">📊 Stat Leaders</div>
+      ${statHtml}
+    </div>`;
+
+  document.getElementById('modal-bg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function mSwitchTeam(key,btn){
+  document.getElementById('m-at').querySelectorAll('.at-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById(`season-${sid}`).querySelectorAll('[id^="allrpl-"]').forEach(el => {
-    el.style.display = el.id === `allrpl-${sid}-${key}` ? '' : 'none';
+  document.querySelectorAll('[id^="m-allrpl-"]').forEach(el=>{
+    el.style.display=el.id===`m-allrpl-${key}`?'':'none';
   });
 }
-function renderRecords() {
-  document.getElementById('records-grid').innerHTML = Object.values(records).map(r => `
+function closeModal(){
+  document.getElementById('modal-bg').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('m-close').addEventListener('click',closeModal);
+document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target.id==='modal-bg')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeLoginOverlay({target:{}});closeAddOverlay({target:{}})}});
+
+/* ═══════════════════════════════════════
+   RECORDS
+═══════════════════════════════════════ */
+function renderRecords(){
+  document.getElementById('records-grid').innerHTML=Object.values(records).map(r=>`
     <div class="rec-card">
       <div class="rec-stat">${r.label}</div>
       <div class="rec-val">${r.value}</div>
@@ -879,9 +1388,75 @@ function renderRecords() {
       <div class="rec-team">${r.team}</div>
     </div>`).join('');
 }
-function renderHOF() {
-  document.getElementById('hof-grid').innerHTML = `
+
+/* ═══════════════════════════════════════
+   HOF
+═══════════════════════════════════════ */
+function getHofFilter(){
+  const tq=document.getElementById('f-hof').value.trim().toLowerCase();
+  return tq?hofInductees.filter(p=>p.name.toLowerCase().includes(tq)):hofInductees;
+}
+const PG_HOF=10;
+
+function renderHOF(){
+  hofInductees=computeHOF();
+  renderHOFRows();
+  renderHOFReqs();
+}
+
+function renderHOFRows(){
+  const filt=getHofFilter();
+  const total=Math.max(1,Math.ceil(filt.length/PG_HOF));
+  if(pgHof>total)pgHof=total;
+  const start=(pgHof-1)*PG_HOF;
+  const slice=filt.slice(start,start+PG_HOF);
+
+  document.getElementById('hof-ct').textContent=`${hofInductees.length} inductee${hofInductees.length!==1?'s':''}`;
+
+  const rowsEl=document.getElementById('hof-rows');
+  if(!filt.length){
+    rowsEl.innerHTML=`<div class="hist-empty">No players match your search.</div>`;
+    document.getElementById('pager-hof').style.display='none';
+    return;
+  }
+
+  rowsEl.innerHTML=slice.map((p,i)=>{
+    const rank=start+i+1;
+    const allBadges=[
+      ...p.majorAwards.map(a=>`<span class="hof-badge gold">${a}</span>`),
+      ...p.minorAwards.slice(0,3).map(a=>`<span class="hof-badge green">${a}</span>`),
+      p.allRPL>0?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`:'',
+    ].filter(Boolean).join('');
+    return`<div class="hof-ind-row">
+      <span class="hof-rn">${rank}</span>
+      <span>
+        <div class="hof-name">${p.name}</div>
+      </span>
+      <span class="hof-rings">${p.rings>0?'🏆'.repeat(Math.min(p.rings,5))+(p.rings>5?` ×${p.rings}`:''):'—'}</span>
+      <span class="hof-mvps">${p.majorAwards.length}</span>
+      <span class="hof-awards-cell"><div class="hof-badge-wrap">${allBadges}</div></span>
+    </div>`;
+  }).join('');
+
+  const pagerEl=document.getElementById('pager-hof');
+  if(total<=1){pagerEl.style.display='none';return}
+  pagerEl.style.display='flex';
+  document.getElementById('pg-info-hof').textContent=`${start+1}–${Math.min(start+PG_HOF,filt.length)} of ${filt.length}`;
+  renderPagerBtns('pg-btns-hof','p-prev-hof','p-next-hof',pgHof,total,(newPg)=>{pgHof=newPg;renderHOFRows()});
+  const ji=document.getElementById('pg-jump-hof');
+  ji.max=total;ji.value=pgHof;
+}
+
+document.getElementById('f-hof').addEventListener('input',()=>{pgHof=1;renderHOFRows()});
+document.getElementById('pg-jump-hof').addEventListener('change',e=>{
+  const v=parseInt(e.target.value,10),tot=Math.max(1,Math.ceil(getHofFilter().length/PG_HOF));
+  if(v>=1&&v<=tot){pgHof=v;renderHOFRows()}else e.target.value=pgHof;
+});
+
+function renderHOFReqs(){
+  document.getElementById('hof-reqs-grid').innerHTML=`
     <div class="hof-card">
+      <div class="hof-card::before"></div>
       <div class="hof-hdr">
         <div class="hof-icon-wrap">🏀</div>
         <div><div class="hof-title">Players HOF</div><div class="hof-sub">Player eligibility criteria</div></div>
@@ -896,86 +1471,110 @@ function renderHOF() {
       <div class="hof-reqs">${hofReqs.coaches.map(r=>`<div class="hof-req"><div class="hof-req-dot"></div>${r}</div>`).join('')}</div>
     </div>`;
 }
-function showTab(tab) {
-  ['seasons','records','hof'].forEach(t => {
-    document.getElementById(`pane-${t}`).classList.toggle('hidden', t !== tab);
+
+/* ═══════════════════════════════════════
+   TABS
+═══════════════════════════════════════ */
+function showTab(tab, el){
+  currentTab=tab;
+  ['seasons','records','hof'].forEach(t=>{
+    document.getElementById(`pane-${t}`).classList.toggle('hidden',t!==tab);
   });
-  document.querySelectorAll('.tab-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.tab === tab);
+  // update kc buttons
+  document.querySelectorAll('.kc[data-tab]').forEach(k=>{
+    k.classList.toggle('active',k.dataset.tab===tab);
   });
+  if(el){el.classList.add('active')}
+  // lazy render
+  if(tab==='records')renderRecords();
+  if(tab==='hof')renderHOF();
 }
-let isAdmin = false;
-function adminClick() {
-  if (isAdmin) { logoutAdmin(); return; }
+
+/* ═══════════════════════════════════════
+   ADMIN
+═══════════════════════════════════════ */
+function adminClick(el){
+  if(isAdmin){logoutAdmin();return}
   document.getElementById('login-overlay').classList.add('show');
-  setTimeout(() => document.getElementById('pw-input').focus(), 80);
+  setTimeout(()=>document.getElementById('pw-input').focus(),80);
 }
-function closeLogin(e) {
-  if (e.target === document.getElementById('login-overlay'))
+function closeLoginOverlay(e){
+  if(e.target===document.getElementById('login-overlay'))
     document.getElementById('login-overlay').classList.remove('show');
 }
-async function doLogin() {
-  const pw = document.getElementById('pw-input').value;
-  const errEl = document.getElementById('login-err');
+async function doLogin(){
+  const pw=document.getElementById('pw-input').value;
+  const errEl=document.getElementById('login-err');
   errEl.classList.remove('show');
-  const ADMIN_HASH = 'b42f12b1540564489141a4277a848aade59609c6bcec49259941a52c064b5a20';
-  const enc = new TextEncoder();
-  const buf = await crypto.subtle.digest('SHA-256', enc.encode(pw));
-  const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-  if (hex === ADMIN_HASH) {
-    isAdmin = true;
+  const ADMIN_HASH='b42f12b1540564489141a4277a848aade59609c6bcec49259941a52c064b5a20';
+  const enc=new TextEncoder();
+  const buf=await crypto.subtle.digest('SHA-256',enc.encode(pw));
+  const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  if(hex===ADMIN_HASH){
+    isAdmin=true;
     document.getElementById('login-overlay').classList.remove('show');
-    document.getElementById('pw-input').value = '';
-    document.getElementById('admin-bar').classList.remove('hidden');
-    const btn = document.getElementById('nav-admin');
-    btn.textContent = 'Admin Active';
-    btn.classList.add('active');
-  } else {
+    document.getElementById('pw-input').value='';
+    document.getElementById('admin-bar').classList.add('on');
+    document.getElementById('admin-kc-lbl').textContent='Active';
+    document.querySelectorAll('.kc[data-tab="admin"]').forEach(k=>k.classList.add('active'));
+    toast('Admin mode activated','green',3000);
+  }else{
     errEl.classList.add('show');
   }
 }
-function logoutAdmin() {
-  isAdmin = false;
-  document.getElementById('admin-bar').classList.add('hidden');
-  const btn = document.getElementById('nav-admin');
-  btn.textContent = 'Admin';
-  btn.classList.remove('active');
+function logoutAdmin(){
+  isAdmin=false;
+  document.getElementById('admin-bar').classList.remove('on');
+  document.getElementById('admin-kc-lbl').textContent='Admin';
+  document.querySelectorAll('.kc[data-tab="admin"]').forEach(k=>k.classList.remove('active'));
+  // restore active tab
+  document.querySelectorAll('.kc[data-tab]').forEach(k=>{
+    k.classList.toggle('active',k.dataset.tab===currentTab);
+  });
+  toast('Logged out','amber',2500);
 }
-function openAddSeason() { document.getElementById('add-overlay').classList.add('show'); }
-function closeAdd(e) {
-  if (e.target === document.getElementById('add-overlay'))
+function openAddSeason(){document.getElementById('add-overlay').classList.add('show')}
+function closeAddOverlay(e){
+  if(e.target===document.getElementById('add-overlay'))
     document.getElementById('add-overlay').classList.remove('show');
 }
-function saveNewSeason() {
-  const g = id => document.getElementById(id).value.trim();
-  const statsRaw = g('f-stats');
-  const statLeaders = {};
-  if (statsRaw) statsRaw.split(',').forEach(part => {
-    const [k,v] = part.split(':');
-    if (k && v) statLeaders[k.trim()] = v.trim();
-  });
-  const newS = {
-    id: parseInt(g('f-id')) || seasons.length + 1,
-    champion: g('f-champ'), record: g('f-rec'), defeated: g('f-def'),
-    defeatedRecord: g('f-drec'), seriesResult: g('f-series'),
-    owners: g('f-owners').split(',').map(s => s.trim()).filter(Boolean),
-    toty: g('f-toty'),
-    awards: {
-      MVP:g('f-mvp'), OPOTY:g('f-opoty'), DPOTY:g('f-dpoty'),
-      PMOTY:g('f-pmoty'), ROTY:g('f-roty'), MIP:g('f-mip'),
-      CPOTY:g('f-cpoty'), '4MOTY':g('f-4moty'),
-    },
+function saveNewSeason(){
+  const g=id=>document.getElementById(id).value.trim();
+  const statsRaw=g('f-stats');
+  const statLeaders={};
+  if(statsRaw)statsRaw.split(',').forEach(part=>{const[k,v]=part.split(':');if(k&&v)statLeaders[k.trim()]=v.trim()});
+  const newS={
+    id:parseInt(g('f-id'))||seasons.length+1,
+    champion:g('f-champ'),record:g('f-rec'),defeated:g('f-def'),
+    defeatedRecord:g('f-drec'),seriesResult:g('f-series'),
+    owners:g('f-owners').split(',').map(s=>s.trim()).filter(Boolean),
+    toty:g('f-toty'),
+    awards:{MVP:g('f-mvp'),OPOTY:g('f-opoty'),DPOTY:g('f-dpoty'),PMOTY:g('f-pmoty'),ROTY:g('f-roty'),MIP:g('f-mip'),CPOTY:g('f-cpoty'),'4MOTY':g('f-4moty')},
     allRPL:{first:[]},
-    ...(Object.keys(statLeaders).length ? {statLeaders} : {}),
+    ...(Object.keys(statLeaders).length?{statLeaders}:{}),
   };
-  Object.keys(newS.awards).forEach(k => { if (!newS.awards[k]) delete newS.awards[k]; });
+  Object.keys(newS.awards).forEach(k=>{if(!newS.awards[k])delete newS.awards[k]});
   seasons.push(newS);
   document.getElementById('add-overlay').classList.remove('show');
+  updateHeroStats();
   renderSeasons();
+  // flash newest row
+  setTimeout(()=>{
+    const rows=document.querySelectorAll('.hr');
+    if(rows.length){rows[0].classList.add('flash');setTimeout(()=>rows[0].classList.remove('flash'),1900)}
+  },100);
+  toast(`Season ${newS.id} added — ${newS.champion}`,'green');
+  // clear fields
+  ['f-id','f-champ','f-rec','f-def','f-drec','f-series','f-owners','f-toty',
+   'f-mvp','f-opoty','f-dpoty','f-pmoty','f-roty','f-mip','f-cpoty','f-4moty','f-stats']
+  .forEach(id=>{document.getElementById(id).value=''});
 }
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+updateHeroStats();
 renderSeasons();
-renderRecords();
-renderHOF();
 </script>
 </body>
 </html>
