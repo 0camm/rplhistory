@@ -21,6 +21,7 @@
   --pur:#c084fc;--pur-d:rgba(192,132,252,.09);--pur-border:rgba(192,132,252,.25);
   --cy:#22d3ee;--cy-d:rgba(34,211,238,.09);--cy-border:rgba(34,211,238,.22);
   --pink:#f472b6;--pink-d:rgba(244,114,182,.09);--pink-border:rgba(244,114,182,.22);
+  --silver:#a0a0b8;--silver-d:rgba(160,160,184,.09);--silver-border:rgba(160,160,184,.25);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -55,8 +56,6 @@ body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-si
 .kc-pip.seasons{background:var(--gold-hi)}.kc-pip.records{background:var(--bl)}.kc-pip.hof{background:var(--gr)}.kc-pip.players{background:var(--red)}.kc-pip.admin{background:var(--am)}.kc-pip.allstar{background:var(--pink)}
 .kc-code{font-weight:700;color:var(--tx2);font-family:'JetBrains Mono',monospace;font-size:10px}
 .kc-lbl{color:var(--mu);font-size:10px}
-.alert{display:none;margin:12px 20px 0;padding:10px 14px;font-size:12px;color:var(--mu);background:var(--s1);border:1px solid var(--b);border-left:3px solid var(--am);border-radius:0 7px 7px 0}
-.alert.on{display:block}
 .main{padding:24px 20px 72px;width:100%}
 .sec-hd{margin-bottom:14px;width:100%}
 .sec-hd-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
@@ -124,9 +123,8 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .hof-ind-row:last-child{border-bottom:none}
 .hof-ind-row:hover{background:rgba(255,255,255,.02)}
 .hof-ind-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
-.hof-ind-row.tier-first-ballot::before{background:var(--gold)}
-.hof-ind-row.tier-hof::before{background:var(--gr)}
-.hof-ind-row.tier-hovg::before{background:var(--bl)}
+.hof-ind-row.tier-hof::before{background:var(--gold)}
+.hof-ind-row.tier-ring-of-honor::before{background:var(--silver)}
 .hof-rn{font-size:10px;color:var(--mu2);text-align:center;font-family:'JetBrains Mono',monospace}
 .hof-name{font-size:12px;font-weight:600;color:#fff}
 .hof-name-sub{font-size:10px;color:var(--mu);margin-top:1px}
@@ -143,6 +141,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .hof-badge.purple{background:var(--pur-d);color:var(--pur);border:1px solid var(--pur-border)}
 .hof-badge.cyan{background:var(--cy-d);color:var(--cy);border:1px solid var(--cy-border)}
 .hof-badge.pink{background:var(--pink-d);color:var(--pink);border:1px solid var(--pink-border)}
+.hof-badge.silver{background:var(--silver-d);color:var(--silver);border:1px solid var(--silver-border)}
 .hof-harrow{color:var(--gold);font-size:10px;opacity:0;transform:translateX(-3px);transition:opacity .14s,transform .14s;margin-left:4px}
 .hof-ind-row:hover .hof-harrow{opacity:1;transform:none}
 .players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--b);border:1px solid var(--b);border-radius:12px;overflow:hidden}
@@ -210,6 +209,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .prf-name{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.03em;color:#fff;line-height:1}
 .prf-sub{font-size:11px;color:var(--mu);margin-top:4px}
 .prf-hof-badge{display:inline-flex;align-items:center;gap:5px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:5px;padding:3px 9px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-hi);margin-top:6px}
+.prf-hof-badge.roh{background:var(--silver-d);border-color:var(--silver-border);color:var(--silver)}
 .prf-stat-row{display:flex;flex-wrap:wrap;gap:8px}
 .prf-big-stat{display:flex;flex-direction:column;align-items:center;background:var(--s3);border:1px solid var(--b);border-radius:8px;padding:10px 16px;min-width:52px}
 .prf-bsv{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;color:var(--gold-hi)}
@@ -237,10 +237,11 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .hof-score-bar{height:4px;border-radius:2px;background:var(--s3);margin-top:4px;overflow:hidden}
 .hof-score-fill{height:100%;border-radius:2px;transition:width .4s ease}
 .hof-tier-badge{display:inline-flex;align-items:center;gap:4px;font-size:8px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:2px 6px;border-radius:3px;white-space:nowrap}
-.hof-tier-badge.first-ballot{background:rgba(240,185,60,.2);color:var(--gold-hi);border:1px solid var(--gold-border)}
-.hof-tier-badge.hof{background:var(--gr-d);color:var(--gr);border:1px solid rgba(24,212,100,.18)}
-.hof-tier-badge.hovg{background:var(--bl-d);color:var(--bl);border:1px solid rgba(91,156,246,.18)}
+.hof-tier-badge.hof{background:rgba(240,185,60,.2);color:var(--gold-hi);border:1px solid var(--gold-border)}
+.hof-tier-badge.ring-of-honor{background:var(--silver-d);color:var(--silver);border:1px solid var(--silver-border)}
 .hof-tier-badge.not-eligible{background:var(--s3);color:var(--mu);border:1px solid var(--b)}
+.hof-section-divider{padding:8px 14px;background:var(--s3);border-bottom:1px solid var(--b);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
+.hof-section-divider.roh{color:var(--silver)}
 .allstar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1px;background:var(--b);border:1px solid var(--b);border-radius:12px;overflow:hidden;margin-top:12px}
 .allstar-card{background:var(--s1);padding:16px;position:relative;overflow:hidden;transition:background .15s;cursor:pointer}
 .allstar-card:hover{background:var(--s2)}
@@ -329,8 +330,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .admin-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-hi)}
 .btn-row{display:flex;gap:8px}
 .btn-outline{background:transparent;border:1px solid var(--b);color:var(--mu)}
-@keyframes rfl{0%{background:rgba(212,146,42,.08)}100%{background:transparent}}
-.hr.flash{animation:rfl 1.8s ease forwards}
 .hidden{display:none!important}
 @media(max-width:640px){
   .hero{padding:20px 16px 18px}.hero-h1{font-size:34px}.hero-top{gap:12px}
@@ -441,7 +440,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
       <div class="sec-hd-top"><span class="sec-title">Hall of Fame</span><span class="sec-ct" id="hof-ct">0 inductees</span><div class="sec-rule"></div></div>
       <div class="filters">
         <input class="fc fc-search" id="f-hof" placeholder="Search player…" autocomplete="off">
-        <select class="fc" id="f-hof-tier"><option value="all">All Tiers</option><option value="first-ballot">First Ballot</option><option value="hof">Hall of Fame</option><option value="hovg">Hall of Very Good</option></select>
+        <select class="fc" id="f-hof-tier"><option value="all">All Tiers</option><option value="hof">Hall of Fame</option><option value="ring-of-honor">Ring of Honor</option></select>
         <select class="fc" id="f-hof-sort"><option value="score">HOF Score</option><option value="rings">Rings</option><option value="major">Major Awards</option><option value="fmvp">Finals MVPs</option></select>
       </div>
     </div>
@@ -455,7 +454,10 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
       <div class="pg-jump"><span class="pg-jlbl">Page</span><input class="pg-jin" id="pg-jump-hof" type="number" min="1" value="1"></div>
     </div>
     <div class="sec-hd" style="margin-top:28px"><div class="sec-hd-top"><span class="sec-title">HOF Scoring System</span><div class="sec-rule"></div></div></div>
-    <div style="background:var(--s1);border:1px solid var(--b);border-radius:11px;padding:18px;max-width:700px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" id="hof-scoring-grid"></div></div>
+    <div style="background:var(--s1);border:1px solid var(--b);border-radius:11px;padding:18px;max-width:700px">
+      <div style="margin-bottom:12px;font-size:11px;color:var(--mu);line-height:1.6">Mirroring real NBA HOF criteria: individual awards dominate, championships add weight, consistent presence counts. <span style="color:var(--gold-hi)">HOF</span> = 50+ pts · <span style="color:var(--silver)">Ring of Honor</span> = 30–49 pts (borderline / great career, not quite inducted).</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" id="hof-scoring-grid"></div>
+    </div>
   </div>
   <!-- PLAYERS -->
   <div id="pane-players" class="hidden">
@@ -507,7 +509,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
             <button class="btn btn-gold" onclick="openHofInductModal()">+ Manual Induction</button>
           </div>
           <div class="tbl-wrap" style="margin-bottom:20px"><table class="admin-table"><thead><tr><th>Player</th><th>Tier</th><th>HOF Score</th><th>Rings</th><th>Major</th><th>Action</th></tr></thead><tbody id="admin-hof-tbody"></tbody></table></div>
-          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Candidates (Near Eligibility)</div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Candidates (Approaching Eligibility)</div>
           <div><div class="hof-candidate-row candidate-hd"><span>Player</span><span style="text-align:center">HOF Score</span><span style="text-align:center">Status</span></div><div id="hof-candidates-list"></div></div>
         </div>
         <div class="admin-pane" id="apane-records-mgmt">
@@ -593,7 +595,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
     <div class="modal-title">HOF Manual Induction</div>
     <div class="form-group"><label class="form-label">Player Name</label><input class="form-input" id="hof-induct-name" placeholder="Player name"></div>
     <div class="form-group"><label class="form-label">Tier</label>
-      <select class="form-input" id="hof-induct-tier"><option value="first-ballot">First Ballot</option><option value="hof">Hall of Fame</option><option value="hovg">Hall of Very Good</option></select>
+      <select class="form-input" id="hof-induct-tier"><option value="hof">Hall of Fame</option><option value="ring-of-honor">Ring of Honor</option></select>
     </div>
     <div class="form-group"><label class="form-label">Notes</label><input class="form-input" id="hof-induct-notes" placeholder="Reason…"></div>
     <div class="modal-actions"><button class="btn-cancel" onclick="document.getElementById('hof-induct-overlay').classList.remove('show')">Cancel</button><button class="btn btn-gold" onclick="manualHofInduct()">Induct</button></div>
@@ -708,8 +710,49 @@ let records={
   tov:{label:'Turnovers',value:40,holder:'trey',team:'Trailblazers'},
 };
 
-const HOF_WEIGHTS={ring:12,fmvp:10,MVP:15,OPOTY:10,DPOY:10,PMOTY:8,MIP:4,CPOTY:4,'4MOTY':3,'5MOTY':3,BMOTY:4,ROTY:3,DEVOTY:2,allRPL_1st:5,allRPL_2nd:3,allRPL_3rd:2,allRPL_def:4,statLead:2,allStar_win:3,allStar_mvp:5,dunk:2,skills:2,threepoint:2,seasons:1};
-const HOF_SCORE_LABELS=[{key:'ring',label:'Championship Ring',pts:12,color:'gold'},{key:'fmvp',label:'Finals MVP',pts:10,color:'purple'},{key:'MVP',label:'Regular Season MVP',pts:15,color:'gold'},{key:'OPOTY',label:'Offensive Player of Year',pts:10,color:'green'},{key:'DPOY',label:'Defensive Player of Year',pts:10,color:'green'},{key:'PMOTY',label:'Play-Making of Year',pts:8,color:'green'},{key:'allRPL_1st',label:'1st Team All-RPL',pts:5,color:'blue'},{key:'allStar_win',label:'All-Star Game Win',pts:3,color:'pink'},{key:'allStar_mvp',label:'All-Star Game MVP',pts:5,color:'pink'},{key:'statLead',label:'Stat Title',pts:2,color:'cyan'}];
+// HOF WEIGHTS — mirrors real NBA HOF emphasis
+// Individual awards dominate, rings add weight, consistency counts
+const HOF_WEIGHTS={
+  ring:15,        // championships: important but can be carried
+  fmvp:12,        // Finals MVP: proves you were THE guy
+  MVP:18,         // regular season MVP: highest individual honor
+  OPOTY:12,       // major award
+  DPOY:12,        // major award
+  PMOTY:8,        // secondary major
+  CPOTY:4,MIP:4,BMOTY:4,
+  '4MOTY':3,'5MOTY':3,ROTY:3,DEVOTY:2,
+  allRPL_1st:6,   // All-NBA equivalent — first team is prestigious
+  allRPL_2nd:4,
+  allRPL_3rd:2,
+  allRPL_def:5,   // All-Defensive team
+  statLead:2,
+  allStar_win:2,  // All-Star game win
+  allStar_mvp:4,  // All-Star MVP
+  dunk:2,skills:2,threepoint:2,
+  seasons:1,      // longevity/consistency
+};
+
+// HOF thresholds — two tiers only (no "Hall of Very Good")
+// HOF: 50+ (inducted)
+// Ring of Honor: 30-49 (honored, not inducted — like real franchise rings of honor for near-misses)
+// Below 30: not eligible
+
+const HOF_SCORE_LABELS=[
+  {key:'MVP',label:'Season MVP',pts:18,color:'gold'},
+  {key:'ring',label:'Championship ring',pts:15,color:'gold'},
+  {key:'fmvp',label:'Finals MVP',pts:12,color:'purple'},
+  {key:'OPOTY',label:'Off. Player of the Year',pts:12,color:'green'},
+  {key:'DPOY',label:'Def. Player of the Year',pts:12,color:'green'},
+  {key:'PMOTY',label:'Play-Making of the Year',pts:8,color:'green'},
+  {key:'allRPL_1st',label:'1st Team All-RPL',pts:6,color:'blue'},
+  {key:'allRPL_def',label:'All-RPL Defensive Team',pts:5,color:'blue'},
+  {key:'allRPL_2nd',label:'2nd Team All-RPL',pts:4,color:'blue'},
+  {key:'allStar_mvp',label:'All-Star Game MVP',pts:4,color:'pink'},
+  {key:'CPOTY',label:'Clutch / MIP / BMOTY',pts:4,color:'cyan'},
+  {key:'allRPL_3rd',label:'3rd Team All-RPL',pts:2,color:'blue'},
+  {key:'allStar_win',label:'All-Star game win',pts:2,color:'pink'},
+  {key:'statLead',label:'Stat title (per season)',pts:2,color:'cyan'},
+];
 
 function computeHofScore(p){
   let score=0;
@@ -728,16 +771,31 @@ function computeHofScore(p){
   if(as){score+=as.wins*HOF_WEIGHTS.allStar_win;score+=as.mvps*HOF_WEIGHTS.allStar_mvp;score+=as.dunk*HOF_WEIGHTS.dunk;score+=as.skills*HOF_WEIGHTS.skills;score+=as.threepoint*HOF_WEIGHTS.threepoint;}
   return Math.round(score);
 }
+
 function hofTier(score,p,manual){
   if(manual)return manual;
-  if(score>=80)return'first-ballot';
-  if(score>=55)return'hof';
-  if(score>=30)return'hovg';
+  if(score>=50)return'hof';
+  if(score>=30)return'ring-of-honor';
   return'not-eligible';
 }
-function tierLabel(t){return t==='first-ballot'?'First Ballot':t==='hof'?'Hall of Fame':t==='hovg'?'Hall of Very Good':'Not Eligible';}
-function scoreColor(s){return s>=80?'var(--gold-hi)':s>=55?'var(--gr)':s>=30?'var(--bl)':'var(--mu)';}
-function playerTier(p){const s=computeHofScore(p);if(s>=80||p.rings>=2||p.fmvpAwards.length>=2)return'elite';if(s>=55||p.majorAwards.length>=2||p.allRPL>=6||p.fmvpAwards.length>=1)return'great';if(s>=30||p.majorAwards.length>=1||p.allRPL>=3||p.statLeads.length>=2)return'good';return'role';}
+
+function tierLabel(t){
+  if(t==='hof')return'Hall of Fame';
+  if(t==='ring-of-honor')return'Ring of Honor';
+  return'Not Eligible';
+}
+
+function scoreColor(s){
+  return s>=50?'var(--gold-hi)':s>=30?'var(--silver)':'var(--mu)';
+}
+
+function playerTier(p){
+  const s=computeHofScore(p);
+  if(s>=80||p.rings>=2||p.fmvpAwards.length>=2)return'elite';
+  if(s>=50||p.majorAwards.length>=2||p.allRPL>=6||p.fmvpAwards.length>=1)return'great';
+  if(s>=30||p.majorAwards.length>=1||p.allRPL>=3||p.statLeads.length>=2)return'good';
+  return'role';
+}
 
 let hofManualInductions={};
 let hofManualRemovals=new Set();
@@ -801,15 +859,29 @@ function buildPlayerMap(){
 }
 
 function computeHOF(playerMap){
-  return Object.values(playerMap).filter(p=>{
+  // HOF inductees: score >= 50 OR manual induction
+  const hofMembers=Object.values(playerMap).filter(p=>{
     if(hofManualRemovals.has(p.name))return false;
     if(hofManualInductions[p.name])return true;
-    return computeHofScore(p)>=30;
+    return computeHofScore(p)>=50;
   }).map(p=>{
     const score=computeHofScore(p);
     const manualTier=hofManualInductions[p.name]?.tier;
-    return Object.assign({},p,{hofScore:score,hofTier:hofTier(score,p,manualTier)});
-  }).sort((a,b)=>b.hofScore-a.hofScore);
+    return Object.assign({},p,{hofScore:score,hofTier:hofTier(score,p,manualTier),isHofMember:true});
+  });
+
+  // Ring of Honor: score 30-49, not in HOF, not manually removed
+  const hofNames=new Set(hofMembers.map(p=>p.name));
+  const ringOfHonor=Object.values(playerMap).filter(p=>{
+    if(hofManualRemovals.has(p.name))return false;
+    if(hofNames.has(p.name))return false;
+    return computeHofScore(p)>=30&&computeHofScore(p)<50;
+  }).map(p=>{
+    const score=computeHofScore(p);
+    return Object.assign({},p,{hofScore:score,hofTier:'ring-of-honor',isHofMember:false});
+  });
+
+  return [...hofMembers,...ringOfHonor].sort((a,b)=>b.hofScore-a.hofScore);
 }
 
 let careerRecords=[];
@@ -838,7 +910,6 @@ function buildCareerRecords(pm){
   seasonRecords.unshift({label:'Most Wins in a Season',type:'season',value:maxWins,holder:mws?.champion||'—',note:`Season ${mws?.id||'?'}`});
 }
 
-// State
 let pg=1,pgHof=1,pgPlayers=1,currentTab='seasons',isAdmin=false;
 let hofInductees=[],playerMap={},allPlayers=[];
 
@@ -1034,11 +1105,22 @@ function renderHOFRows(){
   const total=Math.max(1,Math.ceil(filt.length/PG_HOF));
   if(pgHof>total)pgHof=total;
   const start=(pgHof-1)*PG_HOF,slice=filt.slice(start,start+PG_HOF);
-  document.getElementById('hof-ct').textContent=`${hofInductees.length} inductee${hofInductees.length!==1?'s':''}`;
+  const hofCount=hofInductees.filter(p=>p.hofTier==='hof').length;
+  document.getElementById('hof-ct').textContent=`${hofCount} inductee${hofCount!==1?'s':''}`;
   const rowsEl=document.getElementById('hof-rows');
   if(!filt.length){rowsEl.innerHTML=`<div class="hist-empty">No players match.</div>`;document.getElementById('pager-hof').style.display='none';return;}
-  rowsEl.innerHTML=slice.map((p,i)=>{
+
+  // Group by tier for section dividers
+  let html='';
+  let lastTier=null;
+  slice.forEach((p,i)=>{
     const rank=start+i+1;
+    if(p.hofTier!==lastTier){
+      if(p.hofTier==='ring-of-honor'){
+        html+=`<div class="hof-section-divider roh">Ring of Honor — Great careers, honored but not inducted</div>`;
+      }
+      lastTier=p.hofTier;
+    }
     const as=allStarData[p.name]||{apps:0};
     const sc=scoreColor(p.hofScore);
     const badges=[
@@ -1049,7 +1131,7 @@ function renderHOFRows(){
       p.allRPL?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`:'',
       as.wins?`<span class="hof-badge pink">⭐ AS ×${as.wins}</span>`:'',
     ].filter(Boolean).join('');
-    return`<div class="hof-ind-row tier-${p.hofTier}" data-name="${p.name}" role="button" tabindex="0">
+    html+=`<div class="hof-ind-row tier-${p.hofTier}" data-name="${p.name}" role="button" tabindex="0">
       <span class="hof-rn">${rank}</span>
       <span><div class="hof-name">${p.name}<span class="hof-harrow">↗</span></div><div class="hof-name-sub"><span class="hof-tier-badge ${p.hofTier}">${tierLabel(p.hofTier)}</span></div></span>
       <span class="hof-rings">${p.rings>0?'🏆'.repeat(Math.min(p.rings,3))+(p.rings>3?` ×${p.rings}`:''):'—'}</span>
@@ -1059,7 +1141,8 @@ function renderHOFRows(){
       <span class="hof-score-cell"><span style="color:${sc}">${p.hofScore}</span><div class="hof-score-bar"><div class="hof-score-fill" style="width:${Math.min(100,p.hofScore)}%;background:${sc}"></div></div></span>
       <span class="hof-awards-cell"><div class="hof-badge-wrap">${badges}</div></span>
     </div>`;
-  }).join('');
+  });
+  rowsEl.innerHTML=html;
   rowsEl.querySelectorAll('.hof-ind-row').forEach(el=>{
     const p=playerMap[el.dataset.name];
     el.addEventListener('click',()=>openPlayerModal(p));
@@ -1074,8 +1157,9 @@ function renderHOFRows(){
 }
 ['f-hof','f-hof-tier','f-hof-sort'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{pgHof=1;renderHOFRows();}));
 document.getElementById('pg-jump-hof').addEventListener('change',e=>{const v=parseInt(e.target.value,10),tot=Math.max(1,Math.ceil(getHofFilter().length/PG_HOF));if(v>=1&&v<=tot){pgHof=v;renderHOFRows();}else e.target.value=pgHof;});
+
 function renderHOFScoringExplain(){
-  document.getElementById('hof-scoring-grid').innerHTML=HOF_SCORE_LABELS.map(item=>`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;color:var(--tx2)">${item.label}</span><span class="hof-badge ${item.color}">+${item.pts} pts</span></div>`).join('')+`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;grid-column:1/-1"><div style="font-size:10px;color:var(--mu);margin-bottom:4px">HOF Thresholds</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="hof-tier-badge first-ballot">First Ballot ≥80</span><span class="hof-tier-badge hof">Hall of Fame ≥55</span><span class="hof-tier-badge hovg">Hall of Very Good ≥30</span></div></div>`;
+  document.getElementById('hof-scoring-grid').innerHTML=HOF_SCORE_LABELS.map(item=>`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;color:var(--tx2)">${item.label}</span><span class="hof-badge ${item.color}">+${item.pts} pts</span></div>`).join('')+`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;grid-column:1/-1"><div style="font-size:10px;color:var(--mu);margin-bottom:4px">HOF Thresholds</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="hof-tier-badge hof">Hall of Fame ≥50 pts</span><span class="hof-tier-badge ring-of-honor">Ring of Honor ≥30 pts</span></div></div>`;
 }
 
 function getPlayerFilters(){
@@ -1102,12 +1186,22 @@ function renderPlayers(){
   const gridEl=document.getElementById('players-grid'),emptyEl=document.getElementById('players-empty');
   if(!filt.length){gridEl.innerHTML='';emptyEl.style.display='block';document.getElementById('pager-players').style.display='none';return;}
   emptyEl.style.display='none';
-  const isHof=new Set(hofInductees.map(p=>p.name));
+  const hofNames=new Set(hofInductees.filter(p=>p.hofTier==='hof').map(p=>p.name));
+  const rohNames=new Set(hofInductees.filter(p=>p.hofTier==='ring-of-honor').map(p=>p.name));
   gridEl.innerHTML=slice.map(p=>{
     const tier=playerTier(p);
     const as=allStarData[p.name]||{wins:0};
     const hofScore=computeHofScore(p);
-    const miniBadges=[p.rings?`<span class="hof-badge gold">🏆 ×${p.rings}</span>`:'',p.majorAwards.length?`<span class="hof-badge gold">${p.majorAwards.length} Major</span>`:'',p.fmvpAwards.length?`<span class="hof-badge purple">FMVP ×${p.fmvpAwards.length}</span>`:'',p.allRPL?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`:'',p.statLeads.length?`<span class="hof-badge cyan">📊 ×${p.statLeads.length}</span>`:'',as.wins?`<span class="hof-badge pink">AS ×${as.wins}</span>`:'',isHof.has(p.name)?`<span class="hof-badge green">HOF</span>`:''].filter(Boolean).join('');
+    const miniBadges=[
+      p.rings?`<span class="hof-badge gold">🏆 ×${p.rings}</span>`:'',
+      p.majorAwards.length?`<span class="hof-badge gold">${p.majorAwards.length} Major</span>`:'',
+      p.fmvpAwards.length?`<span class="hof-badge purple">FMVP ×${p.fmvpAwards.length}</span>`:'',
+      p.allRPL?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`:'',
+      p.statLeads.length?`<span class="hof-badge cyan">📊 ×${p.statLeads.length}</span>`:'',
+      as.wins?`<span class="hof-badge pink">AS ×${as.wins}</span>`:'',
+      hofNames.has(p.name)?`<span class="hof-badge green">HOF</span>`:'',
+      rohNames.has(p.name)?`<span class="hof-badge silver">Ring of Honor</span>`:'',
+    ].filter(Boolean).join('');
     return`<div class="player-card tier-${tier}" data-name="${p.name}" role="button" tabindex="0">
       <div class="pc-name">${p.name}</div>
       <div class="pc-seasons">${p.seasonLog.length} season${p.seasonLog.length!==1?'s':''} · HOF ${hofScore}</div>
@@ -1143,7 +1237,8 @@ function openPlayerModal(p){
   const hofScore=computeHofScore(p);
   const tier=hofEntry?hofEntry.hofTier:hofTier(hofScore,p,hofManualInductions[p.name]?.tier);
   const as=allStarData[p.name]||{apps:0,wins:0,mvps:0,dunk:0,skills:0,threepoint:0};
-  document.getElementById('pm-header').innerHTML=`<div><div class="prf-name">${p.name}</div><div class="prf-sub">${p.seasonLog.length} season${p.seasonLog.length!==1?'s':''} · ${p.allRPL} All-RPL appearances</div>${hofEntry?`<div class="prf-hof-badge">⭐ ${tierLabel(tier)}</div>`:''}</div>`;
+  const showHofBadge=tier==='hof'||tier==='ring-of-honor';
+  document.getElementById('pm-header').innerHTML=`<div><div class="prf-name">${p.name}</div><div class="prf-sub">${p.seasonLog.length} season${p.seasonLog.length!==1?'s':''} · ${p.allRPL} All-RPL appearances</div>${showHofBadge?`<div class="prf-hof-badge${tier==='ring-of-honor'?' roh':''}">${tier==='hof'?'⭐ Hall of Fame':'🏅 Ring of Honor'}</div>`:''}</div>`;
   document.getElementById('pm-badge').textContent=p.rings>0?`${p.rings} Ring${p.rings!==1?'s':''}`:'No Rings';
   const bigStats=`<div class="prf-stat-row">
     <div class="prf-big-stat"><span class="prf-bsv">${p.majorAwards.length}</span><span class="prf-bsl">Major</span></div>
@@ -1199,11 +1294,13 @@ function switchAdminPane(id,btn){
 }
 
 function renderAdminOverview(){
+  const hofCount=hofInductees.filter(p=>p.hofTier==='hof').length;
+  const rohCount=hofInductees.filter(p=>p.hofTier==='ring-of-honor').length;
   document.getElementById('admin-overview-cards').innerHTML=`
     <div class="admin-stat-card"><div class="admin-stat-card-val">${seasons.length}</div><div class="admin-stat-card-lbl">Seasons</div></div>
     <div class="admin-stat-card"><div class="admin-stat-card-val">${allPlayers.length}</div><div class="admin-stat-card-lbl">Players</div></div>
-    <div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--gr)">${hofInductees.length}</div><div class="admin-stat-card-lbl">HOF Inductees</div></div>
-    <div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--gold-hi)">${hofInductees.filter(p=>p.hofTier==='first-ballot').length}</div><div class="admin-stat-card-lbl">First Ballot</div></div>
+    <div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--gold-hi)">${hofCount}</div><div class="admin-stat-card-lbl">HOF Inductees</div></div>
+    <div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--silver)">${rohCount}</div><div class="admin-stat-card-lbl">Ring of Honor</div></div>
     <div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--pink)">${Object.values(allStarData).reduce((a,v)=>a+(v.apps||0),0)}</div><div class="admin-stat-card-lbl">AS Appearances</div></div>
     <div class="admin-stat-card"><div class="admin-stat-card-val">${new Set(seasons.map(s=>s.champion)).size}</div><div class="admin-stat-card-lbl">Unique Champs</div></div>`;
   document.getElementById('admin-quick').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Quick Actions</div><div style="display:flex;flex-direction:column;gap:6px"><button class="admin-nav-btn" onclick="openAddSeason()" style="justify-content:flex-start">➕ Add New Season</button><button class="admin-nav-btn" onclick="switchAdminPane('hof-mgmt',document.querySelector('[onclick*=hof-mgmt]'))" style="justify-content:flex-start">⭐ Manage HOF</button><button class="admin-nav-btn" onclick="switchAdminPane('allstar-mgmt',document.querySelector('[onclick*=allstar-mgmt]'))" style="justify-content:flex-start">🌟 Update All-Star</button><button class="admin-nav-btn" onclick="switchAdminPane('records-mgmt',document.querySelector('[onclick*=records-mgmt]'))" style="justify-content:flex-start">📋 Update Records</button></div></div></div>`;
@@ -1216,12 +1313,17 @@ function deleteSeason(id){if(!confirm(`Delete Season ${id}?`))return;seasons=sea
 
 function renderAdminHof(){
   hofInductees=computeHOF(playerMap);
-  document.getElementById('admin-hof-tbody').innerHTML=hofInductees.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge ${p.hofTier}">${tierLabel(p.hofTier)}</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center">${p.rings}</td><td style="text-align:center">${p.majorAwards.length}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`).join('');
+  const hofMembers=hofInductees.filter(p=>p.hofTier==='hof');
+  const rohMembers=hofInductees.filter(p=>p.hofTier==='ring-of-honor');
+  document.getElementById('admin-hof-tbody').innerHTML=[
+    ...hofMembers.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge hof">Hall of Fame</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center">${p.rings}</td><td style="text-align:center">${p.majorAwards.length}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`),
+    ...rohMembers.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge ring-of-honor">Ring of Honor</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center">${p.rings}</td><td style="text-align:center">${p.majorAwards.length}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`),
+  ].join('');
   const inducted=new Set(hofInductees.map(p=>p.name));
   const candidates=Object.values(playerMap).filter(p=>!inducted.has(p.name)&&!hofManualRemovals.has(p.name)).map(p=>({...p,hofScore:computeHofScore(p)})).filter(p=>p.hofScore>=15).sort((a,b)=>b.hofScore-a.hofScore).slice(0,15);
   document.getElementById('hof-candidates-list').innerHTML=candidates.map(p=>`<div class="hof-candidate-row"><span>${p.name}</span><span style="text-align:center;color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace">${p.hofScore}</span><span style="text-align:center"><span class="hof-tier-badge not-eligible">Not Yet</span></span></div>`).join('');
 }
-function removeFromHof(name){if(!confirm(`Remove ${name} from HOF?`))return;hofManualRemovals.add(name);delete hofManualInductions[name];hofInductees=computeHOF(playerMap);renderAdminHof();toast(`${name} removed`,'amber');}
+function removeFromHof(name){if(!confirm(`Remove ${name} from HOF/Ring of Honor?`))return;hofManualRemovals.add(name);delete hofManualInductions[name];hofInductees=computeHOF(playerMap);renderAdminHof();toast(`${name} removed`,'amber');}
 function openHofInductModal(){document.getElementById('hof-induct-overlay').classList.add('show');}
 function manualHofInduct(){
   const name=document.getElementById('hof-induct-name').value.trim();
@@ -1233,7 +1335,7 @@ function manualHofInduct(){
   hofInductees=computeHOF(playerMap);
   document.getElementById('hof-induct-overlay').classList.remove('show');
   renderAdminHof();
-  toast(`${name} inducted (${tierLabel(tier)})`,'green');
+  toast(`${name} → ${tierLabel(tier)}`,'green');
 }
 
 function renderAdminRecords(){
@@ -1261,7 +1363,7 @@ function renderAdminAnalytics(){
     <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Championships</div><table class="allstar-leader-tbl">${champSorted.slice(0,5).map(([team,n],i)=>`<tr><td>${i+1}</td><td>${team}</td><td style="color:var(--gold-hi)">${n}</td></tr>`).join('')}</table></div>
     <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Season MVPs</div><table class="allstar-leader-tbl">${topMvp.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--gold-hi)">${p.majorAwards.filter(x=>x.award==='MVP').length}</td></tr>`).join('')}</table></div>
     <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Finals MVPs</div><table class="allstar-leader-tbl">${topFmvp.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--pur)">${p.fmvpAwards.length}</td></tr>`).join('')}</table></div>
-    <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">HOF Score Leaders</div><table class="allstar-leader-tbl">${hofInductees.slice(0,5).map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:${scoreColor(p.hofScore)}">${p.hofScore}</td></tr>`).join('')}</table></div>
+    <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">HOF Score Leaders</div><table class="allstar-leader-tbl">${hofInductees.filter(p=>p.hofTier==='hof').slice(0,5).map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:${scoreColor(p.hofScore)}">${p.hofScore}</td></tr>`).join('')}</table></div>
   </div>`;
 }
 
@@ -1308,7 +1410,6 @@ document.addEventListener('keydown',e=>{
   }
 });
 
-// Init
 rebuildData();
 updateHeroStats();
 renderSeasons();
