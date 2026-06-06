@@ -22,6 +22,7 @@
   --cy:#22d3ee;--cy-d:rgba(34,211,238,.09);--cy-border:rgba(34,211,238,.22);
   --pink:#f472b6;--pink-d:rgba(244,114,182,.09);--pink-border:rgba(244,114,182,.22);
   --silver:#a0a0b8;--silver-d:rgba(160,160,184,.09);--silver-border:rgba(160,160,184,.25);
+  --or:#fb923c;--or-d:rgba(251,146,60,.09);--or-border:rgba(251,146,60,.25);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -142,6 +143,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .hof-badge.cyan{background:var(--cy-d);color:var(--cy);border:1px solid var(--cy-border)}
 .hof-badge.pink{background:var(--pink-d);color:var(--pink);border:1px solid var(--pink-border)}
 .hof-badge.silver{background:var(--silver-d);color:var(--silver);border:1px solid var(--silver-border)}
+.hof-badge.orange{background:var(--or-d);color:var(--or);border:1px solid var(--or-border)}
 .hof-harrow{color:var(--gold);font-size:10px;opacity:0;transform:translateX(-3px);transition:opacity .14s,transform .14s;margin-left:4px}
 .hof-ind-row:hover .hof-harrow{opacity:1;transform:none}
 .players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--b);border:1px solid var(--b);border-radius:12px;overflow:hidden}
@@ -216,6 +218,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .prf-bsv.pur{color:var(--pur)}
 .prf-bsv.cy{color:var(--cy)}
 .prf-bsv.pink{color:var(--pink)}
+.prf-bsv.or{color:var(--or)}
 .prf-bsl{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-top:3px}
 .season-log-tbl{width:100%;border-collapse:collapse;font-size:12px}
 .season-log-tbl thead tr{background:var(--s3)}
@@ -231,6 +234,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .tl-award.ring{background:rgba(240,185,60,.15);color:var(--gold-hi);border:1px solid var(--gold-border)}
 .tl-award.fmvp{background:var(--pur-d);color:var(--pur);border:1px solid var(--pur-border)}
 .tl-award.stat{background:var(--cy-d);color:var(--cy);border:1px solid var(--cy-border)}
+.tl-award.peak{background:var(--or-d);color:var(--or);border:1px solid var(--or-border)}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .stat-awards-section{margin-top:8px;padding-top:8px;border-top:1px solid var(--b2)}
 .stat-awards-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cy);margin-bottom:6px}
@@ -330,6 +334,14 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .admin-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-hi)}
 .btn-row{display:flex;gap:8px}
 .btn-outline{background:transparent;border:1px solid var(--b);color:var(--mu)}
+/* HOF Score breakdown panel */
+.hof-breakdown{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:12px;margin-top:8px}
+.hof-breakdown-title{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:8px}
+.hof-breakdown-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:11px;border-bottom:1px solid var(--b2)}
+.hof-breakdown-row:last-child{border-bottom:none}
+.hof-breakdown-label{color:var(--tx2)}
+.hof-breakdown-pts{font-family:'JetBrains Mono',monospace;font-weight:700}
+.peak-badge{display:inline-flex;align-items:center;gap:4px;background:var(--or-d);border:1px solid var(--or-border);border-radius:4px;padding:2px 6px;font-size:9px;font-weight:700;color:var(--or)}
 .hidden{display:none!important}
 @media(max-width:640px){
   .hero{padding:20px 16px 18px}.hero-h1{font-size:34px}.hero-top{gap:12px}
@@ -441,11 +453,11 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
       <div class="filters">
         <input class="fc fc-search" id="f-hof" placeholder="Search player…" autocomplete="off">
         <select class="fc" id="f-hof-tier"><option value="all">All Tiers</option><option value="hof">Hall of Fame</option><option value="ring-of-honor">Ring of Honor</option></select>
-        <select class="fc" id="f-hof-sort"><option value="score">HOF Score</option><option value="rings">Rings</option><option value="major">Major Awards</option><option value="fmvp">Finals MVPs</option></select>
+        <select class="fc" id="f-hof-sort"><option value="score">HOF Score</option><option value="mvp">Season MVPs</option><option value="major">Major Awards</option><option value="fmvp">Finals MVPs</option><option value="allrpl">All-RPL</option><option value="rings">Rings</option></select>
       </div>
     </div>
     <div class="hof-inductees">
-      <div class="hof-ind-hd"><span>#</span><span>Player</span><span>Rings</span><span>Major</span><span>FMVP</span><span>All-Star</span><span>HOF Score</span><span>Notable</span></div>
+      <div class="hof-ind-hd"><span>#</span><span>Player</span><span>MVPs</span><span>Major</span><span>FMVP</span><span>All-RPL</span><span>HOF Score</span><span>Notable</span></div>
       <div id="hof-rows"></div>
     </div>
     <div class="pager" id="pager-hof" style="display:none">
@@ -453,9 +465,14 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
       <div class="pg-btns" id="pg-btns-hof"></div>
       <div class="pg-jump"><span class="pg-jlbl">Page</span><input class="pg-jin" id="pg-jump-hof" type="number" min="1" value="1"></div>
     </div>
-    <div class="sec-hd" style="margin-top:28px"><div class="sec-hd-top"><span class="sec-title">HOF Scoring System</span><div class="sec-rule"></div></div></div>
-    <div style="background:var(--s1);border:1px solid var(--b);border-radius:11px;padding:18px;max-width:700px">
-      <div style="margin-bottom:12px;font-size:11px;color:var(--mu);line-height:1.6">Mirroring real NBA HOF criteria: individual awards dominate, championships add weight, consistent presence counts. <span style="color:var(--gold-hi)">HOF</span> = 50+ pts · <span style="color:var(--silver)">Ring of Honor</span> = 30–49 pts (borderline / great career, not quite inducted).</div>
+    <div class="sec-hd" style="margin-top:28px"><div class="sec-hd-top"><span class="sec-title">HOF Philosophy & Scoring</span><div class="sec-rule"></div></div></div>
+    <div style="background:var(--s1);border:1px solid var(--b);border-radius:11px;padding:18px;max-width:800px">
+      <div style="margin-bottom:16px;padding:12px 14px;background:var(--s2);border:1px solid var(--b);border-radius:8px;font-size:12px;color:var(--tx2);line-height:1.7">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-hi);margin-bottom:8px">RPL Hall of Fame — Individual Greatness Philosophy</div>
+        A player earns Hall of Fame induction through <strong style="color:var(--tx)">individual greatness, sustained excellence, and historical impact</strong> — not by winning championships on a stacked team. Championships are a <em style="color:var(--gold-hi)">bonus</em>, not a requirement. A player who wins multiple MVPs, earns multiple Finals MVPs, and racks up All-RPL selections belongs in the Hall whether or not they won a ring. Dominance, peak performance, and legacy matter most.<br><br>
+        <span style="color:var(--gold-hi)">HOF ≥ 55 pts</span> &nbsp;·&nbsp; <span style="color:var(--silver)">Ring of Honor ≥ 30 pts</span> &nbsp;·&nbsp; <span style="color:var(--mu)">Below 30 = Not Eligible</span><br>
+        <span style="font-size:10px;color:var(--mu)">Peak bonus: +5 pts for a season where a player wins MVP + is on 1st Team All-RPL in the same year (dominant season recognition)</span>
+      </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" id="hof-scoring-grid"></div>
     </div>
   </div>
@@ -508,7 +525,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
           <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
             <button class="btn btn-gold" onclick="openHofInductModal()">+ Manual Induction</button>
           </div>
-          <div class="tbl-wrap" style="margin-bottom:20px"><table class="admin-table"><thead><tr><th>Player</th><th>Tier</th><th>HOF Score</th><th>Rings</th><th>Major</th><th>Action</th></tr></thead><tbody id="admin-hof-tbody"></tbody></table></div>
+          <div class="tbl-wrap" style="margin-bottom:20px"><table class="admin-table"><thead><tr><th>Player</th><th>Tier</th><th>HOF Score</th><th>MVPs</th><th>Major</th><th>All-RPL</th><th>Action</th></tr></thead><tbody id="admin-hof-tbody"></tbody></table></div>
           <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Candidates (Approaching Eligibility)</div>
           <div><div class="hof-candidate-row candidate-hd"><span>Player</span><span style="text-align:center">HOF Score</span><span style="text-align:center">Status</span></div><div id="hof-candidates-list"></div></div>
         </div>
@@ -636,6 +653,9 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 </div>
 
 <script>
+// ═══════════════════════════════════════════════
+// CONSTANTS & LOOKUPS
+// ═══════════════════════════════════════════════
 const AWARD_LABELS={MVP:'Most Valuable Player',OPOTY:'Off. Player of the Year',DPOY:'Def. Player of the Year',PMOTY:'Play-Making of the Year',ROTY:'Rookie of the Year',MIP:'Most Improved Player',CPOTY:'Clutch Player of the Year','4MOTY':'4th Man of the Year','5MOTY':'5th Man of the Year',BMOTY:'Big Man of the Year',DEVOTY:'Developer of the Year',FMVP:'Finals MVP'};
 const STAT_SHORT={'Scoring Champion':'PTS','Steals Leader':'STL','Assist Leader':'AST','Rebounds Leader':'REB','Player Efficiency Rating':'PER','Turnover Leader':'TOV'};
 function statShort(cat){return STAT_SHORT[cat]||cat.replace(/\s*(Leader|Champion)$/i,'').trim().toUpperCase().slice(0,4);}
@@ -648,6 +668,9 @@ const teamLogo=n=>{const k=ESPN_MAP[n];return k?`https://a.espncdn.com/i/teamlog
 const NAME_MAP={'Dvloz':'Dohziez','Dv0lz':'Dohziez','dohziez':'Dohziez','vAcevx':'Pox','miniszl':'Minis','zpud':'ZPud','slap':'Slapclosed','Slap':'Slapclosed','shawn':'Shawn','aether':'Aether','counted':'Counted','tsutsumi':'Tsutsumi','Lamelo':'MaybeLaMelo','lamelo':'MaybeLaMelo','lamelo ball':'MaybeLaMelo'};
 function normName(n){if(!n)return n;const t=n.trim();return NAME_MAP[t]||t;}
 
+// ═══════════════════════════════════════════════
+// ALL-STAR DATA
+// ═══════════════════════════════════════════════
 let allStarData={
   'Dohziez':{apps:3,wins:3,mvps:0,dunk:0,skills:0,threepoint:0},
   'Chef_7s':{apps:3,wins:3,mvps:0,dunk:0,skills:0,threepoint:0},
@@ -688,6 +711,9 @@ let allStarData={
   'MaybeLaMelo':{apps:0,wins:0,mvps:0,dunk:0,skills:0,threepoint:3},
 };
 
+// ═══════════════════════════════════════════════
+// SEASON DATA
+// ═══════════════════════════════════════════════
 let seasons=[
   {id:1,champion:'Denver Nuggets',record:'7-0',defeated:'Boston Celtics',defeatedRecord:'6-2',seriesResult:'2-1 (3 Games)',owners:['Minis','ZPud','Northside','Chef_7s','Solarstix'],toty:'Boston Celtics',fmvp:'ZPud',awards:{MVP:'Tsutsumi',OPOTY:'Chris',DPOY:'Mari',ROTY:'Omx',MIP:'Zion',BMOTY:'Ben',PMOTY:'Javon',CPOTY:'Chef_7s','4MOTY':'Bomber'},allRPL:{first:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Omx'},{pos:'SF',name:'Chris'},{pos:'PF',name:'Tsutsumi'},{pos:'C',name:'Ben'}],second:[{pos:'PG',name:'Javon'},{pos:'SG',name:'Cal'},{pos:'SF',name:'Zion'},{pos:'PF',name:'Cartier'},{pos:'C',name:'ZPud'}],third:[{pos:'PG',name:'Bosh'},{pos:'SG',name:'Bomber'},{pos:'SF',name:'Bones'},{pos:'PF',name:'Minis'},{pos:'C',name:'Carson'}]}},
   {id:2,champion:'Chicago Bulls',record:'8-1',defeated:'Golden State Warriors',defeatedRecord:'17-1',seriesResult:'2-0 (2 Games)',owners:['Minis','ZPud','Northside','Chef_7s','Solarstix','Zulifix'],toty:'Chicago Bulls',fmvp:'ZPud',awards:{MVP:'Tsutsumi',OPOTY:'ZPud',DPOY:'Mari',PMOTY:'Erro',ROTY:'Fearsvamp',MIP:'24kslxckz',CPOTY:'Tsutsumi','4MOTY':'Chef_7s',DEVOTY:'24kslxckz'},allRPL:{first:[{pos:'PG',name:'Cal'},{pos:'SG',name:'Tsutsumi'},{pos:'SF',name:'Javon'},{pos:'PF',name:'ZPud'},{pos:'C',name:'Fearsvamp'}],second:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Slack'},{pos:'SF',name:'Omx'},{pos:'PF',name:'Dohziez'},{pos:'C',name:'Chip'}]}},
@@ -701,6 +727,9 @@ let seasons=[
   {id:10,champion:'San Antonio Spurs',record:'11-5',defeated:'Philadelphia 76ers',defeatedRecord:'11-4',seriesResult:'2-1 (1 Game)',owners:['Tom','bugwars','conzlx','MELO','Dohziez','1v_k','Northside','Pox','ZPud'],toty:'Philadelphia 76ers',fmvp:'ZPud',awards:{MVP:'Chris',OPOTY:'Cahmmie',DPOY:'Minis',PMOTY:'Roji',ROTY:'Pop',CPOTY:'Tsutsumi',MIP:'Pox','5MOTY':'Eazy'},statLeaders:{'Scoring Champion':'Pox','Assist Leader':'Roji','Rebounds Leader':'Shawn','Player Efficiency Rating':'Cahmmie'},allRPL:{first:[{pos:'PG',name:'Tom'},{pos:'SG',name:'Cahmmie'},{pos:'SF',name:'Aether'},{pos:'PF',name:'Tsutsumi'},{pos:'C',name:'Chris'}],second:[{pos:'PG',name:'Shawn'},{pos:'SG',name:'Berry'},{pos:'SF',name:'Logs'},{pos:'PF',name:'Pox'},{pos:'C',name:'Cal'}],third:[{pos:'PG',name:'Minis'},{pos:'SG',name:'Roji'},{pos:'SF',name:'Tax'},{pos:'PF',name:'Love'},{pos:'C',name:'Cartier'}],defensive:[{pos:'PG',name:'Minis'},{pos:'SG',name:'Mari'},{pos:'SF',name:'Cahmmie'},{pos:'PF',name:'Love'},{pos:'C',name:'Cartier'}]}},
 ];
 
+// ═══════════════════════════════════════════════
+// RECORDS DATA
+// ═══════════════════════════════════════════════
 let records={
   pts:{label:'Points',value:169,holder:'Cahmmie',team:'Spurs'},
   ast:{label:'Assists',value:64,holder:'24kslxckz & Tom',team:'Rockets'},
@@ -710,96 +739,192 @@ let records={
   tov:{label:'Turnovers',value:40,holder:'trey',team:'Trailblazers'},
 };
 
-// HOF WEIGHTS — mirrors real NBA HOF emphasis
-// Individual awards dominate, rings add weight, consistency counts
+// ═══════════════════════════════════════════════
+// ★★★ NEW HOF SCORING SYSTEM ★★★
+// Philosophy: Individual greatness > team success
+// Rings are a bonus, not a backbone. MVPs, Finals MVPs,
+// All-RPL selections, and sustained dominance define a HOF career.
+// ═══════════════════════════════════════════════
 const HOF_WEIGHTS={
-  ring:15,        // championships: important but can be carried
-  fmvp:12,        // Finals MVP: proves you were THE guy
-  MVP:18,         // regular season MVP: highest individual honor
-  OPOTY:12,       // major award
-  DPOY:12,        // major award
-  PMOTY:8,        // secondary major
-  CPOTY:4,MIP:4,BMOTY:4,
-  '4MOTY':3,'5MOTY':3,ROTY:3,DEVOTY:2,
-  allRPL_1st:6,   // All-NBA equivalent — first team is prestigious
-  allRPL_2nd:4,
-  allRPL_3rd:2,
-  allRPL_def:5,   // All-Defensive team
-  statLead:2,
-  allStar_win:2,  // All-Star game win
-  allStar_mvp:4,  // All-Star MVP
-  dunk:2,skills:2,threepoint:2,
-  seasons:1,      // longevity/consistency
+  // ─── INDIVIDUAL AWARDS (heaviest) ───
+  MVP:          20,   // Highest individual honor — single most important accolade
+  fmvp:         14,   // Proves you were THE guy on a champion — not just a passenger
+  OPOTY:        10,   // Elite offensive excellence
+  DPOY:         10,   // Elite defensive excellence
+  PMOTY:         7,   // Playmaking recognition
+  // ─── MINOR AWARDS ───
+  CPOTY:         4,
+  MIP:           3,
+  BMOTY:         3,
+  '4MOTY':       2,
+  '5MOTY':       2,
+  ROTY:          2,
+  DEVOTY:        1,
+  // ─── ALL-RPL SELECTIONS (sustained excellence) ───
+  allRPL_1st:    7,   // First team is a premier honor — comparable to All-NBA 1st
+  allRPL_2nd:    4,
+  allRPL_3rd:    2,
+  allRPL_def:    5,   // All-Defensive team — specialized excellence
+  // ─── STAT TITLES ───
+  statLead:      2,   // Per stat title won per season
+  // ─── CHAMPIONSHIPS (bonus, not requirement) ───
+  ring:          6,   // Meaningful but not dominant — proves winning environment
+  // ─── ALL-STAR ───
+  allStar_win:   2,
+  allStar_mvp:   4,
+  dunk:          2,
+  skills:        2,
+  threepoint:    2,
+  // ─── LONGEVITY ───
+  seasons:       1,   // Each season active — rewards sustained careers
+  // ─── PEAK SEASON BONUS ───
+  // Applied automatically when MVP + 1st Team All-RPL in same season (+5)
+  peakSeason:    5,
 };
 
-// HOF thresholds — two tiers only (no "Hall of Very Good")
-// HOF: 50+ (inducted)
-// Ring of Honor: 30-49 (honored, not inducted — like real franchise rings of honor for near-misses)
-// Below 30: not eligible
+// HOF Thresholds
+// HOF (inducted):       55+ pts  — proven all-time great
+// Ring of Honor:        30–54 pts — excellent career, borderline
+// Not eligible:         < 30 pts
+const HOF_THRESHOLD_HOF = 55;
+const HOF_THRESHOLD_ROH = 30;
 
+// Scoring explanation for the UI
 const HOF_SCORE_LABELS=[
-  {key:'MVP',label:'Season MVP',pts:18,color:'gold'},
-  {key:'ring',label:'Championship ring',pts:15,color:'gold'},
-  {key:'fmvp',label:'Finals MVP',pts:12,color:'purple'},
-  {key:'OPOTY',label:'Off. Player of the Year',pts:12,color:'green'},
-  {key:'DPOY',label:'Def. Player of the Year',pts:12,color:'green'},
-  {key:'PMOTY',label:'Play-Making of the Year',pts:8,color:'green'},
-  {key:'allRPL_1st',label:'1st Team All-RPL',pts:6,color:'blue'},
-  {key:'allRPL_def',label:'All-RPL Defensive Team',pts:5,color:'blue'},
-  {key:'allRPL_2nd',label:'2nd Team All-RPL',pts:4,color:'blue'},
-  {key:'allStar_mvp',label:'All-Star Game MVP',pts:4,color:'pink'},
-  {key:'CPOTY',label:'Clutch / MIP / BMOTY',pts:4,color:'cyan'},
-  {key:'allRPL_3rd',label:'3rd Team All-RPL',pts:2,color:'blue'},
-  {key:'allStar_win',label:'All-Star game win',pts:2,color:'pink'},
-  {key:'statLead',label:'Stat title (per season)',pts:2,color:'cyan'},
+  {key:'MVP',         label:'Season MVP',              pts:20, color:'gold'},
+  {key:'fmvp',        label:'Finals MVP',              pts:14, color:'purple'},
+  {key:'allRPL_1st',  label:'1st Team All-RPL',        pts:7,  color:'blue'},
+  {key:'OPOTY',       label:'Off. Player of the Year', pts:10, color:'green'},
+  {key:'DPOY',        label:'Def. Player of the Year', pts:10, color:'green'},
+  {key:'allRPL_def',  label:'All-RPL Defensive Team',  pts:5,  color:'blue'},
+  {key:'PMOTY',       label:'Play-Making of the Year', pts:7,  color:'green'},
+  {key:'allRPL_2nd',  label:'2nd Team All-RPL',        pts:4,  color:'blue'},
+  {key:'allStar_mvp', label:'All-Star Game MVP',       pts:4,  color:'pink'},
+  {key:'CPOTY',       label:'Clutch Player of Year',   pts:4,  color:'cyan'},
+  {key:'ring',        label:'Championship Ring',       pts:6,  color:'gold'},
+  {key:'peakSeason',  label:'Peak Season Bonus (MVP + 1st All-RPL same year)', pts:5, color:'orange'},
+  {key:'allRPL_3rd',  label:'3rd Team All-RPL',        pts:2,  color:'blue'},
+  {key:'statLead',    label:'Stat Title (per season)',  pts:2,  color:'cyan'},
+  {key:'allStar_win', label:'All-Star Game Win',       pts:2,  color:'pink'},
+  {key:'seasons',     label:'Seasons Active (each)',   pts:1,  color:'silver'},
 ];
 
+// ─── COMPUTE HOF SCORE ───
 function computeHofScore(p){
-  let score=0;
-  score+=p.rings*HOF_WEIGHTS.ring;
-  score+=p.fmvpAwards.length*HOF_WEIGHTS.fmvp;
-  p.majorAwards.forEach(a=>{score+=(HOF_WEIGHTS[a.award]||8);});
-  p.minorAwards.forEach(a=>{score+=(HOF_WEIGHTS[a.award]||3);});
-  score+=p.statLeads.length*HOF_WEIGHTS.statLead;
-  score+=p.seasonLog.length*HOF_WEIGHTS.seasons;
-  const t1=p.seasonLog.reduce((a,sl)=>a+(sl.allRPLTeams.includes('1st')?1:0),0);
-  const t2=p.seasonLog.reduce((a,sl)=>a+(sl.allRPLTeams.includes('2nd')?1:0),0);
-  const t3=p.seasonLog.reduce((a,sl)=>a+(sl.allRPLTeams.includes('3rd')?1:0),0);
-  const td=p.seasonLog.reduce((a,sl)=>a+(sl.allRPLTeams.includes('Def')?1:0),0);
-  score+=t1*HOF_WEIGHTS.allRPL_1st+t2*HOF_WEIGHTS.allRPL_2nd+t3*HOF_WEIGHTS.allRPL_3rd+td*HOF_WEIGHTS.allRPL_def;
-  const as=allStarData[p.name];
-  if(as){score+=as.wins*HOF_WEIGHTS.allStar_win;score+=as.mvps*HOF_WEIGHTS.allStar_mvp;score+=as.dunk*HOF_WEIGHTS.dunk;score+=as.skills*HOF_WEIGHTS.skills;score+=as.threepoint*HOF_WEIGHTS.threepoint;}
-  return Math.round(score);
+  let score = 0;
+  const breakdown = {};
+
+  // Championships (bonus weight)
+  const ringPts = p.rings * HOF_WEIGHTS.ring;
+  score += ringPts;
+  if(ringPts) breakdown['Championship Rings ×'+p.rings] = ringPts;
+
+  // Finals MVP (proves you were THE guy)
+  const fmvpPts = p.fmvpAwards.length * HOF_WEIGHTS.fmvp;
+  score += fmvpPts;
+  if(fmvpPts) breakdown['Finals MVP ×'+p.fmvpAwards.length] = fmvpPts;
+
+  // Major individual awards
+  p.majorAwards.forEach(a => {
+    const pts = HOF_WEIGHTS[a.award] || 8;
+    score += pts;
+    const k = AWARD_LABELS[a.award]||a.award;
+    breakdown[k] = (breakdown[k]||0) + pts;
+  });
+
+  // Minor awards
+  p.minorAwards.forEach(a => {
+    const pts = HOF_WEIGHTS[a.award] || 2;
+    score += pts;
+    const k = AWARD_LABELS[a.award]||a.award;
+    breakdown[k] = (breakdown[k]||0) + pts;
+  });
+
+  // Stat titles
+  const statPts = p.statLeads.length * HOF_WEIGHTS.statLead;
+  score += statPts;
+  if(statPts) breakdown['Stat Titles ×'+p.statLeads.length] = statPts;
+
+  // Longevity (seasons active)
+  const longevityPts = p.seasonLog.length * HOF_WEIGHTS.seasons;
+  score += longevityPts;
+  if(longevityPts) breakdown['Seasons Active ×'+p.seasonLog.length] = longevityPts;
+
+  // All-RPL selections
+  let t1=0,t2=0,t3=0,td=0;
+  p.seasonLog.forEach(sl=>{
+    if(sl.allRPLTeams.includes('1st')) t1++;
+    if(sl.allRPLTeams.includes('2nd')) t2++;
+    if(sl.allRPLTeams.includes('3rd')) t3++;
+    if(sl.allRPLTeams.includes('Def')) td++;
+  });
+  const allRplPts = t1*HOF_WEIGHTS.allRPL_1st + t2*HOF_WEIGHTS.allRPL_2nd + t3*HOF_WEIGHTS.allRPL_3rd + td*HOF_WEIGHTS.allRPL_def;
+  score += allRplPts;
+  if(t1) breakdown['1st Team All-RPL ×'+t1] = t1*HOF_WEIGHTS.allRPL_1st;
+  if(t2) breakdown['2nd Team All-RPL ×'+t2] = t2*HOF_WEIGHTS.allRPL_2nd;
+  if(t3) breakdown['3rd Team All-RPL ×'+t3] = t3*HOF_WEIGHTS.allRPL_3rd;
+  if(td) breakdown['All-RPL Defensive ×'+td] = td*HOF_WEIGHTS.allRPL_def;
+
+  // Peak Season Bonus: MVP + 1st Team All-RPL in the same season = +5 pts per occurrence
+  // This rewards truly dominant individual seasons (like KD or LeBron MVP seasons)
+  let peakBonusTotal = 0;
+  p.seasonLog.forEach(sl => {
+    const hasMVP = sl.awards.includes('MVP');
+    const has1st = sl.allRPLTeams.includes('1st');
+    if(hasMVP && has1st) peakBonusTotal += HOF_WEIGHTS.peakSeason;
+  });
+  score += peakBonusTotal;
+  if(peakBonusTotal) breakdown['⚡ Peak Season Bonus ×'+(peakBonusTotal/HOF_WEIGHTS.peakSeason)] = peakBonusTotal;
+
+  // All-Star accolades
+  const as = allStarData[p.name];
+  if(as){
+    const asPts = as.wins*HOF_WEIGHTS.allStar_win + as.mvps*HOF_WEIGHTS.allStar_mvp + as.dunk*HOF_WEIGHTS.dunk + as.skills*HOF_WEIGHTS.skills + as.threepoint*HOF_WEIGHTS.threepoint;
+    score += asPts;
+    if(asPts) breakdown['All-Star Accolades'] = asPts;
+  }
+
+  return {score: Math.round(score), breakdown};
 }
 
-function hofTier(score,p,manual){
-  if(manual)return manual;
-  if(score>=50)return'hof';
-  if(score>=30)return'ring-of-honor';
-  return'not-eligible';
+function getHofScore(p){ return computeHofScore(p).score; }
+
+function hofTier(score, p, manual){
+  if(manual) return manual;
+  if(score >= HOF_THRESHOLD_HOF) return 'hof';
+  if(score >= HOF_THRESHOLD_ROH) return 'ring-of-honor';
+  return 'not-eligible';
 }
 
 function tierLabel(t){
-  if(t==='hof')return'Hall of Fame';
-  if(t==='ring-of-honor')return'Ring of Honor';
-  return'Not Eligible';
+  if(t==='hof') return 'Hall of Fame';
+  if(t==='ring-of-honor') return 'Ring of Honor';
+  return 'Not Eligible';
 }
 
 function scoreColor(s){
-  return s>=50?'var(--gold-hi)':s>=30?'var(--silver)':'var(--mu)';
+  return s >= HOF_THRESHOLD_HOF ? 'var(--gold-hi)' : s >= HOF_THRESHOLD_ROH ? 'var(--silver)' : 'var(--mu)';
 }
 
 function playerTier(p){
-  const s=computeHofScore(p);
-  if(s>=80||p.rings>=2||p.fmvpAwards.length>=2)return'elite';
-  if(s>=50||p.majorAwards.length>=2||p.allRPL>=6||p.fmvpAwards.length>=1)return'great';
-  if(s>=30||p.majorAwards.length>=1||p.allRPL>=3||p.statLeads.length>=2)return'good';
-  return'role';
+  const s = getHofScore(p);
+  if(s >= 80 || p.majorAwards.filter(a=>a.award==='MVP').length >= 2) return 'elite';
+  if(s >= HOF_THRESHOLD_HOF || p.majorAwards.length >= 2 || p.fmvpAwards.length >= 2) return 'great';
+  if(s >= HOF_THRESHOLD_ROH || p.majorAwards.length >= 1 || p.allRPL >= 3) return 'good';
+  return 'role';
+}
+
+// ─── COUNT PEAK SEASONS ───
+function countPeakSeasons(p){
+  return p.seasonLog.filter(sl => sl.awards.includes('MVP') && sl.allRPLTeams.includes('1st')).length;
 }
 
 let hofManualInductions={};
 let hofManualRemovals=new Set();
 
+// ═══════════════════════════════════════════════
+// PLAYER MAP BUILDER
+// ═══════════════════════════════════════════════
 function buildPlayerMap(){
   const map={};
   const ensure=rawName=>{
@@ -858,45 +983,52 @@ function buildPlayerMap(){
   return map;
 }
 
+// ═══════════════════════════════════════════════
+// HOF COMPUTATION
+// ═══════════════════════════════════════════════
 function computeHOF(playerMap){
-  // HOF inductees: score >= 50 OR manual induction
   const hofMembers=Object.values(playerMap).filter(p=>{
     if(hofManualRemovals.has(p.name))return false;
     if(hofManualInductions[p.name])return true;
-    return computeHofScore(p)>=50;
+    return getHofScore(p) >= HOF_THRESHOLD_HOF;
   }).map(p=>{
-    const score=computeHofScore(p);
+    const score=getHofScore(p);
     const manualTier=hofManualInductions[p.name]?.tier;
     return Object.assign({},p,{hofScore:score,hofTier:hofTier(score,p,manualTier),isHofMember:true});
   });
 
-  // Ring of Honor: score 30-49, not in HOF, not manually removed
   const hofNames=new Set(hofMembers.map(p=>p.name));
   const ringOfHonor=Object.values(playerMap).filter(p=>{
     if(hofManualRemovals.has(p.name))return false;
     if(hofNames.has(p.name))return false;
-    return computeHofScore(p)>=30&&computeHofScore(p)<50;
+    const s=getHofScore(p);
+    return s >= HOF_THRESHOLD_ROH && s < HOF_THRESHOLD_HOF;
   }).map(p=>{
-    const score=computeHofScore(p);
+    const score=getHofScore(p);
     return Object.assign({},p,{hofScore:score,hofTier:'ring-of-honor',isHofMember:false});
   });
 
   return [...hofMembers,...ringOfHonor].sort((a,b)=>b.hofScore-a.hofScore);
 }
 
+// ═══════════════════════════════════════════════
+// CAREER RECORDS
+// ═══════════════════════════════════════════════
 let careerRecords=[];
 let seasonRecords=[];
 function buildCareerRecords(pm){
   const pl=Object.values(pm);
   const safe=arr=>arr.length?Math.max(...arr):0;
   careerRecords=[
-    {label:'Most Championships',type:'career',value:safe(pl.map(p=>p.rings)),holder:[...pl].sort((a,b)=>b.rings-a.rings)[0]?.name||'—',note:'All-time'},
+    {label:'Most Season MVPs',type:'career',value:safe(pl.map(p=>p.majorAwards.filter(a=>a.award==='MVP').length)),holder:[...pl].sort((a,b)=>b.majorAwards.filter(x=>x.award==='MVP').length-a.majorAwards.filter(x=>x.award==='MVP').length)[0]?.name||'—',note:'All-time'},
     {label:'Most Finals MVPs',type:'career',value:safe(pl.map(p=>p.fmvpAwards.length)),holder:[...pl].sort((a,b)=>b.fmvpAwards.length-a.fmvpAwards.length)[0]?.name||'—',note:'All-time'},
-    {label:'Most Regular Season MVPs',type:'career',value:safe(pl.map(p=>p.majorAwards.filter(a=>a.award==='MVP').length)),holder:[...pl].sort((a,b)=>b.majorAwards.filter(x=>x.award==='MVP').length-a.majorAwards.filter(x=>x.award==='MVP').length)[0]?.name||'—',note:'All-time'},
-    {label:'Most Major Awards',type:'career',value:safe(pl.map(p=>p.majorAwards.length)),holder:[...pl].sort((a,b)=>b.majorAwards.length-a.majorAwards.length)[0]?.name||'—',note:'All-time'},
     {label:'Most All-RPL Selections',type:'career',value:safe(pl.map(p=>p.allRPL)),holder:[...pl].sort((a,b)=>b.allRPL-a.allRPL)[0]?.name||'—',note:'All-time'},
+    {label:'Most Major Awards',type:'career',value:safe(pl.map(p=>p.majorAwards.length)),holder:[...pl].sort((a,b)=>b.majorAwards.length-a.majorAwards.length)[0]?.name||'—',note:'All-time'},
+    {label:'Most Championships',type:'career',value:safe(pl.map(p=>p.rings)),holder:[...pl].sort((a,b)=>b.rings-a.rings)[0]?.name||'—',note:'All-time'},
     {label:'Most Seasons Active',type:'career',value:safe(pl.map(p=>p.seasonLog.length)),holder:[...pl].sort((a,b)=>b.seasonLog.length-a.seasonLog.length)[0]?.name||'—',note:'All-time'},
     {label:'Most Career Stat Titles',type:'career',value:safe(pl.map(p=>p.statLeads.length)),holder:[...pl].sort((a,b)=>b.statLeads.length-a.statLeads.length)[0]?.name||'—',note:'All-time'},
+    {label:'Highest HOF Score',type:'career',value:safe(pl.map(p=>getHofScore(p))),holder:[...pl].sort((a,b)=>getHofScore(b)-getHofScore(a))[0]?.name||'—',note:'Individual greatness metric'},
+    {label:'Most Peak Seasons',type:'career',value:safe(pl.map(p=>countPeakSeasons(p))),holder:[...pl].sort((a,b)=>countPeakSeasons(b)-countPeakSeasons(a))[0]?.name||'—',note:'MVP + 1st All-RPL same season'},
     {label:'Most All-Star Wins',type:'career',value:safe(Object.values(allStarData).map(v=>v.wins||0)),holder:Object.entries(allStarData).sort((a,b)=>(b[1].wins||0)-(a[1].wins||0))[0]?.[0]||'—',note:'All-Star'},
     {label:'Most All-Star Appearances',type:'career',value:safe(Object.values(allStarData).map(v=>v.apps||0)),holder:Object.entries(allStarData).sort((a,b)=>(b[1].apps||0)-(a[1].apps||0))[0]?.[0]||'—',note:'All-Star'},
     {label:'Most Dunk Contest Wins',type:'career',value:safe(Object.values(allStarData).map(v=>v.dunk||0)),holder:Object.entries(allStarData).sort((a,b)=>(b[1].dunk||0)-(a[1].dunk||0))[0]?.[0]||'—',note:'All-Star'},
@@ -910,6 +1042,9 @@ function buildCareerRecords(pm){
   seasonRecords.unshift({label:'Most Wins in a Season',type:'season',value:maxWins,holder:mws?.champion||'—',note:`Season ${mws?.id||'?'}`});
 }
 
+// ═══════════════════════════════════════════════
+// APP STATE
+// ═══════════════════════════════════════════════
 let pg=1,pgHof=1,pgPlayers=1,currentTab='seasons',isAdmin=false;
 let hofInductees=[],playerMap={},allPlayers=[];
 
@@ -932,6 +1067,9 @@ function rebuildData(){
   buildCareerRecords(playerMap);
 }
 
+// ═══════════════════════════════════════════════
+// PAGER HELPER
+// ═══════════════════════════════════════════════
 function renderPagerBtns(btnsId,prevId,nextId,curPg,total,cb){
   const el=document.getElementById(btnsId);
   const W=2;let h=`<button class="pb" id="${prevId}"${curPg<=1?' disabled':''}>‹ Prev</button>`;
@@ -951,6 +1089,9 @@ function renderPagerBtns(btnsId,prevId,nextId,curPg,total,cb){
   el.querySelectorAll('[data-pg]').forEach(b=>b.addEventListener('click',()=>cb(parseInt(b.dataset.pg,10))));
 }
 
+// ═══════════════════════════════════════════════
+// SEASONS TAB
+// ═══════════════════════════════════════════════
 function getSeasonFilters(){
   const tq=document.getElementById('f-team').value.trim().toLowerCase();
   const sort=document.getElementById('f-sort').value;
@@ -1032,12 +1173,18 @@ function closeModal(){document.getElementById('modal-bg').classList.remove('open
 document.getElementById('m-close').addEventListener('click',closeModal);
 document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target.id==='modal-bg')closeModal();});
 
+// ═══════════════════════════════════════════════
+// RECORDS TAB
+// ═══════════════════════════════════════════════
 function renderRecords(){
   document.getElementById('records-grid').innerHTML=Object.values(records).map(r=>`<div class="rec-card"><div class="rec-stat">${r.label}</div><div class="rec-val">${r.value}</div><div class="rec-holder">${r.holder}</div><div class="rec-team">${r.team}</div></div>`).join('');
   document.getElementById('career-records-grid').innerHTML=careerRecords.map(r=>`<div class="career-rec-card type-career"><div class="career-rec-stat">${r.label}</div><div class="career-rec-val career">${r.value}</div><div class="career-rec-holder">${r.holder}</div><div class="career-rec-note">${r.note||''}</div></div>`).join('');
   document.getElementById('season-records-grid').innerHTML=seasonRecords.map(r=>`<div class="career-rec-card type-season"><div class="career-rec-stat">${r.label}</div><div class="career-rec-val season">${r.value}</div><div class="career-rec-holder">${r.holder}</div><div class="career-rec-note">${r.note||''}</div></div>`).join('');
 }
 
+// ═══════════════════════════════════════════════
+// ALL-STAR TAB
+// ═══════════════════════════════════════════════
 function getAllStarFiltered(){
   const tq=document.getElementById('f-allstar').value.trim().toLowerCase();
   const sort=document.getElementById('f-allstar-sort').value;
@@ -1087,17 +1234,23 @@ function renderAllStar(){
 }
 ['f-allstar','f-allstar-sort'].forEach(id=>document.getElementById(id).addEventListener('input',renderAllStar));
 
+// ═══════════════════════════════════════════════
+// HOF TAB
+// ═══════════════════════════════════════════════
 function getHofFilter(){
   const tq=document.getElementById('f-hof').value.trim().toLowerCase();
   const tier=document.getElementById('f-hof-tier').value;
   const sort=document.getElementById('f-hof-sort').value;
   let list=hofInductees.filter(p=>(!tq||p.name.toLowerCase().includes(tq))&&(tier==='all'||p.hofTier===tier));
-  if(sort==='rings')list=[...list].sort((a,b)=>b.rings-a.rings||b.hofScore-a.hofScore);
+  if(sort==='mvp')list=[...list].sort((a,b)=>b.majorAwards.filter(x=>x.award==='MVP').length-a.majorAwards.filter(x=>x.award==='MVP').length||b.hofScore-a.hofScore);
   else if(sort==='major')list=[...list].sort((a,b)=>b.majorAwards.length-a.majorAwards.length||b.hofScore-a.hofScore);
   else if(sort==='fmvp')list=[...list].sort((a,b)=>b.fmvpAwards.length-a.fmvpAwards.length||b.hofScore-a.hofScore);
+  else if(sort==='allrpl')list=[...list].sort((a,b)=>b.allRPL-a.allRPL||b.hofScore-a.hofScore);
+  else if(sort==='rings')list=[...list].sort((a,b)=>b.rings-a.rings||b.hofScore-a.hofScore);
   else list=[...list].sort((a,b)=>b.hofScore-a.hofScore);
   return list;
 }
+
 const PG_HOF=10;
 function renderHOF(){hofInductees=computeHOF(playerMap);renderHOFRows();renderHOFScoringExplain();}
 function renderHOFRows(){
@@ -1109,36 +1262,38 @@ function renderHOFRows(){
   document.getElementById('hof-ct').textContent=`${hofCount} inductee${hofCount!==1?'s':''}`;
   const rowsEl=document.getElementById('hof-rows');
   if(!filt.length){rowsEl.innerHTML=`<div class="hist-empty">No players match.</div>`;document.getElementById('pager-hof').style.display='none';return;}
-
-  // Group by tier for section dividers
   let html='';
   let lastTier=null;
   slice.forEach((p,i)=>{
     const rank=start+i+1;
     if(p.hofTier!==lastTier){
       if(p.hofTier==='ring-of-honor'){
-        html+=`<div class="hof-section-divider roh">Ring of Honor — Great careers, honored but not inducted</div>`;
+        html+=`<div class="hof-section-divider roh">🏅 Ring of Honor — Elite careers, honored but not quite inducted</div>`;
       }
       lastTier=p.hofTier;
     }
     const as=allStarData[p.name]||{apps:0};
     const sc=scoreColor(p.hofScore);
+    const mvpCount=p.majorAwards.filter(a=>a.award==='MVP').length;
+    const peakCount=countPeakSeasons(p);
     const badges=[
-      ...p.majorAwards.map(a=>`<span class="hof-badge gold">S${a.season} ${a.award}</span>`),
+      mvpCount?`<span class="hof-badge gold">🏆 ${mvpCount}× MVP</span>`:'',
       ...p.fmvpAwards.map(a=>`<span class="hof-badge purple">S${a.season} FMVP</span>`),
-      ...p.minorAwards.slice(0,2).map(a=>`<span class="hof-badge green">S${a.season} ${a.award}</span>`),
+      ...p.majorAwards.filter(a=>a.award!=='MVP').map(a=>`<span class="hof-badge green">S${a.season} ${a.award}</span>`),
+      peakCount?`<span class="hof-badge orange">⚡ ${peakCount}× Peak</span>`:'',
       p.statLeads.length?`<span class="hof-badge cyan">📊 ×${p.statLeads.length}</span>`:'',
       p.allRPL?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`:'',
       as.wins?`<span class="hof-badge pink">⭐ AS ×${as.wins}</span>`:'',
     ].filter(Boolean).join('');
+    // Column: MVPs | Major | FMVP | All-RPL | HOF Score | Notable
     html+=`<div class="hof-ind-row tier-${p.hofTier}" data-name="${p.name}" role="button" tabindex="0">
       <span class="hof-rn">${rank}</span>
-      <span><div class="hof-name">${p.name}<span class="hof-harrow">↗</span></div><div class="hof-name-sub"><span class="hof-tier-badge ${p.hofTier}">${tierLabel(p.hofTier)}</span></div></span>
-      <span class="hof-rings">${p.rings>0?'🏆'.repeat(Math.min(p.rings,3))+(p.rings>3?` ×${p.rings}`:''):'—'}</span>
+      <span><div class="hof-name">${p.name}<span class="hof-harrow">↗</span></div><div class="hof-name-sub"><span class="hof-tier-badge ${p.hofTier}">${tierLabel(p.hofTier)}</span>${peakCount?` <span class="peak-badge">⚡ ${peakCount}× Peak</span>`:''}</div></span>
+      <span class="hof-mvps" style="color:var(--gold-hi)">${mvpCount||'—'}</span>
       <span class="hof-mvps">${p.majorAwards.length||'—'}</span>
       <span class="hof-fmvps">${p.fmvpAwards.length?`<span style="color:var(--pur)">⭐ ×${p.fmvpAwards.length}</span>`:'—'}</span>
-      <span class="hof-mvps" style="color:var(--pink)">${as.apps||'—'}</span>
-      <span class="hof-score-cell"><span style="color:${sc}">${p.hofScore}</span><div class="hof-score-bar"><div class="hof-score-fill" style="width:${Math.min(100,p.hofScore)}%;background:${sc}"></div></div></span>
+      <span class="hof-mvps" style="color:var(--bl)">${p.allRPL||'—'}</span>
+      <span class="hof-score-cell"><span style="color:${sc}">${p.hofScore}</span><div class="hof-score-bar"><div class="hof-score-fill" style="width:${Math.min(100,p.hofScore*1.2)}%;background:${sc}"></div></div></span>
       <span class="hof-awards-cell"><div class="hof-badge-wrap">${badges}</div></span>
     </div>`;
   });
@@ -1159,9 +1314,12 @@ function renderHOFRows(){
 document.getElementById('pg-jump-hof').addEventListener('change',e=>{const v=parseInt(e.target.value,10),tot=Math.max(1,Math.ceil(getHofFilter().length/PG_HOF));if(v>=1&&v<=tot){pgHof=v;renderHOFRows();}else e.target.value=pgHof;});
 
 function renderHOFScoringExplain(){
-  document.getElementById('hof-scoring-grid').innerHTML=HOF_SCORE_LABELS.map(item=>`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;color:var(--tx2)">${item.label}</span><span class="hof-badge ${item.color}">+${item.pts} pts</span></div>`).join('')+`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;grid-column:1/-1"><div style="font-size:10px;color:var(--mu);margin-bottom:4px">HOF Thresholds</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="hof-tier-badge hof">Hall of Fame ≥50 pts</span><span class="hof-tier-badge ring-of-honor">Ring of Honor ≥30 pts</span></div></div>`;
+  document.getElementById('hof-scoring-grid').innerHTML=HOF_SCORE_LABELS.map(item=>`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;color:var(--tx2)">${item.label}</span><span class="hof-badge ${item.color}">+${item.pts} pts</span></div>`).join('')+`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;grid-column:1/-1"><div style="font-size:10px;color:var(--mu);margin-bottom:6px">HOF Thresholds</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="hof-tier-badge hof">Hall of Fame ≥${HOF_THRESHOLD_HOF} pts</span><span class="hof-tier-badge ring-of-honor">Ring of Honor ≥${HOF_THRESHOLD_ROH} pts</span><span class="hof-tier-badge not-eligible">Not Eligible &lt;${HOF_THRESHOLD_ROH} pts</span></div></div>`;
 }
 
+// ═══════════════════════════════════════════════
+// PLAYERS TAB
+// ═══════════════════════════════════════════════
 function getPlayerFilters(){
   const tq=document.getElementById('f-player').value.trim().toLowerCase();
   const sort=document.getElementById('f-player-sort').value;
@@ -1172,7 +1330,7 @@ function getPlayerFilters(){
   else if(sort==='fmvp')list.sort((a,b)=>b.fmvpAwards.length-a.fmvpAwards.length);
   else if(sort==='stat')list.sort((a,b)=>b.statLeads.length-a.statLeads.length);
   else if(sort==='allstar')list.sort((a,b)=>(allStarData[b.name]?.wins||0)-(allStarData[a.name]?.wins||0));
-  else if(sort==='hofscore')list.sort((a,b)=>computeHofScore(b)-computeHofScore(a));
+  else if(sort==='hofscore')list.sort((a,b)=>getHofScore(b)-getHofScore(a));
   else list.sort((a,b)=>a.name.localeCompare(b.name));
   return list;
 }
@@ -1191,14 +1349,15 @@ function renderPlayers(){
   gridEl.innerHTML=slice.map(p=>{
     const tier=playerTier(p);
     const as=allStarData[p.name]||{wins:0};
-    const hofScore=computeHofScore(p);
+    const hofScore=getHofScore(p);
+    const mvpCount=p.majorAwards.filter(a=>a.award==='MVP').length;
+    const peakCount=countPeakSeasons(p);
     const miniBadges=[
-      p.rings?`<span class="hof-badge gold">🏆 ×${p.rings}</span>`:'',
-      p.majorAwards.length?`<span class="hof-badge gold">${p.majorAwards.length} Major</span>`:'',
+      mvpCount?`<span class="hof-badge gold">🏆 ${mvpCount}× MVP</span>`:'',
       p.fmvpAwards.length?`<span class="hof-badge purple">FMVP ×${p.fmvpAwards.length}</span>`:'',
+      peakCount?`<span class="hof-badge orange">⚡ Peak ×${peakCount}</span>`:'',
       p.allRPL?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`:'',
-      p.statLeads.length?`<span class="hof-badge cyan">📊 ×${p.statLeads.length}</span>`:'',
-      as.wins?`<span class="hof-badge pink">AS ×${as.wins}</span>`:'',
+      p.rings?`<span class="hof-badge gold">Ring ×${p.rings}</span>`:'',
       hofNames.has(p.name)?`<span class="hof-badge green">HOF</span>`:'',
       rohNames.has(p.name)?`<span class="hof-badge silver">Ring of Honor</span>`:'',
     ].filter(Boolean).join('');
@@ -1206,12 +1365,12 @@ function renderPlayers(){
       <div class="pc-name">${p.name}</div>
       <div class="pc-seasons">${p.seasonLog.length} season${p.seasonLog.length!==1?'s':''} · HOF ${hofScore}</div>
       <div class="pc-stats">
+        <div class="pc-stat"><span class="pc-sv" style="color:var(--gold-hi)">${mvpCount}</span><span class="pc-sl">MVP</span></div>
         <div class="pc-stat"><span class="pc-sv">${p.majorAwards.length}</span><span class="pc-sl">Major</span></div>
-        <div class="pc-stat"><span class="pc-sv">${p.fmvpAwards.length}</span><span class="pc-sl">FMVP</span></div>
+        <div class="pc-stat"><span class="pc-sv pur">${p.fmvpAwards.length}</span><span class="pc-sl">FMVP</span></div>
         <div class="pc-stat"><span class="pc-sv">${p.allRPL}</span><span class="pc-sl">All-RPL</span></div>
-        <div class="pc-stat"><span class="pc-sv">${p.rings}</span><span class="pc-sl">Rings</span></div>
-        <div class="pc-stat"><span class="pc-sv" style="color:var(--cy)">${p.statLeads.length}</span><span class="pc-sl">Stat</span></div>
-        <div class="pc-stat"><span class="pc-sv" style="color:var(--pink)">${as.wins||0}</span><span class="pc-sl">AS W</span></div>
+        <div class="pc-stat"><span class="pc-sv" style="color:var(--or)">${peakCount}</span><span class="pc-sl">Peak</span></div>
+        <div class="pc-stat"><span class="pc-sv" style="color:var(--tx2)">${p.rings}</span><span class="pc-sl">Rings</span></div>
       </div>
       <div class="pc-badges">${miniBadges}</div>
     </div>`;
@@ -1231,34 +1390,58 @@ function renderPlayers(){
 ['f-player','f-player-sort','f-player-pp'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{pgPlayers=1;renderPlayers();}));
 document.getElementById('pg-jump-players').addEventListener('change',e=>{const v=parseInt(e.target.value,10),tot=Math.max(1,Math.ceil(getPlayerFilters().length/getPPPlayers()));if(v>=1&&v<=tot){pgPlayers=v;renderPlayers();}else e.target.value=pgPlayers;});
 
+// ═══════════════════════════════════════════════
+// PLAYER PROFILE MODAL
+// ═══════════════════════════════════════════════
 function openPlayerModal(p){
   if(!p)return;
   const hofEntry=hofInductees.find(h=>h.name===p.name);
-  const hofScore=computeHofScore(p);
+  const hofScore=getHofScore(p);
+  const {breakdown}=computeHofScore(p);
   const tier=hofEntry?hofEntry.hofTier:hofTier(hofScore,p,hofManualInductions[p.name]?.tier);
   const as=allStarData[p.name]||{apps:0,wins:0,mvps:0,dunk:0,skills:0,threepoint:0};
   const showHofBadge=tier==='hof'||tier==='ring-of-honor';
-  document.getElementById('pm-header').innerHTML=`<div><div class="prf-name">${p.name}</div><div class="prf-sub">${p.seasonLog.length} season${p.seasonLog.length!==1?'s':''} · ${p.allRPL} All-RPL appearances</div>${showHofBadge?`<div class="prf-hof-badge${tier==='ring-of-honor'?' roh':''}">${tier==='hof'?'⭐ Hall of Fame':'🏅 Ring of Honor'}</div>`:''}</div>`;
+  const mvpCount=p.majorAwards.filter(a=>a.award==='MVP').length;
+  const peakCount=countPeakSeasons(p);
+  document.getElementById('pm-header').innerHTML=`<div><div class="prf-name">${p.name}</div><div class="prf-sub">${p.seasonLog.length} season${p.seasonLog.length!==1?'s':''} active · ${p.allRPL} All-RPL selections${peakCount?` · ⚡ ${peakCount} peak season${peakCount!==1?'s':''}`:''}${p.rings>0?` · ${p.rings} ring${p.rings!==1?'s':''}`:''}${p.rings===0?' · No rings':''}</div>${showHofBadge?`<div class="prf-hof-badge${tier==='ring-of-honor'?' roh':''}">${tier==='hof'?'⭐ Hall of Fame':'🏅 Ring of Honor'} · ${hofScore} pts</div>`:''}</div>`;
   document.getElementById('pm-badge').textContent=p.rings>0?`${p.rings} Ring${p.rings!==1?'s':''}`:'No Rings';
   const bigStats=`<div class="prf-stat-row">
+    <div class="prf-big-stat"><span class="prf-bsv" style="color:var(--gold-hi)">${mvpCount}</span><span class="prf-bsl">MVPs</span></div>
     <div class="prf-big-stat"><span class="prf-bsv">${p.majorAwards.length}</span><span class="prf-bsl">Major</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv">${p.minorAwards.length}</span><span class="prf-bsl">Minor</span></div>
     <div class="prf-big-stat"><span class="prf-bsv pur">${p.fmvpAwards.length}</span><span class="prf-bsl">FMVP</span></div>
     <div class="prf-big-stat"><span class="prf-bsv">${p.allRPL}</span><span class="prf-bsl">All-RPL</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv">${p.rings}</span><span class="prf-bsl">Rings</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv cy">${p.statLeads.length}</span><span class="prf-bsl">Stat</span></div>
+    <div class="prf-big-stat"><span class="prf-bsv or">${peakCount}</span><span class="prf-bsl">Peak Ssn</span></div>
+    <div class="prf-big-stat"><span class="prf-bsv cy">${p.statLeads.length}</span><span class="prf-bsl">Stat Ttls</span></div>
     <div class="prf-big-stat"><span class="prf-bsv pink">${as.wins}</span><span class="prf-bsl">AS Wins</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv" style="color:${scoreColor(hofScore)}">${hofScore}</span><span class="prf-bsl">HOF Score</span></div>
+    <div class="prf-big-stat"><span class="prf-bsv" style="color:var(--tx2);font-size:22px">${p.rings}</span><span class="prf-bsl">Rings</span></div>
+    <div class="prf-big-stat"><span class="prf-bsv" style="color:${scoreColor(hofScore)}">${hofScore}</span><span class="prf-bsl">HOF Pts</span></div>
   </div>`;
-  const majorHtml=p.majorAwards.length?p.majorAwards.map(a=>`<div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}</span><span class="award-win" style="color:var(--gold-hi)">${a.award}</span></div>`).join(''):'<p style="font-size:12px;color:var(--mu)">None</p>';
-  const fmvpHtml=p.fmvpAwards.length?`<div style="margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--b2)"><div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pur);margin-bottom:6px">Finals MVP</div>${p.fmvpAwards.map(a=>`<div class="award-row"><span class="award-lbl">S${a.season}</span><span class="award-win fmvp">⭐ FMVP</span></div>`).join('')}</div>`:'';
+  const majorHtml=p.majorAwards.length?p.majorAwards.map(a=>{
+    const isPeakSeason = a.award==='MVP' && p.seasonLog.find(sl=>sl.season===a.season&&sl.allRPLTeams.includes('1st'));
+    return`<div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}${isPeakSeason?' <span class="peak-badge">⚡ Peak</span>':''}</span><span class="award-win" style="color:var(--gold-hi)">${a.award}</span></div>`;
+  }).join(''):'<p style="font-size:12px;color:var(--mu)">None</p>';
+  const fmvpHtml=p.fmvpAwards.length?`<div style="margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--b2)"><div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pur);margin-bottom:6px">Finals MVP</div>${p.fmvpAwards.map(a=>`<div class="award-row"><span class="award-lbl">S${a.season} — proven THE guy</span><span class="award-win fmvp">⭐ FMVP</span></div>`).join('')}</div>`:'';
   const minorHtml=p.minorAwards.length?p.minorAwards.map(a=>`<div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}</span><span class="award-win">${a.award}</span></div>`).join(''):'<p style="font-size:12px;color:var(--mu)">None</p>';
   const statHtml=p.statLeads.length?`<div class="stat-awards-section"><div class="stat-awards-label">📊 Stat Titles</div>${p.statLeads.map(sl=>`<div class="award-row"><span class="award-lbl">S${sl.season} · ${sl.cat}</span><span class="award-win stat">${statShort(sl.cat)}</span></div>`).join('')}</div>`:'';
   const hasAS=as.apps>0||as.dunk>0||as.skills>0||as.threepoint>0||as.mvps>0;
   const allStarHtml=hasAS?`<div class="icard"><div class="ilbl">🌟 All-Star Career</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">${[as.apps?`<div class="pc-stat"><span class="pc-sv" style="color:var(--pink)">${as.apps}</span><span class="pc-sl">Appearances</span></div>`:'',as.wins?`<div class="pc-stat"><span class="pc-sv" style="color:var(--gr)">${as.wins}</span><span class="pc-sl">Wins</span></div>`:'',as.mvps?`<div class="pc-stat"><span class="pc-sv" style="color:var(--pur)">${as.mvps}</span><span class="pc-sl">MVPs</span></div>`:'',as.dunk?`<div class="pc-stat"><span class="pc-sv" style="color:var(--gold-hi)">${as.dunk}</span><span class="pc-sl">Dunk</span></div>`:'',as.skills?`<div class="pc-stat"><span class="pc-sv" style="color:var(--bl)">${as.skills}</span><span class="pc-sl">Skills</span></div>`:'',as.threepoint?`<div class="pc-stat"><span class="pc-sv" style="color:var(--cy)">${as.threepoint}</span><span class="pc-sl">3PT</span></div>`:''].filter(Boolean).join('')}</div></div>`:'';
-  const hofBar=`<div class="icard"><div class="ilbl">⭐ HOF Score: <span style="color:${scoreColor(hofScore)}">${hofScore}</span> · <span class="hof-tier-badge ${tier}">${tierLabel(tier)}</span></div><div class="hof-score-bar" style="height:6px;margin-top:6px"><div class="hof-score-fill" style="width:${Math.min(100,hofScore)}%;background:${scoreColor(hofScore)}"></div></div></div>`;
+
+  // HOF Score Breakdown panel
+  const breakdownHtml=Object.keys(breakdown).length?`<div class="hof-breakdown"><div class="hof-breakdown-title">Score Breakdown</div>${Object.entries(breakdown).map(([k,v])=>`<div class="hof-breakdown-row"><span class="hof-breakdown-label">${k}</span><span class="hof-breakdown-pts" style="color:${scoreColor(hofScore)}">+${v}</span></div>`).join('')}<div class="hof-breakdown-row" style="border-top:1px solid var(--b);margin-top:4px;padding-top:4px"><span class="hof-breakdown-label" style="font-weight:700;color:var(--tx)">Total</span><span class="hof-breakdown-pts" style="color:${scoreColor(hofScore)};font-size:13px">${hofScore} pts</span></div></div>`:'';
+
+  const hofBar=`<div class="icard"><div class="ilbl">⭐ HOF Score: <span style="color:${scoreColor(hofScore)}">${hofScore}</span> · <span class="hof-tier-badge ${tier}">${tierLabel(tier)}</span></div><div class="hof-score-bar" style="height:6px;margin-top:6px"><div class="hof-score-fill" style="width:${Math.min(100,hofScore*1.2)}%;background:${scoreColor(hofScore)}"></div></div>${breakdownHtml}</div>`;
+
   const logRows=p.seasonLog.sort((a,b)=>a.season-b.season).map(row=>{
-    const chips=[row.ring?`<span class="tl-award ring">🏆 Champ</span>`:'',row.fmvp?`<span class="tl-award fmvp">⭐ FMVP</span>`:'', ...row.awards.filter(k=>MAJOR_AWARDS.includes(k)).map(k=>`<span class="tl-award major">${k}</span>`),...row.awards.filter(k=>MINOR_AWARDS.includes(k)).map(k=>`<span class="tl-award minor">${k}</span>`),...row.allRPLTeams.map(t=>`<span class="tl-award allrpl">${t}</span>`),...row.statLeads.map(c=>`<span class="tl-award stat">${statShort(c)}</span>`)].filter(Boolean).join('');
+    const isPeakSeason=row.awards.includes('MVP')&&row.allRPLTeams.includes('1st');
+    const chips=[
+      row.ring?`<span class="tl-award ring">🏆 Champ</span>`:'',
+      row.fmvp?`<span class="tl-award fmvp">⭐ FMVP</span>`:'',
+      isPeakSeason?`<span class="tl-award peak">⚡ Peak</span>`:'',
+      ...row.awards.filter(k=>MAJOR_AWARDS.includes(k)).map(k=>`<span class="tl-award major">${k}</span>`),
+      ...row.awards.filter(k=>MINOR_AWARDS.includes(k)).map(k=>`<span class="tl-award minor">${k}</span>`),
+      ...row.allRPLTeams.map(t=>`<span class="tl-award allrpl">${t}</span>`),
+      ...row.statLeads.map(c=>`<span class="tl-award stat">${statShort(c)}</span>`),
+    ].filter(Boolean).join('');
     return`<tr><td>S${row.season}</td><td style="text-align:left">${row.champion}</td><td style="text-align:left">${chips||'<span style="color:var(--mu);font-size:10px">—</span>'}</td></tr>`;
   }).join('');
   document.getElementById('pm-body').innerHTML=`${bigStats}${hofBar}<div class="minfo"><div class="icard"><div class="ilbl">🥇 Major Awards</div>${majorHtml}</div><div class="icard"><div class="ilbl">🎖 Minor & Finals</div>${fmvpHtml}${minorHtml}${statHtml}</div></div>${allStarHtml}<div class="icard"><div class="ilbl">📅 Season Log</div><div class="tbl-wrap"><table class="season-log-tbl"><thead><tr><th>Season</th><th style="text-align:left">Champion</th><th style="text-align:left">Achievements</th></tr></thead><tbody>${logRows||'<tr><td colspan="3" style="color:var(--mu)">No records</td></tr>'}</tbody></table></div></div>`;
@@ -1269,6 +1452,9 @@ function closePlayerModal(){document.getElementById('player-modal-bg').classList
 document.getElementById('pm-close').addEventListener('click',closePlayerModal);
 document.getElementById('player-modal-bg').addEventListener('click',e=>{if(e.target.id==='player-modal-bg')closePlayerModal();});
 
+// ═══════════════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════════════
 function showTab(tab,el){
   currentTab=tab;
   ['seasons','records','allstar','hof','players','admin'].forEach(t=>document.getElementById('pane-'+t)?.classList.toggle('hidden',t!==tab));
@@ -1280,6 +1466,9 @@ function showTab(tab,el){
   if(tab==='admin'&&isAdmin)renderAdminOverview();
 }
 
+// ═══════════════════════════════════════════════
+// ADMIN PANEL
+// ═══════════════════════════════════════════════
 function switchAdminPane(id,btn){
   document.querySelectorAll('.admin-nav-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -1316,11 +1505,11 @@ function renderAdminHof(){
   const hofMembers=hofInductees.filter(p=>p.hofTier==='hof');
   const rohMembers=hofInductees.filter(p=>p.hofTier==='ring-of-honor');
   document.getElementById('admin-hof-tbody').innerHTML=[
-    ...hofMembers.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge hof">Hall of Fame</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center">${p.rings}</td><td style="text-align:center">${p.majorAwards.length}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`),
-    ...rohMembers.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge ring-of-honor">Ring of Honor</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center">${p.rings}</td><td style="text-align:center">${p.majorAwards.length}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`),
+    ...hofMembers.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge hof">Hall of Fame</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center;color:var(--gold-hi)">${p.majorAwards.filter(a=>a.award==='MVP').length}</td><td style="text-align:center">${p.majorAwards.length}</td><td style="text-align:center;color:var(--bl)">${p.allRPL}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`),
+    ...rohMembers.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge ring-of-honor">Ring of Honor</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center;color:var(--gold-hi)">${p.majorAwards.filter(a=>a.award==='MVP').length}</td><td style="text-align:center">${p.majorAwards.length}</td><td style="text-align:center;color:var(--bl)">${p.allRPL}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`),
   ].join('');
   const inducted=new Set(hofInductees.map(p=>p.name));
-  const candidates=Object.values(playerMap).filter(p=>!inducted.has(p.name)&&!hofManualRemovals.has(p.name)).map(p=>({...p,hofScore:computeHofScore(p)})).filter(p=>p.hofScore>=15).sort((a,b)=>b.hofScore-a.hofScore).slice(0,15);
+  const candidates=Object.values(playerMap).filter(p=>!inducted.has(p.name)&&!hofManualRemovals.has(p.name)).map(p=>({...p,hofScore:getHofScore(p)})).filter(p=>p.hofScore>=15).sort((a,b)=>b.hofScore-a.hofScore).slice(0,15);
   document.getElementById('hof-candidates-list').innerHTML=candidates.map(p=>`<div class="hof-candidate-row"><span>${p.name}</span><span style="text-align:center;color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace">${p.hofScore}</span><span style="text-align:center"><span class="hof-tier-badge not-eligible">Not Yet</span></span></div>`).join('');
 }
 function removeFromHof(name){if(!confirm(`Remove ${name} from HOF/Ring of Honor?`))return;hofManualRemovals.add(name);delete hofManualInductions[name];hofInductees=computeHOF(playerMap);renderAdminHof();toast(`${name} removed`,'amber');}
@@ -1359,14 +1548,21 @@ function renderAdminAnalytics(){
   const champSorted=Object.entries(champMap).sort((a,b)=>b[1]-a[1]);
   const topMvp=[...pl].sort((a,b)=>b.majorAwards.filter(x=>x.award==='MVP').length-a.majorAwards.filter(x=>x.award==='MVP').length).slice(0,5);
   const topFmvp=[...pl].sort((a,b)=>b.fmvpAwards.length-a.fmvpAwards.length).slice(0,5);
+  const topAllRpl=[...pl].sort((a,b)=>b.allRPL-a.allRPL).slice(0,5);
+  const topPeak=[...pl].sort((a,b)=>countPeakSeasons(b)-countPeakSeasons(a)).filter(p=>countPeakSeasons(p)>0).slice(0,5);
   document.getElementById('analytics-content').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
     <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Championships</div><table class="allstar-leader-tbl">${champSorted.slice(0,5).map(([team,n],i)=>`<tr><td>${i+1}</td><td>${team}</td><td style="color:var(--gold-hi)">${n}</td></tr>`).join('')}</table></div>
     <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Season MVPs</div><table class="allstar-leader-tbl">${topMvp.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--gold-hi)">${p.majorAwards.filter(x=>x.award==='MVP').length}</td></tr>`).join('')}</table></div>
     <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Finals MVPs</div><table class="allstar-leader-tbl">${topFmvp.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--pur)">${p.fmvpAwards.length}</td></tr>`).join('')}</table></div>
+    <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most All-RPL Selections</div><table class="allstar-leader-tbl">${topAllRpl.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--bl)">${p.allRPL}</td></tr>`).join('')}</table></div>
+    <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-bottom:8px">⚡ Peak Seasons (MVP + 1st All-RPL)</div><table class="allstar-leader-tbl">${topPeak.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--or)">${countPeakSeasons(p)}</td></tr>`).join('')}</table></div>
     <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">HOF Score Leaders</div><table class="allstar-leader-tbl">${hofInductees.filter(p=>p.hofTier==='hof').slice(0,5).map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:${scoreColor(p.hofScore)}">${p.hofScore}</td></tr>`).join('')}</table></div>
   </div>`;
 }
 
+// ═══════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════
 function adminClick(){
   if(isAdmin){logoutAdmin();return;}
   document.getElementById('login-overlay').classList.add('show');
@@ -1403,6 +1599,9 @@ function saveNewSeason(){
   toast(`Season ${newS.id} added`,'green');
 }
 
+// ═══════════════════════════════════════════════
+// KEYBOARD SHORTCUTS
+// ═══════════════════════════════════════════════
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     closeModal();closePlayerModal();
@@ -1410,6 +1609,9 @@ document.addEventListener('keydown',e=>{
   }
 });
 
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
 rebuildData();
 updateHeroStats();
 renderSeasons();
