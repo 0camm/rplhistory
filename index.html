@@ -19,6 +19,7 @@
   --gold:#d4922a;--gold-hi:#f0b93c;
   --gold-dim:rgba(212,146,42,.12);--gold-border:rgba(212,146,42,.28);
   --pur:#c084fc;--pur-d:rgba(192,132,252,.09);--pur-border:rgba(192,132,252,.25);
+  --cy:#22d3ee;--cy-d:rgba(34,211,238,.09);--cy-border:rgba(34,211,238,.22);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -112,7 +113,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .rec-val{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;color:var(--gold-hi);margin-bottom:6px}
 .rec-holder{font-size:13px;color:var(--tx);font-weight:500;margin-bottom:2px}
 .rec-team{font-size:10px;color:var(--mu)}
-/* HOF — single player category only */
 .hof-outer{display:grid;grid-template-columns:1fr;gap:16px;max-width:600px}
 .hof-card{background:var(--s1);border:1px solid var(--b);border-radius:12px;overflow:hidden;position:relative}
 .hof-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold-border),transparent 50%)}
@@ -146,6 +146,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .hof-badge.green{background:var(--gr-d);color:var(--gr);border:1px solid rgba(24,212,100,.18)}
 .hof-badge.blue{background:var(--bl-d);color:var(--bl);border:1px solid rgba(91,156,246,.18)}
 .hof-badge.purple{background:var(--pur-d);color:var(--pur);border:1px solid var(--pur-border)}
+.hof-badge.cyan{background:var(--cy-d);color:var(--cy);border:1px solid var(--cy-border)}
 .hof-harrow{color:var(--gold);font-size:10px;opacity:0;transform:translateX(-3px);transition:opacity .14s,transform .14s;margin-left:4px}
 .hof-ind-row:hover .hof-harrow{opacity:1;transform:none}
 .players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--b);border:1px solid var(--b);border-radius:12px;overflow:hidden}
@@ -189,6 +190,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .award-lbl{color:var(--mu);font-size:10px;letter-spacing:.03em;white-space:nowrap}
 .award-win{color:var(--tx);font-weight:500;text-align:right}
 .award-win.fmvp{color:var(--pur)}
+.award-win.stat{color:var(--cy)}
 .allrpl-tabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
 .at-btn{background:transparent;border:1px solid var(--b);color:var(--mu);border-radius:4px;padding:3px 8px;font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .15s}
 .at-btn:hover{color:var(--tx);border-color:rgba(255,255,255,.18)}
@@ -218,6 +220,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .prf-big-stat{display:flex;flex-direction:column;align-items:center;background:var(--s3);border:1px solid var(--b);border-radius:8px;padding:10px 16px;min-width:52px}
 .prf-bsv{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;color:var(--gold-hi)}
 .prf-bsv.pur{color:var(--pur)}
+.prf-bsv.cy{color:var(--cy)}
 .prf-bsl{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-top:3px}
 .season-log-tbl{width:100%;border-collapse:collapse;font-size:12px}
 .season-log-tbl thead tr{background:var(--s3)}
@@ -232,7 +235,11 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .tl-award.allrpl{background:var(--bl-d);color:var(--bl);border:1px solid rgba(91,156,246,.18)}
 .tl-award.ring{background:rgba(240,185,60,.15);color:var(--gold-hi);border:1px solid var(--gold-border)}
 .tl-award.fmvp{background:var(--pur-d);color:var(--pur);border:1px solid var(--pur-border)}
+.tl-award.stat{background:var(--cy-d);color:var(--cy);border:1px solid var(--cy-border)}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+/* Stat awards section inside player modal */
+.stat-awards-section{margin-top:8px;padding-top:8px;border-top:1px solid var(--b2)}
+.stat-awards-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cy);margin-bottom:6px}
 #toasts{position:fixed;bottom:20px;right:16px;display:flex;flex-direction:column-reverse;gap:7px;z-index:9999;pointer-events:none;width:min(300px,calc(100vw - 32px))}
 .toast{background:var(--s3);border:1px solid var(--b);border-left:3px solid var(--gold);border-radius:9px;padding:10px 14px;font-size:13px;color:#fff;box-shadow:0 10px 36px rgba(0,0,0,.6);pointer-events:all;animation:tIn .2s ease;word-break:break-word}
 .toast.green{border-left-color:var(--gr)}.toast.amber{border-left-color:var(--am)}.toast.out{animation:tOut .2s ease forwards}
@@ -428,6 +435,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
           <option value="allrpl">Most All-RPL Apps</option>
           <option value="rings">Most Rings</option>
           <option value="fmvp">Most Finals MVPs</option>
+          <option value="stat">Most Stat Titles</option>
         </select>
         <select class="fc" id="f-player-pp">
           <option value="24" selected>24 / page</option>
@@ -539,9 +547,26 @@ const AWARD_LABELS={
   BMOTY:'Big Man of the Year',DEVOTY:'Developer of the Year',COTY:'Coach of the Year',
   FMVP:'Finals MVP',
 };
+
+// Short display label for each stat leader category
+const STAT_SHORT={
+  'Scoring Champion':'PTS',
+  'Scoring':'PTS',
+  'Steals Leader':'STL',
+  'Steals':'STL',
+  'Assist Leader':'AST',
+  'Assists':'AST',
+  'Assists Leader':'AST',
+  'Rebounds Leader':'REB',
+  'Rebounds':'REB',
+  'PER':'PER',
+  'Turnover Leader':'TOV',
+  'Turnovers':'TOV',
+};
+function statShort(cat){return STAT_SHORT[cat]||cat.replace(/\s*(Leader|Champion)$/i,'').trim().toUpperCase().slice(0,4);}
+
 const MAJOR_AWARDS=['MVP','OPOTY','DPOTY','PMOTY'];
 const MINOR_AWARDS=['MIP','CPOTY','4MOTY','5MOTY','BMOTY','ROTY','DEVOTY','COTY'];
-// FMVP is treated as its own special category — tracked separately
 const TEAM_KEYS={first:'1st',second:'2nd',third:'3rd',defensive:'Def'};
 const ESPN_MAP={
   'Atlanta Hawks':'atl','Boston Celtics':'bos','Brooklyn Nets':'bkn','Charlotte Hornets':'cha',
@@ -558,40 +583,19 @@ const teamLogo=n=>{const k=ESPN_MAP[n];return k?`https://a.espncdn.com/i/teamlog
 
 /* ═══════════════════════════════════
    NAME NORMALIZATION
-   All aliases collapse to canonical name
 ═══════════════════════════════════ */
 const NAME_MAP={
-  // Dohziez variants
-  'Dvloz':'Dohziez',
-  'Dv0lz':'Dohziez',
-  'dohziez':'Dohziez',
-  // Pox variants
+  'Dvloz':'Dohziez','Dv0lz':'Dohziez','dohziez':'Dohziez',
   'vAcevx':'Pox',
-  // Minis variants
   'miniszl':'Minis',
-  // ZPud variants
   'zpud':'ZPud',
-  // Slap variants
-  'slap':'Slapclosed',
-  'Slap':'Slapclosed',
-  // Shawn variants
-  'shawn':'Shawn',
-  // Aether variants
-  'aether':'Aether',
-  // Counted variants
-  'counted':'Counted',
-  // Tsutsumi variants
-  'tsutsumi':'Tsutsumi',
+  'slap':'Slapclosed','Slap':'Slapclosed',
+  'shawn':'Shawn','aether':'Aether','counted':'Counted','tsutsumi':'Tsutsumi',
 };
-function normName(n){
-  if(!n)return n;
-  const t=n.trim();
-  return NAME_MAP[t]||t;
-}
+function normName(n){if(!n)return n;const t=n.trim();return NAME_MAP[t]||t;}
 
 /* ═══════════════════════════════════
    DATA
-   fmvp field added to every season
 ═══════════════════════════════════ */
 let seasons=[
   {id:1,champion:'Denver Nuggets',record:'7-0',defeated:'Boston Celtics',defeatedRecord:'6-2',seriesResult:'2-1 (3 Games)',
@@ -687,7 +691,6 @@ const records={
   tov:{label:'Turnovers',value:40,holder:'trey',team:'Trailblazers'},
 };
 
-// Players HOF only — coaches HOF removed
 const hofReqs={
   players:[
     'AT LEAST 3 seasons played',
@@ -702,16 +705,22 @@ const hofReqs={
 
 /* ═══════════════════════════════════
    PLAYER AGGREGATION
-   normName() applied everywhere a player name is read
-   fmvpAwards tracked as separate array
+   statLeads now stored as full objects: {season, cat, winner}
+   so they can be displayed in awards sections
 ═══════════════════════════════════ */
 function buildPlayerMap(){
   const map={};
   const ensure=rawName=>{
     const n=normName(rawName);
-    if(!map[n])map[n]={name:n,rings:0,allRPL:0,majorAwards:[],minorAwards:[],fmvpAwards:[],statLeads:[],seasonLog:[]};
+    if(!map[n])map[n]={
+      name:n,rings:0,allRPL:0,
+      majorAwards:[],minorAwards:[],fmvpAwards:[],
+      statLeads:[],   // {season, cat} objects
+      seasonLog:[]
+    };
     return map[n];
   };
+
   seasons.forEach(s=>{
     const teamAppearances={};
     Object.entries(s.allRPL||{}).forEach(([teamKey,players])=>{
@@ -722,6 +731,7 @@ function buildPlayerMap(){
         teamAppearances[normName(p.name)].push(TEAM_KEYS[teamKey]||teamKey);
       });
     });
+
     const seasonAwards={};
     Object.entries(s.awards||{}).forEach(([k,rawV])=>{
       const v=normName(rawV);
@@ -731,7 +741,8 @@ function buildPlayerMap(){
       if(!seasonAwards[v])seasonAwards[v]=[];
       seasonAwards[v].push(k);
     });
-    // Finals MVP — tracked separately
+
+    // Finals MVP
     if(s.fmvp){
       const fmvpName=normName(s.fmvp);
       const pl=ensure(s.fmvp);
@@ -739,15 +750,21 @@ function buildPlayerMap(){
       if(!seasonAwards[fmvpName])seasonAwards[fmvpName]=[];
       seasonAwards[fmvpName].push('FMVP');
     }
+
+    // Championship rings
     (s.owners||[]).forEach(rawOwner=>{
       const pl=ensure(rawOwner);
       pl.rings++;
     });
+
+    // Stat leaders — store full objects on player
     Object.entries(s.statLeaders||{}).forEach(([cat,rawWinner])=>{
       const winner=normName(rawWinner);
       const pl=ensure(winner);
       pl.statLeads.push({season:s.id,cat});
     });
+
+    // Build season log
     const champSet=new Set((s.owners||[]).map(normName));
     const allThisSeason=new Set([
       ...Object.values(s.allRPL||{}).flat().map(p=>normName(p.name)),
@@ -756,11 +773,15 @@ function buildPlayerMap(){
       ...Object.values(s.statLeaders||{}).map(normName),
       ...(s.owners||[]).map(normName),
     ]);
+
     allThisSeason.forEach(name=>{
       const pl=ensure(name);
       const thisAwards=seasonAwards[name]||[];
       const thisTeams=teamAppearances[name]||[];
       const fmvpThisSeason=s.fmvp&&normName(s.fmvp)===name;
+      const thisStatLeads=Object.entries(s.statLeaders||{})
+        .filter(([,v])=>normName(v)===name)
+        .map(([k])=>k);
       pl.seasonLog.push({
         season:s.id,
         champion:s.champion,
@@ -768,7 +789,7 @@ function buildPlayerMap(){
         allRPLTeams:thisTeams,
         awards:thisAwards,
         fmvp:fmvpThisSeason,
-        statLeads:Object.entries(s.statLeaders||{}).filter(([,v])=>normName(v)===name).map(([k])=>k),
+        statLeads:thisStatLeads,
       });
     });
   });
@@ -776,7 +797,6 @@ function buildPlayerMap(){
 }
 
 function computeHOF(playerMap){
-  // HOF eligibility: 2+ major awards OR (1 major + 3+ allRPL + 1 minor) OR 1+ FMVP with strong overall résumé
   return Object.values(playerMap).filter(p=>
     p.majorAwards.length>=2||
     (p.majorAwards.length>=1&&p.allRPL>=3&&p.minorAwards.length>=1)||
@@ -787,7 +807,7 @@ function computeHOF(playerMap){
 function playerTier(p){
   if(p.majorAwards.length>=3||p.rings>=2||p.fmvpAwards.length>=2)return'elite';
   if(p.majorAwards.length>=2||p.allRPL>=6||p.fmvpAwards.length>=1)return'great';
-  if(p.majorAwards.length>=1||p.allRPL>=3)return'good';
+  if(p.majorAwards.length>=1||p.allRPL>=3||p.statLeads.length>=2)return'good';
   return'role';
 }
 
@@ -934,18 +954,26 @@ function openSeasonModal(s){
     ${teamKeys.map((k,i)=>`<div id="m-allrpl-${k}" style="${i===0?'':'display:none'}">
       <table class="allrpl-tbl"><tbody>${(s.allRPL[k]||[]).map(p=>`<tr><td>${p.pos}</td><td>${normName(p.name)}</td></tr>`).join('')}</tbody></table>
     </div>`).join('')}`:'<p style="font-size:12px;color:var(--mu);font-style:italic">Not recorded</p>';
-  // Build awards rows — include FMVP at top of list with purple styling
+
+  // Awards list: FMVP first, then regular awards
   const fmvpRow=s.fmvp?`<div class="award-row">
     <span class="award-lbl">Finals MVP</span>
     <span class="award-win fmvp">⭐ ${normName(s.fmvp)}</span>
   </div>`:'';
   const awardsHtml=fmvpRow+Object.entries(s.awards||{}).map(([k,v])=>`
     <div class="award-row"><span class="award-lbl">${AWARD_LABELS[k]||k}</span><span class="award-win">${normName(v)}</span></div>`).join('');
+
+  // Stat leaders card
   const statHtml=s.statLeaders?`<div class="stat-grid">${Object.entries(s.statLeaders).map(([k,v])=>`
-    <div class="stat-item"><div class="stat-lbl">${k}</div><div class="stat-val">${normName(v)}</div></div>`).join('')}</div>`
+    <div class="stat-item">
+      <div class="stat-lbl">${k}</div>
+      <div class="stat-val" style="color:var(--cy)">${normName(v)}</div>
+    </div>`).join('')}</div>`
     :'<p style="font-size:12px;color:var(--mu);font-style:italic">Not recorded</p>';
+
   const champPlayersHtml=(s.owners||[]).length?`<div class="chip-list">${(s.owners||[]).map(o=>`<span class="chip">🏆 ${normName(o)}</span>`).join('')}</div>`:'';
   const fmvpChipHtml=s.fmvp?`<div class="chip-list"><span class="chip fmvp-chip">⭐ Finals MVP: ${normName(s.fmvp)}</span></div>`:'';
+
   document.getElementById('m-body').innerHTML=`
     ${s.toty?`<div style="display:flex;gap:8px;flex-wrap:wrap">
       <div class="toty-row"><span class="toty-label">🏆 Team of the Year</span><span class="toty-val">${s.toty}</span></div>
@@ -989,11 +1017,7 @@ function getHofFilter(){
 }
 const PG_HOF=10;
 
-function renderHOF(){
-  hofInductees=computeHOF(playerMap);
-  renderHOFRows();
-  renderHOFReqs();
-}
+function renderHOF(){hofInductees=computeHOF(playerMap);renderHOFRows();renderHOFReqs();}
 function renderHOFRows(){
   const filt=getHofFilter();
   const total=Math.max(1,Math.ceil(filt.length/PG_HOF));
@@ -1008,6 +1032,7 @@ function renderHOFRows(){
       ...p.majorAwards.map(a=>`<span class="hof-badge gold">S${a.season} ${a.award}</span>`),
       ...p.fmvpAwards.map(a=>`<span class="hof-badge purple">S${a.season} FMVP</span>`),
       ...p.minorAwards.slice(0,2).map(a=>`<span class="hof-badge green">S${a.season} ${a.award}</span>`),
+      p.statLeads.length>0?`<span class="hof-badge cyan">📊 ${p.statLeads.length} Stat Title${p.statLeads.length!==1?'s':''}</span>`:'',
       p.allRPL>0?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`:'',
     ].filter(Boolean).join('');
     const fmvpDisplay=p.fmvpAwards.length>0?`<span style="color:var(--pur)">⭐ ×${p.fmvpAwards.length}</span>`:'—';
@@ -1040,7 +1065,6 @@ document.getElementById('pg-jump-hof').addEventListener('change',e=>{
 });
 
 function renderHOFReqs(){
-  // Players HOF only — coaches section removed
   document.getElementById('hof-reqs-grid').innerHTML=`
     <div class="hof-card"><div class="hof-hdr"><div class="hof-icon-wrap">🏀</div>
       <div><div class="hof-title">Players Hall of Fame</div><div class="hof-sub">Player eligibility criteria</div></div></div>
@@ -1058,6 +1082,7 @@ function getPlayerFilters(){
   else if(sort==='allrpl')list.sort((a,b)=>b.allRPL-a.allRPL||b.majorAwards.length-a.majorAwards.length);
   else if(sort==='rings')list.sort((a,b)=>b.rings-a.rings||b.majorAwards.length-a.majorAwards.length);
   else if(sort==='fmvp')list.sort((a,b)=>b.fmvpAwards.length-a.fmvpAwards.length||b.majorAwards.length-a.majorAwards.length);
+  else if(sort==='stat')list.sort((a,b)=>b.statLeads.length-a.statLeads.length||b.majorAwards.length-a.majorAwards.length);
   else list.sort((a,b)=>a.name.localeCompare(b.name));
   return list;
 }
@@ -1081,6 +1106,7 @@ function renderPlayers(){
       p.majorAwards.length>0?`<span class="hof-badge gold">${p.majorAwards.length} Major</span>`:'',
       p.fmvpAwards.length>0?`<span class="hof-badge purple">FMVP ×${p.fmvpAwards.length}</span>`:'',
       p.allRPL>0?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`:'',
+      p.statLeads.length>0?`<span class="hof-badge cyan">📊 ×${p.statLeads.length}</span>`:'',
       isHof.has(p.name)?`<span class="hof-badge green">HOF</span>`:'',
     ].filter(Boolean).join('');
     return`<div class="player-card tier-${tier}" data-name="${p.name}" role="button" tabindex="0">
@@ -1092,6 +1118,7 @@ function renderPlayers(){
         <div class="pc-stat"><span class="pc-sv">${p.fmvpAwards.length}</span><span class="pc-sl">FMVP</span></div>
         <div class="pc-stat"><span class="pc-sv">${p.allRPL}</span><span class="pc-sl">All-RPL</span></div>
         <div class="pc-stat"><span class="pc-sv">${p.rings}</span><span class="pc-sl">Rings</span></div>
+        <div class="pc-stat"><span class="pc-sv" style="color:var(--cy)">${p.statLeads.length}</span><span class="pc-sl">Stat</span></div>
       </div>
       <div class="pc-badges">${miniBadges}</div>
     </div>`;
@@ -1116,6 +1143,9 @@ document.getElementById('pg-jump-players').addEventListener('change',e=>{
 
 /* ═══════════════════════════════════
    PLAYER PROFILE MODAL
+   Stat leader awards now have their own
+   section in the awards panel and appear
+   as cyan badges in the season log.
 ═══════════════════════════════════ */
 function openPlayerModal(p){
   if(!p)return;
@@ -1127,19 +1157,23 @@ function openPlayerModal(p){
       ${isHof?`<div class="prf-hof-badge">⭐ Hall of Famer</div>`:''}
     </div>`;
   document.getElementById('pm-badge').textContent=p.rings>0?`${p.rings} Ring${p.rings!==1?'s':''}`:'No Rings';
+
   const bigStats=`<div class="prf-stat-row">
     <div class="prf-big-stat"><span class="prf-bsv">${p.majorAwards.length}</span><span class="prf-bsl">Major Awards</span></div>
     <div class="prf-big-stat"><span class="prf-bsv">${p.minorAwards.length}</span><span class="prf-bsl">Minor Awards</span></div>
     <div class="prf-big-stat"><span class="prf-bsv pur">${p.fmvpAwards.length}</span><span class="prf-bsl">Finals MVPs</span></div>
     <div class="prf-big-stat"><span class="prf-bsv">${p.allRPL}</span><span class="prf-bsl">All-RPL</span></div>
     <div class="prf-big-stat"><span class="prf-bsv">${p.rings}</span><span class="prf-bsl">Rings</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv">${p.statLeads.length}</span><span class="prf-bsl">Stat Titles</span></div>
+    <div class="prf-big-stat"><span class="prf-bsv cy">${p.statLeads.length}</span><span class="prf-bsl">Stat Titles</span></div>
   </div>`;
+
+  // Major awards card
   const majorHtml=p.majorAwards.length?p.majorAwards.map(a=>`
     <div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}</span>
     <span class="award-win" style="color:var(--gold-hi)">${a.award}</span></div>`).join('')
     :'<p style="font-size:12px;color:var(--mu);font-style:italic">None</p>';
-  // Build minor awards + FMVP section
+
+  // Minor & FMVP card — also includes stat leader titles
   const fmvpHtml=p.fmvpAwards.length?`
     <div style="margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--b2)">
       <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pur);margin-bottom:6px">Finals MVP</div>
@@ -1148,10 +1182,23 @@ function openPlayerModal(p){
         <span class="award-win fmvp">⭐ FMVP</span>
       </div>`).join('')}
     </div>`:'';
-  const minorHtml=fmvpHtml+(p.minorAwards.length?p.minorAwards.map(a=>`
+
+  const minorHtml=p.minorAwards.length?p.minorAwards.map(a=>`
     <div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}</span>
     <span class="award-win">${a.award}</span></div>`).join('')
-    :'<p style="font-size:12px;color:var(--mu);font-style:italic">None</p>');
+    :'<p style="font-size:12px;color:var(--mu);font-style:italic">None</p>';
+
+  // Stat leader titles section
+  const statAwardsHtml=p.statLeads.length?`
+    <div class="stat-awards-section">
+      <div class="stat-awards-label">📊 Stat Titles</div>
+      ${p.statLeads.map(sl=>`<div class="award-row">
+        <span class="award-lbl">S${sl.season} · ${sl.cat}</span>
+        <span class="award-win stat">${statShort(sl.cat)}</span>
+      </div>`).join('')}
+    </div>`:'';
+
+  // Season log rows — stat leads now show as cyan tags
   const logRows=p.seasonLog.sort((a,b)=>a.season-b.season).map(row=>{
     const chips=[
       row.ring?`<span class="tl-award ring">🏆 Champ</span>`:'',
@@ -1159,7 +1206,7 @@ function openPlayerModal(p){
       ...row.awards.filter(k=>MAJOR_AWARDS.includes(k)).map(k=>`<span class="tl-award major">${k}</span>`),
       ...row.awards.filter(k=>MINOR_AWARDS.includes(k)).map(k=>`<span class="tl-award minor">${k}</span>`),
       ...row.allRPLTeams.map(t=>`<span class="tl-award allrpl">${t} Team</span>`),
-      ...row.statLeads.map(c=>`<span class="tl-award minor">${c}</span>`),
+      ...row.statLeads.map(c=>`<span class="tl-award stat" title="${c}">${statShort(c)}</span>`),
     ].filter(Boolean).join('');
     return`<tr>
       <td>S${row.season}</td>
@@ -1167,11 +1214,16 @@ function openPlayerModal(p){
       <td>${chips||'<span style="color:var(--mu);font-size:10px">—</span>'}</td>
     </tr>`;
   }).join('');
+
   document.getElementById('pm-body').innerHTML=`
     ${bigStats}
     <div class="minfo">
       <div class="icard"><div class="ilbl">🥇 Major Awards</div>${majorHtml}</div>
-      <div class="icard"><div class="ilbl">🎖 Minor & Finals Awards</div>${minorHtml||'<p style="font-size:12px;color:var(--mu);font-style:italic">None</p>'}</div>
+      <div class="icard">
+        <div class="ilbl">🎖 Minor &amp; Finals Awards</div>
+        ${fmvpHtml}${minorHtml}
+        ${statAwardsHtml}
+      </div>
     </div>
     <div class="icard">
       <div class="ilbl">📅 Season Log</div>
