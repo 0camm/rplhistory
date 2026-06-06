@@ -22,8 +22,6 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-size:14px;min-height:100vh;-webkit-font-smoothing:antialiased;width:100%;max-width:100vw;overflow-x:hidden}
-
-/* STATUS BAR */
 .sbar{display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:9px 20px;width:100%}
 .sbar-sync{font-size:11px;color:var(--mu);font-family:'JetBrains Mono',monospace}
 .live-chip{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
@@ -31,8 +29,6 @@ body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-si
 .ldot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
 .live-chip.on .ldot{animation:blink 1.8s ease infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
-
-/* HERO */
 .hero{padding:28px 20px 24px;position:relative;border-bottom:1px solid var(--b2);width:100%}
 .hero::after{content:'';position:absolute;bottom:0;left:0;width:180px;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
 .hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -48,8 +44,6 @@ body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-si
 .hs-item:hover{background:var(--s3)}
 .hs-num{font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;color:var(--gold-hi)}
 .hs-lbl{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}
-
-/* TAB KEYS */
 .hero-key{display:flex;flex-wrap:wrap;gap:5px;align-self:flex-end;max-width:100%}
 .kc{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:7px;background:var(--s2);border:1px solid var(--b);cursor:pointer;transition:border-color .15s,background .15s}
 .kc:hover{border-color:rgba(255,255,255,.12);background:var(--s3)}
@@ -58,30 +52,20 @@ body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-si
 .kc-pip.seasons{background:var(--gold-hi)}.kc-pip.records{background:var(--bl)}.kc-pip.hof{background:var(--gr)}.kc-pip.players{background:var(--red)}.kc-pip.admin{background:var(--am)}
 .kc-code{font-weight:700;color:var(--tx2);font-family:'JetBrains Mono',monospace;font-size:10px}
 .kc-lbl{color:var(--mu);font-size:10px}
-
-/* ALERT */
 .alert{display:none;margin:12px 20px 0;padding:10px 14px;font-size:12px;color:var(--mu);background:var(--s1);border:1px solid var(--b);border-left:3px solid var(--am);border-radius:0 7px 7px 0}
 .alert.on{display:block}
-
-/* MAIN */
 .main{padding:24px 20px 72px;width:100%}
-
-/* SECTION HEADER */
 .sec-hd{margin-bottom:14px;width:100%}
 .sec-hd-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .sec-title{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.08em;color:#fff}
 .sec-ct{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);background:var(--s3);border:1px solid var(--b);border-radius:20px;padding:2px 9px}
 .sec-rule{flex:1;height:1px;background:var(--b2)}
-
-/* FILTERS */
 .filters{display:flex;align-items:center;gap:6px;flex-wrap:wrap;width:100%}
 .fc{background:var(--s2);border:1px solid var(--b);border-radius:7px;color:var(--tx);font-size:12px;font-family:'Inter',sans-serif;padding:6px 10px;outline:none;transition:border-color .15s;min-width:0}
 .fc::placeholder{color:var(--mu)}
 .fc:focus{border-color:var(--gold-border)}
 .fc-search{flex:1;min-width:80px;max-width:220px}
 select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5'%3E%3Cpath fill='%2352526a' d='M0 0l4.5 5L9 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;background-color:var(--s2)}
-
-/* SEASONS TABLE */
 .ht-wrap{width:100%;background:var(--s1);border:1px solid var(--b);border-radius:11px;overflow:hidden;position:relative}
 .ht-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold-border),transparent 50%)}
 .ht-hd{display:grid;grid-template-columns:34px 1fr 100px 120px 80px 80px;padding:8px 14px;background:var(--s2);border-bottom:1px solid var(--b);width:100%}
@@ -106,8 +90,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .harrow{color:var(--gold);font-size:10px;opacity:0;transform:translateX(-3px);transition:opacity .14s,transform .14s}
 .hr:hover .harrow{opacity:1;transform:none}
 .hist-empty{padding:40px 20px;text-align:center;font-size:13px;color:var(--mu)}
-
-/* PAGER */
 .pager{display:flex;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:8px;width:100%}
 .pg-info{font-size:11px;color:var(--mu);font-family:'JetBrains Mono',monospace}
 .pg-btns{display:flex;align-items:center;gap:3px;flex-wrap:wrap}
@@ -120,8 +102,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .pg-jlbl{font-size:11px;color:var(--mu)}
 .pg-jin{background:var(--s3);border:1px solid var(--b);border-radius:5px;color:var(--tx);font-size:11px;font-family:'JetBrains Mono',monospace;width:40px;padding:4px 6px;text-align:center;outline:none}
 .pg-jin:focus{border-color:var(--gold-border)}
-
-/* RECORDS GRID */
 .records-grid-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--b);border:1px solid var(--b);border-radius:12px;overflow:hidden}
 .rec-card{background:var(--s1);padding:20px;position:relative;overflow:hidden;transition:background .15s}
 .rec-card:hover{background:var(--s2)}
@@ -130,8 +110,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .rec-val{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;color:var(--gold-hi);margin-bottom:6px}
 .rec-holder{font-size:13px;color:var(--tx);font-weight:500;margin-bottom:2px}
 .rec-team{font-size:10px;color:var(--mu)}
-
-/* HOF */
 .hof-outer{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .hof-card{background:var(--s1);border:1px solid var(--b);border-radius:12px;overflow:hidden;position:relative}
 .hof-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold-border),transparent 50%)}
@@ -165,8 +143,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .hof-badge.blue{background:var(--bl-d);color:var(--bl);border:1px solid rgba(91,156,246,.18)}
 .hof-harrow{color:var(--gold);font-size:10px;opacity:0;transform:translateX(-3px);transition:opacity .14s,transform .14s;margin-left:4px}
 .hof-ind-row:hover .hof-harrow{opacity:1;transform:none}
-
-/* PLAYERS TAB */
 .players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--b);border:1px solid var(--b);border-radius:12px;overflow:hidden}
 .player-card{background:var(--s1);padding:16px;position:relative;overflow:hidden;transition:background .15s;cursor:pointer}
 .player-card:hover{background:var(--s2)}
@@ -182,8 +158,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .pc-sv{font-size:14px;font-weight:700;color:#fff;line-height:1;font-family:'JetBrains Mono',monospace}
 .pc-sl{font-size:8px;color:var(--mu);letter-spacing:.08em;margin-top:2px}
 .pc-badges{display:flex;flex-wrap:wrap;gap:3px;margin-top:8px}
-
-/* MODALS */
 .mbg{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:12px;opacity:0;pointer-events:none;transition:opacity .2s}
 .mbg.open{opacity:1;pointer-events:all}
 .modal{background:var(--s1);border:1px solid var(--b);border-radius:14px;overflow:hidden;width:100%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;transform:translateY(12px) scale(.97);transition:transform .2s;box-shadow:0 28px 72px rgba(0,0,0,.8);position:relative}
@@ -226,8 +200,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .toty-row{display:inline-flex;align-items:center;gap:10px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:6px;padding:6px 12px;font-size:12px}
 .toty-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.9}
 .toty-val{color:var(--gold-hi);font-weight:600}
-
-/* PLAYER PROFILE MODAL specifics */
 .prf-hero{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .prf-name{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.03em;color:#fff;line-height:1}
 .prf-sub{font-size:11px;color:var(--mu);margin-top:4px}
@@ -249,15 +221,11 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .tl-award.allrpl{background:var(--bl-d);color:var(--bl);border:1px solid rgba(91,156,246,.18)}
 .tl-award.ring{background:rgba(240,185,60,.15);color:var(--gold-hi);border:1px solid var(--gold-border)}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-
-/* TOASTS */
 #toasts{position:fixed;bottom:20px;right:16px;display:flex;flex-direction:column-reverse;gap:7px;z-index:9999;pointer-events:none;width:min(300px,calc(100vw - 32px))}
 .toast{background:var(--s3);border:1px solid var(--b);border-left:3px solid var(--gold);border-radius:9px;padding:10px 14px;font-size:13px;color:#fff;box-shadow:0 10px 36px rgba(0,0,0,.6);pointer-events:all;animation:tIn .2s ease;word-break:break-word}
 .toast.green{border-left-color:var(--gr)}.toast.amber{border-left-color:var(--am)}.toast.out{animation:tOut .2s ease forwards}
 @keyframes tIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes tOut{from{opacity:1}to{opacity:0;transform:translateY(-5px)}}
-
-/* ADMIN */
 .admin-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px}
 .admin-overlay.show{display:flex}
 .admin-modal{background:var(--s1);border:1px solid var(--b);border-radius:12px;padding:24px;width:100%;max-width:400px;position:relative}
@@ -289,8 +257,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 @keyframes rfl{0%{background:rgba(212,146,42,.08)}100%{background:transparent}}
 .hr.flash{animation:rfl 1.8s ease forwards}
 .hidden{display:none!important}
-
-/* MOBILE */
 @media(max-width:640px){
   .hero{padding:20px 16px 18px}.hero-h1{font-size:34px}.hero-top{gap:12px}
   .kc-lbl{display:none}.kc-pip{height:11px}.kc{padding:5px 8px;gap:5px}
@@ -363,8 +329,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 </div>
 
 <div class="main">
-
-  <!-- SEASONS TAB -->
   <div id="pane-seasons">
     <div class="sec-hd">
       <div class="sec-hd-top">
@@ -400,7 +364,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
     </div>
   </div>
 
-  <!-- RECORDS TAB -->
   <div id="pane-records" class="hidden">
     <div class="sec-hd">
       <div class="sec-hd-top">
@@ -410,7 +373,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
     <div class="records-grid-wrap" id="records-grid"></div>
   </div>
 
-  <!-- HOF TAB -->
   <div id="pane-hof" class="hidden">
     <div class="sec-hd">
       <div class="sec-hd-top">
@@ -439,7 +401,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
     <div class="hof-outer" id="hof-reqs-grid"></div>
   </div>
 
-  <!-- PLAYERS TAB -->
   <div id="pane-players" class="hidden">
     <div class="sec-hd">
       <div class="sec-hd-top">
@@ -470,12 +431,10 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
       <div class="pg-jump"><span class="pg-jlbl">Page</span><input class="pg-jin" id="pg-jump-players" type="number" min="1" value="1"></div>
     </div>
   </div>
-
 </div>
 
 <div id="toasts"></div>
 
-<!-- Season detail modal -->
 <div class="mbg" id="modal-bg" role="dialog" aria-modal="true">
   <div class="modal">
     <div class="mhd">
@@ -487,7 +446,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
   </div>
 </div>
 
-<!-- Player profile modal -->
 <div class="mbg" id="player-modal-bg" role="dialog" aria-modal="true">
   <div class="modal" style="max-width:780px">
     <div class="mhd">
@@ -499,7 +457,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
   </div>
 </div>
 
-<!-- Admin login -->
 <div class="admin-overlay" id="login-overlay" onclick="closeLoginOverlay(event)">
   <div class="admin-modal" onclick="event.stopPropagation()">
     <div class="modal-title">Admin Access</div>
@@ -515,7 +472,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
   </div>
 </div>
 
-<!-- Add Season -->
 <div class="add-overlay" id="add-overlay" onclick="closeAddOverlay(event)">
   <div class="add-modal" onclick="event.stopPropagation()">
     <div class="modal-title">Add New Season</div>
@@ -561,13 +517,13 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 ═══════════════════════════════════ */
 const AWARD_LABELS={
   MVP:'Most Valuable Player',OPOTY:'Off. Player of the Year',DPOTY:'Def. Player of the Year',
-  PMOTY:'Play-Making of the Year',ROTY:'Rookie of the Year',ROY:'Rookie of the Year',
+  PMOTY:'Play-Making of the Year',ROTY:'Rookie of the Year',
   MIP:'Most Improved Player',CPOTY:'Clutch Player of the Year',
   '4MOTY':'4th Man of the Year','5MOTY':'5th Man of the Year',
   BMOTY:'Best Man of the Year',DEVOTY:'Development of the Year',COTY:'Coach of the Year',
 };
 const MAJOR_AWARDS=['MVP','OPOTY','DPOTY','PMOTY'];
-const MINOR_AWARDS=['MIP','CPOTY','4MOTY','5MOTY','BMOTY','ROTY','ROY','DEVOTY','COTY'];
+const MINOR_AWARDS=['MIP','CPOTY','4MOTY','5MOTY','BMOTY','ROTY','DEVOTY','COTY'];
 const TEAM_KEYS={first:'1st',second:'2nd',third:'3rd',defensive:'Def'};
 const ESPN_MAP={
   'Atlanta Hawks':'atl','Boston Celtics':'bos','Brooklyn Nets':'bkn','Charlotte Hornets':'cha',
@@ -583,22 +539,48 @@ const ESPN_MAP={
 const teamLogo=n=>{const k=ESPN_MAP[n];return k?`https://a.espncdn.com/i/teamlogos/nba/500/${k}.png`:''};
 
 /* ═══════════════════════════════════
+   NAME NORMALIZATION
+   All aliases collapse to canonical name
+═══════════════════════════════════ */
+const NAME_MAP={
+  // Dohziez variants
+  'Dvloz':'Dohziez',
+  'Dv0lz':'Dohziez',
+  'dohziez':'Dohziez',
+  // Pox variants
+  'vAcevx':'Pox',
+  // Minis variants
+  'miniszl':'Minis',
+};
+function normName(n){
+  if(!n)return n;
+  const t=n.trim();
+  return NAME_MAP[t]||t;
+}
+
+/* ═══════════════════════════════════
    DATA
+   - ROY → ROTY in S1 (Omx)
+   - Dvloz → Dohziez in S3 owners
+   - vAcevx → Pox in S8 owners
+   - Dv0lz → Dohziez in S8 owners
+   - dohziez → Dohziez in S10 owners
+   - miniszl → Minis in S2 COTY
 ═══════════════════════════════════ */
 let seasons=[
   {id:1,champion:'Denver Nuggets',record:'7-0',defeated:'Boston Celtics',defeatedRecord:'6-2',seriesResult:'2-1 (3 Games)',
    owners:['Minis','ZPud','Northside','Chef_7s','Solarstix'],toty:'Boston Celtics',
-   awards:{MVP:'Tsutsumi',OPOTY:'Chris',DPOTY:'Mari',ROY:'Omx',MIP:'Zion',BMOTY:'Ben',PMOTY:'Javon',CPOTY:'Chef_7s','4MOTY':'Bomber'},
+   awards:{MVP:'Tsutsumi',OPOTY:'Chris',DPOTY:'Mari',ROTY:'Omx',MIP:'Zion',BMOTY:'Ben',PMOTY:'Javon',CPOTY:'Chef_7s','4MOTY':'Bomber'},
    allRPL:{first:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Omx'},{pos:'SF',name:'Chris'},{pos:'PF',name:'Tsutsumi'},{pos:'C',name:'Ben'}],
            second:[{pos:'PG',name:'Javon'},{pos:'SG',name:'Cal'},{pos:'SF',name:'Zion'},{pos:'PF',name:'Cartier'},{pos:'C',name:'ZPud'}],
            third:[{pos:'PG',name:'Bosh'},{pos:'SG',name:'Bomber'},{pos:'SF',name:'Bones'},{pos:'PF',name:'Minis'},{pos:'C',name:'Carson'}]}},
   {id:2,champion:'Chicago Bulls',record:'8-1',defeated:'Golden State Warriors',defeatedRecord:'17-1',seriesResult:'2-0 (2 Games)',
    owners:['Minis','ZPud','Northside','Chef_7s','Solarstix','Zulifix'],toty:'Chicago Bulls',
-   awards:{MVP:'Tsutsumi',OPOTY:'ZPud',DPOTY:'Mari',PMOTY:'Erro',ROTY:'Fearsvamp',MIP:'24kslxckz',CPOTY:'Tsutsumi','4MOTY':'Chef_7s',DEVOTY:'24kslxckz',COTY:'miniszl'},
+   awards:{MVP:'Tsutsumi',OPOTY:'ZPud',DPOTY:'Mari',PMOTY:'Erro',ROTY:'Fearsvamp',MIP:'24kslxckz',CPOTY:'Tsutsumi','4MOTY':'Chef_7s',DEVOTY:'24kslxckz',COTY:'Minis'},
    allRPL:{first:[{pos:'PG',name:'Cal'},{pos:'SG',name:'Tsutsumi'},{pos:'SF',name:'Javon'},{pos:'PF',name:'ZPud'},{pos:'C',name:'Fearsvamp'}],
            second:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Slack'},{pos:'SF',name:'Omx'},{pos:'PF',name:'Dohziez'},{pos:'C',name:'Chip'}]}},
   {id:3,champion:'Golden State Warriors',record:'3-2',defeated:'Toronto Raptors',defeatedRecord:'3-1',seriesResult:'2-0 (2 Games)',
-   owners:['Dvloz','Counted','Slapclosed','picking_expertise','Mack','Kvqry'],toty:'Cleveland Cavaliers',
+   owners:['Dohziez','Counted','Slapclosed','picking_expertise','Mack','Kvqry'],toty:'Cleveland Cavaliers',
    awards:{MVP:'Tsutsumi',OPOTY:'Cahmmie',DPOTY:'Mari',PMOTY:'Yair',ROTY:'Mack',MIP:'Erro','4MOTY':'Slack'},
    statLeaders:{'Scoring Champion':'Tsutsumi','Steals Leader':'Durkio','Assist Leader':'Yair','Rebounds Leader':'Yair','PER':'Tsutsumi','Turnover Leader':'Mari'},
    allRPL:{first:[{pos:'—',name:'Tsutsumi'},{pos:'—',name:'Cahmmie'},{pos:'—',name:'Chris'},{pos:'—',name:'Tom'},{pos:'—',name:'Counted'}],
@@ -635,7 +617,7 @@ let seasons=[
            third:[{pos:'PG',name:'ZPud'},{pos:'SG',name:'Partum'},{pos:'SF',name:'Lamelo'},{pos:'PF',name:'Combat'},{pos:'C',name:'Pelon'}],
            defensive:[{pos:'PG',name:'Combat'},{pos:'SG',name:'Cal'},{pos:'SF',name:'Cartier'},{pos:'PF',name:'Trigg'},{pos:'C',name:'Tax'}]}},
   {id:8,champion:'Boston Celtics',record:'22-14',defeated:'Oklahoma City Thunder',defeatedRecord:'47-13',seriesResult:'2-1 (3 Games)',
-   owners:['Tom','Slapclosed','UN90247807','spazfromyukatan','LeBewwy','vAcevx','Dv0lz'],toty:'Oklahoma City Thunder',
+   owners:['Tom','Slapclosed','UN90247807','spazfromyukatan','LeBewwy','Pox','Dohziez'],toty:'Oklahoma City Thunder',
    awards:{MVP:'Cal',OPOTY:'Tsutsumi',DPOTY:'Minis',PMOTY:'Kai',ROTY:'Aether',CPOTY:'Tsutsumi',MIP:'Partum','4MOTY':'Love'},
    statLeaders:{'Scoring Champion':'Tsutsumi','Steals Leader':'Cam','Assist Leader':'Tax','PER':'Aether','Turnover Leader':'PatPat'},
    allRPL:{first:[{pos:'PG',name:'Kai'},{pos:'SG',name:'Tsutsumi'},{pos:'SF',name:'Cal'},{pos:'PF',name:'Cartier'},{pos:'C',name:'Cahmmie'}],
@@ -651,7 +633,7 @@ let seasons=[
            third:[{pos:'PG',name:'Aimcancel'},{pos:'SG',name:'Chris'},{pos:'SF',name:'Tax'},{pos:'PF',name:'Cal'},{pos:'C',name:'Logs'}],
            defensive:[{pos:'PG',name:'Minis'},{pos:'SG',name:'Love'},{pos:'SF',name:'Loq'},{pos:'PF',name:'Tom'},{pos:'C',name:'Cartier'}]}},
   {id:10,champion:'San Antonio Spurs',record:'11-5',defeated:'Philadelphia 76ers',defeatedRecord:'11-4',seriesResult:'2-1 (1 Game)',
-   owners:['Tom','bugwars','conzlx','MELO','dohziez','1v_k','Northside','Pox','ZPud'],toty:'Philadelphia 76ers',
+   owners:['Tom','bugwars','conzlx','MELO','Dohziez','1v_k','Northside','Pox','ZPud'],toty:'Philadelphia 76ers',
    awards:{MVP:'Chris',OPOTY:'Cahmmie',DPOTY:'Minis',PMOTY:'Roji',ROTY:'Pop',CPOTY:'Tsutsumi',MIP:'Pox','5MOTY':'Eazy'},
    statLeaders:{'Scoring Champion':'Pox','Assist Leader':'Roji','Rebounds Leader':'Shawn','PER':'Cahmmie'},
    allRPL:{first:[{pos:'PG',name:'Tom'},{pos:'SG',name:'Cahmmie'},{pos:'SF',name:'Aether'},{pos:'PF',name:'Tsutsumi'},{pos:'C',name:'Chris'}],
@@ -689,51 +671,49 @@ const hofReqs={
 
 /* ═══════════════════════════════════
    PLAYER AGGREGATION
+   normName() applied everywhere a player name is read
 ═══════════════════════════════════ */
 function buildPlayerMap(){
   const map={};
-  const ensure=name=>{
-    const n=name.trim();
+  const ensure=rawName=>{
+    const n=normName(rawName);
     if(!map[n])map[n]={name:n,rings:0,allRPL:0,majorAwards:[],minorAwards:[],statLeads:[],seasonLog:[]};
     return map[n];
   };
   seasons.forEach(s=>{
-    // All-RPL appearances
     const teamAppearances={};
     Object.entries(s.allRPL||{}).forEach(([teamKey,players])=>{
       players.forEach(p=>{
         const pl=ensure(p.name);
         pl.allRPL++;
-        if(!teamAppearances[p.name])teamAppearances[p.name]=[];
-        teamAppearances[p.name].push(TEAM_KEYS[teamKey]||teamKey);
+        if(!teamAppearances[normName(p.name)])teamAppearances[normName(p.name)]=[];
+        teamAppearances[normName(p.name)].push(TEAM_KEYS[teamKey]||teamKey);
       });
     });
-    // Awards
     const seasonAwards={};
-    Object.entries(s.awards||{}).forEach(([k,v])=>{
+    Object.entries(s.awards||{}).forEach(([k,rawV])=>{
+      const v=normName(rawV);
       const pl=ensure(v);
       if(MAJOR_AWARDS.includes(k)){pl.majorAwards.push({season:s.id,award:k,label:AWARD_LABELS[k]||k})}
       else if(MINOR_AWARDS.includes(k)){pl.minorAwards.push({season:s.id,award:k,label:AWARD_LABELS[k]||k})}
       if(!seasonAwards[v])seasonAwards[v]=[];
       seasonAwards[v].push(k);
     });
-    // Rings go to all players on the championship team (owners field)
-    (s.owners||[]).forEach(owner=>{
-      const pl=ensure(owner);
+    (s.owners||[]).forEach(rawOwner=>{
+      const pl=ensure(rawOwner);
       pl.rings++;
     });
-    // Stat leaders
-    Object.entries(s.statLeaders||{}).forEach(([cat,winner])=>{
+    Object.entries(s.statLeaders||{}).forEach(([cat,rawWinner])=>{
+      const winner=normName(rawWinner);
       const pl=ensure(winner);
       pl.statLeads.push({season:s.id,cat});
     });
-    // Build season log for every player that appeared this season
-    const champSet=new Set(s.owners||[]);
+    const champSet=new Set((s.owners||[]).map(normName));
     const allThisSeason=new Set([
-      ...Object.values(s.allRPL||{}).flat().map(p=>p.name),
-      ...Object.values(s.awards||{}).map(v=>v),
-      ...Object.values(s.statLeaders||{}).map(v=>v),
-      ...(s.owners||[]),
+      ...Object.values(s.allRPL||{}).flat().map(p=>normName(p.name)),
+      ...Object.values(s.awards||{}).map(normName),
+      ...Object.values(s.statLeaders||{}).map(normName),
+      ...(s.owners||[]).map(normName),
     ]);
     allThisSeason.forEach(name=>{
       const pl=ensure(name);
@@ -745,7 +725,7 @@ function buildPlayerMap(){
         ring:champSet.has(name),
         allRPLTeams:thisTeams,
         awards:thisAwards,
-        statLeads:Object.entries(s.statLeaders||{}).filter(([,v])=>v===name).map(([k])=>k),
+        statLeads:Object.entries(s.statLeaders||{}).filter(([,v])=>normName(v)===name).map(([k])=>k),
       });
     });
   });
@@ -826,7 +806,7 @@ function getSeasonFilters(){
   let list=[...seasons];
   if(tq)list=list.filter(s=>
     s.champion.toLowerCase().includes(tq)||s.defeated.toLowerCase().includes(tq)||
-    (s.toty||'').toLowerCase().includes(tq)||(s.owners||[]).some(o=>o.toLowerCase().includes(tq))
+    (s.toty||'').toLowerCase().includes(tq)||(s.owners||[]).some(o=>normName(o).toLowerCase().includes(tq))
   );
   return sort==='asc'?list.sort((a,b)=>a.id-b.id):list.sort((a,b)=>b.id-a.id);
 }
@@ -844,12 +824,13 @@ function renderSeasons(){
   emptyEl.style.display='none';
   rowsEl.innerHTML=slice.map(s=>{
     const lo=teamLogo(s.champion),dl=teamLogo(s.defeated);
+    const displayOwners=(s.owners||[]).map(normName);
     return`<div class="hr ${eraClass(s.id)}" data-id="${s.id}" role="button" tabindex="0">
       <span class="hn">${s.id}</span>
       <span class="hm">
         ${lo?`<img class="hm-logo" src="${lo}" alt="" loading="lazy">`:'<span class="hm-nolog"></span>'}
         <span><div class="hm-champ">${s.champion}</div>
-        <div class="hm-sub">${(s.owners||[]).slice(0,3).join(', ')}${(s.owners||[]).length>3?` +${(s.owners||[]).length-3}`:''}${!s.owners?.length?'—':''}</div></span>
+        <div class="hm-sub">${displayOwners.slice(0,3).join(', ')}${displayOwners.length>3?` +${displayOwners.length-3}`:''}${!displayOwners.length?'—':''}</div></span>
       </span>
       <span class="hs">${s.record}</span>
       <span class="hdef">${dl?`<img class="hm-logo" src="${dl}" alt="" loading="lazy" style="vertical-align:middle;margin-right:4px">`:''}${s.defeated}</span>
@@ -901,14 +882,14 @@ function openSeasonModal(s){
       ${teamKeys.map((k,i)=>`<button class="at-btn${i===0?' active':''}" onclick="mSwitchTeam('${k}',this)">${TEAM_KEYS[k]||k}</button>`).join('')}
     </div>
     ${teamKeys.map((k,i)=>`<div id="m-allrpl-${k}" style="${i===0?'':'display:none'}">
-      <table class="allrpl-tbl"><tbody>${(s.allRPL[k]||[]).map(p=>`<tr><td>${p.pos}</td><td>${p.name}</td></tr>`).join('')}</tbody></table>
+      <table class="allrpl-tbl"><tbody>${(s.allRPL[k]||[]).map(p=>`<tr><td>${p.pos}</td><td>${normName(p.name)}</td></tr>`).join('')}</tbody></table>
     </div>`).join('')}`:'<p style="font-size:12px;color:var(--mu);font-style:italic">Not recorded</p>';
   const awardsHtml=Object.entries(s.awards||{}).map(([k,v])=>`
-    <div class="award-row"><span class="award-lbl">${AWARD_LABELS[k]||k}</span><span class="award-win">${v}</span></div>`).join('');
+    <div class="award-row"><span class="award-lbl">${AWARD_LABELS[k]||k}</span><span class="award-win">${normName(v)}</span></div>`).join('');
   const statHtml=s.statLeaders?`<div class="stat-grid">${Object.entries(s.statLeaders).map(([k,v])=>`
-    <div class="stat-item"><div class="stat-lbl">${k}</div><div class="stat-val">${v}</div></div>`).join('')}</div>`
+    <div class="stat-item"><div class="stat-lbl">${k}</div><div class="stat-val">${normName(v)}</div></div>`).join('')}</div>`
     :'<p style="font-size:12px;color:var(--mu);font-style:italic">Not recorded</p>';
-  const champPlayersHtml=s.owners?.length?`<div class="chip-list">${s.owners.map(o=>`<span class="chip">🏆 ${o}</span>`).join('')}</div>`:'';
+  const champPlayersHtml=(s.owners||[]).length?`<div class="chip-list">${(s.owners||[]).map(o=>`<span class="chip">🏆 ${normName(o)}</span>`).join('')}</div>`:'';
   document.getElementById('m-body').innerHTML=`
     ${s.toty?`<div class="toty-row"><span class="toty-label">🏆 Team of the Year</span><span class="toty-val">${s.toty}</span></div>`:''}
     ${champPlayersHtml}
@@ -1082,7 +1063,6 @@ function openPlayerModal(p){
       ${isHof?`<div class="prf-hof-badge">⭐ Hall of Famer</div>`:''}
     </div>`;
   document.getElementById('pm-badge').textContent=p.rings>0?`${p.rings} Ring${p.rings!==1?'s':''}`:'No Rings';
-
   const bigStats=`<div class="prf-stat-row">
     <div class="prf-big-stat"><span class="prf-bsv">${p.majorAwards.length}</span><span class="prf-bsl">Major Awards</span></div>
     <div class="prf-big-stat"><span class="prf-bsv">${p.minorAwards.length}</span><span class="prf-bsl">Minor Awards</span></div>
@@ -1090,7 +1070,6 @@ function openPlayerModal(p){
     <div class="prf-big-stat"><span class="prf-bsv">${p.rings}</span><span class="prf-bsl">Rings</span></div>
     <div class="prf-big-stat"><span class="prf-bsv">${p.statLeads.length}</span><span class="prf-bsl">Stat Titles</span></div>
   </div>`;
-
   const majorHtml=p.majorAwards.length?p.majorAwards.map(a=>`
     <div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}</span>
     <span class="award-win" style="color:var(--gold-hi)">${a.award}</span></div>`).join('')
@@ -1099,7 +1078,6 @@ function openPlayerModal(p){
     <div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}</span>
     <span class="award-win">${a.award}</span></div>`).join('')
     :'<p style="font-size:12px;color:var(--mu);font-style:italic">None</p>';
-
   const logRows=p.seasonLog.sort((a,b)=>a.season-b.season).map(row=>{
     const chips=[
       row.ring?`<span class="tl-award ring">🏆 Champ</span>`:'',
@@ -1114,7 +1092,6 @@ function openPlayerModal(p){
       <td>${chips||'<span style="color:var(--mu);font-size:10px">—</span>'}</td>
     </tr>`;
   }).join('');
-
   document.getElementById('pm-body').innerHTML=`
     ${bigStats}
     <div class="minfo">
@@ -1130,7 +1107,6 @@ function openPlayerModal(p){
         </table>
       </div>
     </div>`;
-
   document.getElementById('player-modal-bg').classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -1205,7 +1181,6 @@ function saveNewSeason(){
    'f-mvp','f-opoty','f-dpoty','f-pmoty','f-roty','f-mip','f-cpoty','f-4moty','f-stats'].forEach(id=>{document.getElementById(id).value=''});
 }
 
-/* GLOBAL KEYDOWN */
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){closeModal();closePlayerModal();
     closeLoginOverlay({target:document.getElementById('login-overlay')});
