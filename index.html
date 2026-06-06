@@ -550,12 +550,12 @@ const AWARD_LABELS={
 
 // Short display label for each stat leader category
 const STAT_SHORT={
-  'PTS':'Scoring Champion',
-  'STL':'Steals Leader',
-  'AST':'Assist Leader',
-  'REB':'Rebounds Leader',
-  'PER':'Player Efficiency Rating',
-  'TOV':'Turnover Leader',
+'Scoring Champion':'PTS',
+'Steals Leader':'STL',
+'Assist Leader':'AST',
+'Rebounds Leader':'REB',
+'Player Efficiency Rating':'PER',
+'Turnover Leader':'TOV',
 };
 function statShort(cat){return STAT_SHORT[cat]||cat.replace(/\s*(Leader|Champion)$/i,'').trim().toUpperCase().slice(0,4);}
 
