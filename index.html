@@ -328,7 +328,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
       <div class="hero-sub">Every season <span class="hdot"></span> Every award <span class="hdot"></span> Every record</div>
       <div class="hero-stats-strip">
         <div class="hs-item"><span class="hs-num" id="hero-seasons">10</span><span class="hs-lbl">Seasons</span></div>
-        <div class="hs-item"><span class="hs-num" id="hero-owners">—</span><span class="hs-lbl">Total Owners</span></div>
+        <div class="hs-item"><span class="hs-num" id="hero-owners">—</span><span class="hs-lbl">Total Players</span></div>
         <div class="hs-item"><span class="hs-num">6</span><span class="hs-lbl">Record Cats</span></div>
         <div class="hs-item"><span class="hs-num" id="hero-champs">—</span><span class="hs-lbl">Unique Champs</span></div>
       </div>
@@ -373,7 +373,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
         <div class="sec-rule"></div>
       </div>
       <div class="filters">
-        <input class="fc fc-search" id="f-team" placeholder="Search champion, team, or owner…" autocomplete="off" spellcheck="false">
+        <input class="fc fc-search" id="f-team" placeholder="Search champion, team, or player…" autocomplete="off" spellcheck="false">
         <select class="fc" id="f-sort">
           <option value="desc">Newest first</option>
           <option value="asc">Oldest first</option>
@@ -531,7 +531,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
       <div class="form-group"><label class="form-label">Opp Record</label><input class="form-input" id="f-drec" placeholder="10-4"></div>
       <div class="form-group"><label class="form-label">Series Result</label><input class="form-input" id="f-series" placeholder="2-0 (2 Games)"></div>
     </div>
-    <div class="form-group"><label class="form-label">Owners (comma-separated)</label><input class="form-input" id="f-owners" placeholder="Tom, ZPud, Minis"></div>
+    <div class="form-group"><label class="form-label">Championship Team Players (comma-separated)</label><input class="form-input" id="f-owners" placeholder="Tom, ZPud, Minis"></div>
     <div class="form-group"><label class="form-label">Team of the Year</label><input class="form-input" id="f-toty" placeholder="Team Name"></div>
     <hr class="divider">
     <div class="form-label" style="margin-bottom:8px">Awards</div>
@@ -565,7 +565,6 @@ const AWARD_LABELS={
   MIP:'Most Improved Player',CPOTY:'Clutch Player of the Year',
   '4MOTY':'4th Man of the Year','5MOTY':'5th Man of the Year',
   BMOTY:'Best Man of the Year',DEVOTY:'Development of the Year',COTY:'Coach of the Year',
-  Cahmmie:'MVP (alt)'
 };
 const MAJOR_AWARDS=['MVP','OPOTY','DPOTY','PMOTY'];
 const MINOR_AWARDS=['MIP','CPOTY','4MOTY','5MOTY','BMOTY','ROTY','ROY','DEVOTY','COTY'];
@@ -623,7 +622,7 @@ let seasons=[
            defensive:[{pos:'PG',name:'tysoneatsbruh'},{pos:'SG',name:'Kevv'},{pos:'SF',name:'Cal'},{pos:'PF',name:'Pelon'},{pos:'C',name:'Durkio'}]}},
   {id:6,champion:'Los Angeles Lakers',record:'21-8',defeated:'Boston Celtics',defeatedRecord:'15-0',seriesResult:'2-0 (2 Games)',
    owners:['Tom','ZPud','Tsutsumi','Cahmmie','Pekka'],toty:'Boston Celtics',
-   awards:{Cahmmie:'Shawn',OPOTY:'Tax',DPOTY:'Cal',PMOTY:'Logs',ROTY:'Pekka',CPOTY:'Combat',MIP:'Slack','4MOTY':'Dohziez'},
+   awards:{MVP:'Shawn',OPOTY:'Tax',DPOTY:'Cal',PMOTY:'Logs',ROTY:'Pekka',CPOTY:'Combat',MIP:'Slack','4MOTY':'Dohziez'},
    allRPL:{first:[{pos:'PG',name:'Tom'},{pos:'SG',name:'Tsutsumi'},{pos:'SF',name:'Cal'},{pos:'PF',name:'Shawn'},{pos:'C',name:'Combat'}],
            second:[{pos:'PG',name:'Javon'},{pos:'SG',name:'Tax'},{pos:'SF',name:'Tom'},{pos:'PF',name:'Minis'},{pos:'C',name:'Ire'}],
            third:[{pos:'PG',name:'Chris'},{pos:'SG',name:'Cartier'},{pos:'SF',name:'Bones'},{pos:'PF',name:'Jax'},{pos:'C',name:'Chef_7s'}],
@@ -699,7 +698,7 @@ function buildPlayerMap(){
     return map[n];
   };
   seasons.forEach(s=>{
-    // All-RPL
+    // All-RPL appearances
     const teamAppearances={};
     Object.entries(s.allRPL||{}).forEach(([teamKey,players])=>{
       players.forEach(p=>{
@@ -718,32 +717,32 @@ function buildPlayerMap(){
       if(!seasonAwards[v])seasonAwards[v]=[];
       seasonAwards[v].push(k);
     });
-    // Rings via MVP proxy
-    const mvp=s.awards?.MVP;
-    if(mvp){
-      const pl=ensure(mvp);
+    // Rings go to all players on the championship team (owners field)
+    (s.owners||[]).forEach(owner=>{
+      const pl=ensure(owner);
       pl.rings++;
-    }
+    });
     // Stat leaders
     Object.entries(s.statLeaders||{}).forEach(([cat,winner])=>{
       const pl=ensure(winner);
       pl.statLeads.push({season:s.id,cat});
     });
-    // Build season log entries for every player that appeared this season
+    // Build season log for every player that appeared this season
+    const champSet=new Set(s.owners||[]);
     const allThisSeason=new Set([
       ...Object.values(s.allRPL||{}).flat().map(p=>p.name),
       ...Object.values(s.awards||{}).map(v=>v),
       ...Object.values(s.statLeaders||{}).map(v=>v),
+      ...(s.owners||[]),
     ]);
     allThisSeason.forEach(name=>{
       const pl=ensure(name);
       const thisAwards=seasonAwards[name]||[];
       const thisTeams=teamAppearances[name]||[];
-      const hasMvp=thisAwards.includes('MVP');
       pl.seasonLog.push({
         season:s.id,
         champion:s.champion,
-        ring:mvp===name,
+        ring:champSet.has(name),
         allRPLTeams:thisTeams,
         awards:thisAwards,
         statLeads:Object.entries(s.statLeaders||{}).filter(([,v])=>v===name).map(([k])=>k),
@@ -909,9 +908,10 @@ function openSeasonModal(s){
   const statHtml=s.statLeaders?`<div class="stat-grid">${Object.entries(s.statLeaders).map(([k,v])=>`
     <div class="stat-item"><div class="stat-lbl">${k}</div><div class="stat-val">${v}</div></div>`).join('')}</div>`
     :'<p style="font-size:12px;color:var(--mu);font-style:italic">Not recorded</p>';
+  const champPlayersHtml=s.owners?.length?`<div class="chip-list">${s.owners.map(o=>`<span class="chip">🏆 ${o}</span>`).join('')}</div>`:'';
   document.getElementById('m-body').innerHTML=`
     ${s.toty?`<div class="toty-row"><span class="toty-label">🏆 Team of the Year</span><span class="toty-val">${s.toty}</span></div>`:''}
-    ${s.owners?.length?`<div class="chip-list">${s.owners.map(o=>`<span class="chip">${o}</span>`).join('')}</div>`:''}
+    ${champPlayersHtml}
     <div class="minfo">
       <div class="icard"><div class="ilbl">🏅 Season Awards</div>${awardsHtml||'<p style="font-size:12px;color:var(--mu);font-style:italic">None recorded</p>'}</div>
       <div class="icard"><div class="ilbl">⭐ All-RPL Teams</div>${allRplHtml}</div>
@@ -1083,7 +1083,6 @@ function openPlayerModal(p){
     </div>`;
   document.getElementById('pm-badge').textContent=p.rings>0?`${p.rings} Ring${p.rings!==1?'s':''}`:'No Rings';
 
-  // Big stat strip
   const bigStats=`<div class="prf-stat-row">
     <div class="prf-big-stat"><span class="prf-bsv">${p.majorAwards.length}</span><span class="prf-bsl">Major Awards</span></div>
     <div class="prf-big-stat"><span class="prf-bsv">${p.minorAwards.length}</span><span class="prf-bsl">Minor Awards</span></div>
@@ -1092,7 +1091,6 @@ function openPlayerModal(p){
     <div class="prf-big-stat"><span class="prf-bsv">${p.statLeads.length}</span><span class="prf-bsl">Stat Titles</span></div>
   </div>`;
 
-  // Awards breakdown
   const majorHtml=p.majorAwards.length?p.majorAwards.map(a=>`
     <div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}</span>
     <span class="award-win" style="color:var(--gold-hi)">${a.award}</span></div>`).join('')
@@ -1102,7 +1100,6 @@ function openPlayerModal(p){
     <span class="award-win">${a.award}</span></div>`).join('')
     :'<p style="font-size:12px;color:var(--mu);font-style:italic">None</p>';
 
-  // Season log table
   const logRows=p.seasonLog.sort((a,b)=>a.season-b.season).map(row=>{
     const chips=[
       row.ring?`<span class="tl-award ring">🏆 Champ</span>`:'',
