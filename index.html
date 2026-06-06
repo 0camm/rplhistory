@@ -518,7 +518,7 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
     <div class="awards-2col">
       <div class="form-group"><label class="form-label">MVP</label><input class="form-input" id="f-mvp" placeholder="Player"></div>
       <div class="form-group"><label class="form-label">OPOTY</label><input class="form-input" id="f-opoty" placeholder="Player"></div>
-      <div class="form-group"><label class="form-label">DPOTY</label><input class="form-input" id="f-dpoty" placeholder="Player"></div>
+      <div class="form-group"><label class="form-label">DPOY</label><input class="form-input" id="f-dpoy" placeholder="Player"></div>
       <div class="form-group"><label class="form-label">PMOTY</label><input class="form-input" id="f-pmoty" placeholder="Player"></div>
       <div class="form-group"><label class="form-label">ROTY</label><input class="form-input" id="f-roty" placeholder="Player"></div>
       <div class="form-group"><label class="form-label">MIP</label><input class="form-input" id="f-mip" placeholder="Player"></div>
@@ -540,11 +540,11 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
    CONSTANTS
 ═══════════════════════════════════ */
 const AWARD_LABELS={
-  MVP:'Most Valuable Player',OPOTY:'Off. Player of the Year',DPOTY:'Def. Player of the Year',
+  MVP:'Most Valuable Player',OPOTY:'Off. Player of the Year',DPOY:'Def. Player of the Year',
   PMOTY:'Play-Making of the Year',ROTY:'Rookie of the Year',
   MIP:'Most Improved Player',CPOTY:'Clutch Player of the Year',
   '4MOTY':'4th Man of the Year','5MOTY':'5th Man of the Year',
-  BMOTY:'Big Man of the Year',DEVOTY:'Developer of the Year',COTY:'Coach of the Year',
+  BMOTY:'Big Man of the Year',DEVOTY:'Developer of the Year',
   FMVP:'Finals MVP',
 };
 
@@ -559,8 +559,8 @@ const STAT_SHORT={
 };
 function statShort(cat){return STAT_SHORT[cat]||cat.replace(/\s*(Leader|Champion)$/i,'').trim().toUpperCase().slice(0,4);}
 
-const MAJOR_AWARDS=['MVP','OPOTY','DPOTY','PMOTY'];
-const MINOR_AWARDS=['MIP','CPOTY','4MOTY','5MOTY','BMOTY','ROTY','DEVOTY','COTY'];
+const MAJOR_AWARDS=['MVP','OPOTY','DPOY','PMOTY'];
+const MINOR_AWARDS=['MIP','CPOTY','4MOTY','5MOTY','BMOTY','ROTY','DEVOTY'];
 const TEAM_KEYS={first:'1st',second:'2nd',third:'3rd',defensive:'Def'};
 const ESPN_MAP={
   'Atlanta Hawks':'atl','Boston Celtics':'bos','Brooklyn Nets':'bkn','Charlotte Hornets':'cha',
@@ -598,20 +598,20 @@ let seasons=[
   {id:1,champion:'Denver Nuggets',record:'7-0',defeated:'Boston Celtics',defeatedRecord:'6-2',seriesResult:'2-1 (3 Games)',
    owners:['Minis','ZPud','Northside','Chef_7s','Solarstix'],toty:'Boston Celtics',
    fmvp:'ZPud',
-   awards:{MVP:'Tsutsumi',OPOTY:'Chris',DPOTY:'Mari',ROTY:'Omx',MIP:'Zion',BMOTY:'Ben',PMOTY:'Javon',CPOTY:'Chef_7s','4MOTY':'Bomber'},
+   awards:{MVP:'Tsutsumi',OPOTY:'Chris',DPOY:'Mari',ROTY:'Omx',MIP:'Zion',BMOTY:'Ben',PMOTY:'Javon',CPOTY:'Chef_7s','4MOTY':'Bomber'},
    allRPL:{first:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Omx'},{pos:'SF',name:'Chris'},{pos:'PF',name:'Tsutsumi'},{pos:'C',name:'Ben'}],
            second:[{pos:'PG',name:'Javon'},{pos:'SG',name:'Cal'},{pos:'SF',name:'Zion'},{pos:'PF',name:'Cartier'},{pos:'C',name:'ZPud'}],
            third:[{pos:'PG',name:'Bosh'},{pos:'SG',name:'Bomber'},{pos:'SF',name:'Bones'},{pos:'PF',name:'Minis'},{pos:'C',name:'Carson'}]}},
   {id:2,champion:'Chicago Bulls',record:'8-1',defeated:'Golden State Warriors',defeatedRecord:'17-1',seriesResult:'2-0 (2 Games)',
    owners:['Minis','ZPud','Northside','Chef_7s','Solarstix','Zulifix'],toty:'Chicago Bulls',
    fmvp:'ZPud',
-   awards:{MVP:'Tsutsumi',OPOTY:'ZPud',DPOTY:'Mari',PMOTY:'Erro',ROTY:'Fearsvamp',MIP:'24kslxckz',CPOTY:'Tsutsumi','4MOTY':'Chef_7s',DEVOTY:'24kslxckz',COTY:'Minis'},
+   awards:{MVP:'Tsutsumi',OPOTY:'ZPud',DPOY:'Mari',PMOTY:'Erro',ROTY:'Fearsvamp',MIP:'24kslxckz',CPOTY:'Tsutsumi','4MOTY':'Chef_7s',DEVOTY:'24kslxckz'},
    allRPL:{first:[{pos:'PG',name:'Cal'},{pos:'SG',name:'Tsutsumi'},{pos:'SF',name:'Javon'},{pos:'PF',name:'ZPud'},{pos:'C',name:'Fearsvamp'}],
            second:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Slack'},{pos:'SF',name:'Omx'},{pos:'PF',name:'Dohziez'},{pos:'C',name:'Chip'}]}},
   {id:3,champion:'Golden State Warriors',record:'3-2',defeated:'Toronto Raptors',defeatedRecord:'3-1',seriesResult:'2-0 (2 Games)',
    owners:['Dohziez','Counted','Slapclosed','picking_expertise','Mack','Kvqry'],toty:'Cleveland Cavaliers',
    fmvp:'Counted',
-   awards:{MVP:'Tsutsumi',OPOTY:'Cahmmie',DPOTY:'Mari',PMOTY:'Yair',ROTY:'Mack',MIP:'Erro','4MOTY':'Slack'},
+   awards:{MVP:'Tsutsumi',OPOTY:'Cahmmie',DPOY:'Mari',PMOTY:'Yair',ROTY:'Mack',MIP:'Erro','4MOTY':'Slack'},
    statLeaders:{'Scoring Champion':'Tsutsumi','Steals Leader':'Durkio','Assist Leader':'Yair','Rebounds Leader':'Yair','Player Efficiency Rating':'Tsutsumi','Turnover Leader':'Mari'},
    allRPL:{first:[{pos:'—',name:'Tsutsumi'},{pos:'—',name:'Cahmmie'},{pos:'—',name:'Chris'},{pos:'—',name:'Tom'},{pos:'—',name:'Counted'}],
            second:[{pos:'—',name:'Erro'},{pos:'—',name:'Durkio'},{pos:'—',name:'Cal'},{pos:'—',name:'Mari'},{pos:'—',name:'Chip'}],
@@ -619,7 +619,7 @@ let seasons=[
   {id:4,champion:'San Antonio Spurs',record:'13-2',defeated:'Charlotte Hornets',defeatedRecord:'5-4',seriesResult:'2-0 (2 Games)',
    owners:['Cartier','Mari','Tsutsumi','Roji','Tax','Cam'],toty:'San Antonio Spurs',
    fmvp:'Tsutsumi',
-   awards:{MVP:'Mari',OPOTY:'Javon',DPOTY:'Mari',PMOTY:'Kevv',ROTY:'Dom',CPOTY:'Chef_7s',MIP:'Curryxiz','4MOTY':'Cam'},
+   awards:{MVP:'Mari',OPOTY:'Javon',DPOY:'Mari',PMOTY:'Kevv',ROTY:'Dom',CPOTY:'Chef_7s',MIP:'Curryxiz','4MOTY':'Cam'},
    statLeaders:{'Scoring Champion':'Dom','Steals Leader':'Mari','Assist Leader':'Kevv','Rebounds Leader':'Yair','Player Efficiency Rating':'Dom','Turnover Leader':'Erro'},
    allRPL:{first:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Javon'},{pos:'SF',name:'Tom'},{pos:'PF',name:'Shawn'},{pos:'C',name:'Cartier'}],
            second:[{pos:'PG',name:'Logs'},{pos:'SG',name:'Dom'},{pos:'SF',name:'Cal'},{pos:'PF',name:'Ayemoney'},{pos:'C',name:'Master'}],
@@ -628,7 +628,7 @@ let seasons=[
   {id:5,champion:'Los Angeles Lakers',record:'17-1',defeated:'Atlanta Hawks',defeatedRecord:'5-2',seriesResult:'2-0 (2 Games)',
    owners:['Shawn','Cal','Logs','Trigg'],toty:'Los Angeles Lakers',
    fmvp:'Shawn',
-   awards:{MVP:'Shawn',OPOTY:'Dom',DPOTY:'Cal',PMOTY:'Kevv',ROTY:'Yurr',CPOTY:'Logs',MIP:'lfwq','4MOTY':'jacce99'},
+   awards:{MVP:'Shawn',OPOTY:'Dom',DPOY:'Cal',PMOTY:'Kevv',ROTY:'Yurr',CPOTY:'Logs',MIP:'lfwq','4MOTY':'jacce99'},
    statLeaders:{'Scoring Champion':'Dom','Steals Leader':'Durkio','Assist Leader':'Kevv','Rebounds Leader':'Roji','Player Efficiency Rating':'Dom','Turnover Leader':'Erro'},
    allRPL:{first:[{pos:'PG',name:'Shawn'},{pos:'SG',name:'Tsutsumi'},{pos:'SF',name:'Dom'},{pos:'PF',name:'Cal'},{pos:'C',name:'Durkio'}],
            second:[{pos:'PG',name:'Erro'},{pos:'SG',name:'Logs'},{pos:'SF',name:'lfwq'},{pos:'PF',name:'Pelon'},{pos:'C',name:'jacce99'}],
@@ -637,7 +637,7 @@ let seasons=[
   {id:6,champion:'Los Angeles Lakers',record:'21-8',defeated:'Boston Celtics',defeatedRecord:'15-0',seriesResult:'2-0 (2 Games)',
    owners:['Tom','ZPud','Tsutsumi','Cahmmie','Pekka', 'Minis'],toty:'Boston Celtics',
    fmvp:'ZPud',
-   awards:{MVP:'Shawn',OPOTY:'Tax',DPOTY:'Cal',PMOTY:'Logs',ROTY:'Pekka',CPOTY:'Combat',MIP:'Slack','4MOTY':'Dohziez'},
+   awards:{MVP:'Shawn',OPOTY:'Tax',DPOY:'Cal',PMOTY:'Logs',ROTY:'Pekka',CPOTY:'Combat',MIP:'Slack','4MOTY':'Dohziez'},
    allRPL:{first:[{pos:'PG',name:'Tom'},{pos:'SG',name:'Tsutsumi'},{pos:'SF',name:'Cal'},{pos:'PF',name:'Shawn'},{pos:'C',name:'Combat'}],
            second:[{pos:'PG',name:'Javon'},{pos:'SG',name:'Tax'},{pos:'SF',name:'Tom'},{pos:'PF',name:'Minis'},{pos:'C',name:'Ire'}],
            third:[{pos:'PG',name:'Chris'},{pos:'SG',name:'Cartier'},{pos:'SF',name:'Bones'},{pos:'PF',name:'Jax'},{pos:'C',name:'Chef_7s'}],
@@ -645,7 +645,7 @@ let seasons=[
   {id:7,champion:'Charlotte Hornets',record:'14-9',defeated:'Dallas Mavericks',defeatedRecord:'12-3',seriesResult:'2-1 (3 Games)',
    owners:['Shawn','Cal','Tsutsumi','Trigg','Jax','Cam'],toty:'Charlotte Hornets',
    fmvp:'Shawn',
-   awards:{MVP:'Shawn',OPOTY:'Cahmmie',DPOTY:'Cartier',PMOTY:'Partum',ROTY:'Odipapedoit',CPOTY:'Chris',MIP:'Cam','4MOTY':'Jax'},
+   awards:{MVP:'Shawn',OPOTY:'Cahmmie',DPOY:'Cartier',PMOTY:'Partum',ROTY:'Odipapedoit',CPOTY:'Chris',MIP:'Cam','4MOTY':'Jax'},
    allRPL:{first:[{pos:'PG',name:'Shawn'},{pos:'SG',name:'Cahmmie'},{pos:'SF',name:'Cal'},{pos:'PF',name:'Tsutsumi'},{pos:'C',name:'Ire'}],
            second:[{pos:'PG',name:'Chris'},{pos:'SG',name:'Javon'},{pos:'SF',name:'Cartier'},{pos:'PF',name:'Tax'},{pos:'C',name:'Zion'}],
            third:[{pos:'PG',name:'ZPud'},{pos:'SG',name:'Partum'},{pos:'SF',name:'Lamelo'},{pos:'PF',name:'Combat'},{pos:'C',name:'Pelon'}],
@@ -653,7 +653,7 @@ let seasons=[
   {id:8,champion:'Boston Celtics',record:'22-14',defeated:'Oklahoma City Thunder',defeatedRecord:'47-13',seriesResult:'2-1 (3 Games)',
    owners:['Tom','Slapclosed','UN90247807','spazfromyukatan','LeBewwy','Pox','Dohziez'],toty:'Oklahoma City Thunder',
    fmvp:'Slapclosed',
-   awards:{MVP:'Cal',OPOTY:'Tsutsumi',DPOTY:'Minis',PMOTY:'Kai',ROTY:'Aether',CPOTY:'Tsutsumi',MIP:'Partum','4MOTY':'Love'},
+   awards:{MVP:'Cal',OPOTY:'Tsutsumi',DPOY:'Minis',PMOTY:'Kai',ROTY:'Aether',CPOTY:'Tsutsumi',MIP:'Partum','4MOTY':'Love'},
    statLeaders:{'Scoring Champion':'Tsutsumi','Steals Leader':'Cam','Assist Leader':'Tax','Player Efficiency Rating':'Aether','Turnover Leader':'PatPat'},
    allRPL:{first:[{pos:'PG',name:'Kai'},{pos:'SG',name:'Tsutsumi'},{pos:'SF',name:'Cal'},{pos:'PF',name:'Cartier'},{pos:'C',name:'Cahmmie'}],
            second:[{pos:'PG',name:'Roji'},{pos:'SG',name:'Aether'},{pos:'SF',name:'Tom'},{pos:'PF',name:'Acro'},{pos:'C',name:'Loq'}],
@@ -662,7 +662,7 @@ let seasons=[
   {id:9,champion:'Houston Rockets',record:'27-17',defeated:'Miami Heat',defeatedRecord:'26-5',seriesResult:'1-0 (1 Game)',
    owners:['Tom','Aether','Durkio','Pekka','Pox','K20'],toty:'Miami Heat',
    fmvp:'Aether',
-   awards:{MVP:'Loq',OPOTY:'Aether',DPOTY:'Love',PMOTY:'Tax',ROTY:'Oil',CPOTY:'Roji',MIP:'Ire','4MOTY':'Pox'},
+   awards:{MVP:'Loq',OPOTY:'Aether',DPOY:'Love',PMOTY:'Tax',ROTY:'Oil',CPOTY:'Roji',MIP:'Ire','4MOTY':'Pox'},
    statLeaders:{'Scoring Champion':'Aether','Steals Leader':'Love','Assist Leader':'Tax','Rebounds Leader':'Dohziez','Player Efficiency Rating':'Loq','Turnover Leader':'Javon'},
    allRPL:{first:[{pos:'PG',name:'Kai'},{pos:'SG',name:'Loq'},{pos:'SF',name:'Tsutsumi'},{pos:'PF',name:'Aether'},{pos:'C',name:'Oil'}],
            second:[{pos:'PG',name:'Love'},{pos:'SG',name:'Roji'},{pos:'SF',name:'Minis'},{pos:'PF',name:'Shawn'},{pos:'C',name:'Cartier'}],
@@ -671,7 +671,7 @@ let seasons=[
   {id:10,champion:'San Antonio Spurs',record:'11-5',defeated:'Philadelphia 76ers',defeatedRecord:'11-4',seriesResult:'2-1 (1 Game)',
    owners:['Tom','bugwars','conzlx','MELO','Dohziez','1v_k','Northside','Pox','ZPud'],toty:'Philadelphia 76ers',
    fmvp:'ZPud',
-   awards:{MVP:'Chris',OPOTY:'Cahmmie',DPOTY:'Minis',PMOTY:'Roji',ROTY:'Pop',CPOTY:'Tsutsumi',MIP:'Pox','5MOTY':'Eazy'},
+   awards:{MVP:'Chris',OPOTY:'Cahmmie',DPOY:'Minis',PMOTY:'Roji',ROTY:'Pop',CPOTY:'Tsutsumi',MIP:'Pox','5MOTY':'Eazy'},
    statLeaders:{'Scoring Champion':'Pox','Assist Leader':'Roji','Rebounds Leader':'Shawn','Player Efficiency Rating':'Cahmmie'},
    allRPL:{first:[{pos:'PG',name:'Tom'},{pos:'SG',name:'Cahmmie'},{pos:'SF',name:'Aether'},{pos:'PF',name:'Tsutsumi'},{pos:'C',name:'Chris'}],
            second:[{pos:'PG',name:'Shawn'},{pos:'SG',name:'Berry'},{pos:'SF',name:'Logs'},{pos:'PF',name:'Pox'},{pos:'C',name:'Cal'}],
@@ -692,7 +692,7 @@ const hofReqs = {
   players: [
     'Played at least 3 seasons',
     'Earned 3+ All-RPL Team selections',
-    'Won at least 2 Major Awards (MVP, OPOTY, DPOTY, PMOTY)',
+    'Won at least 2 Major Awards (MVP, OPOTY, DPOY, PMOTY)',
     'Won at least 2 Minor Awards',
     'Won 1 Championship',
     'Won 1 Finals MVP',
@@ -1292,7 +1292,7 @@ function saveNewSeason(){
     defeated:g('f-def'),defeatedRecord:g('f-drec'),seriesResult:g('f-series'),
     owners:g('f-owners').split(',').map(s=>s.trim()).filter(Boolean),toty:g('f-toty'),
     fmvp:g('f-fmvp')||null,
-    awards:{MVP:g('f-mvp'),OPOTY:g('f-opoty'),DPOTY:g('f-dpoty'),PMOTY:g('f-pmoty'),
+    awards:{MVP:g('f-mvp'),OPOTY:g('f-opoty'),DPOY:g('f-dpoy'),PMOTY:g('f-pmoty'),
             ROTY:g('f-roty'),MIP:g('f-mip'),CPOTY:g('f-cpoty'),'4MOTY':g('f-4moty')},
     allRPL:{first:[]},
     ...(Object.keys(statLeaders).length?{statLeaders}:{})};
@@ -1303,7 +1303,7 @@ function saveNewSeason(){
   setTimeout(()=>{const rows=document.querySelectorAll('.hr');if(rows.length){rows[0].classList.add('flash');setTimeout(()=>rows[0].classList.remove('flash'),1900)}},100);
   toast(`Season ${newS.id} added — ${newS.champion}`,'green');
   ['f-id','f-champ','f-rec','f-def','f-drec','f-series','f-owners','f-toty','f-fmvp',
-   'f-mvp','f-opoty','f-dpoty','f-pmoty','f-roty','f-mip','f-cpoty','f-4moty','f-stats'].forEach(id=>{document.getElementById(id).value=''});
+   'f-mvp','f-opoty','f-dpoy','f-pmoty','f-roty','f-mip','f-cpoty','f-4moty','f-stats'].forEach(id=>{document.getElementById(id).value=''});
 }
 
 document.addEventListener('keydown',e=>{
