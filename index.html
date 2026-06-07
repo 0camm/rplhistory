@@ -71,11 +71,12 @@ body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-si
 select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5'%3E%3Cpath fill='%2352526a' d='M0 0l4.5 5L9 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;background-color:var(--s2)}
 .ht-wrap{width:100%;background:var(--s1);border:1px solid var(--b);border-radius:11px;overflow:hidden;position:relative}
 .ht-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold-border),transparent 50%)}
-.ht-hd{display:grid;grid-template-columns:34px 1fr 100px 120px 80px 80px 100px;padding:8px 14px;background:var(--s2);border-bottom:1px solid var(--b);width:100%}
+/* FIX 1: Seasons table — wider Defeated column, prevents TOTY bleed-over */
+.ht-hd{display:grid;grid-template-columns:34px 1fr 90px minmax(140px,1.3fr) 90px 110px 110px;padding:8px 14px;background:var(--s2);border-bottom:1px solid var(--b);width:100%}
 .ht-hd span{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
 .ht-hd span:nth-child(1){text-align:center}
 .ht-hd span:nth-child(3),.ht-hd span:nth-child(4),.ht-hd span:nth-child(5),.ht-hd span:nth-child(6),.ht-hd span:nth-child(7){text-align:center}
-.hr{display:grid;grid-template-columns:34px 1fr 100px 120px 80px 80px 100px;padding:9px 14px;align-items:center;border-bottom:1px solid var(--b2);position:relative;transition:background .12s;cursor:pointer;width:100%}
+.hr{display:grid;grid-template-columns:34px 1fr 90px minmax(140px,1.3fr) 90px 110px 110px;padding:9px 14px;align-items:center;border-bottom:1px solid var(--b2);position:relative;transition:background .12s;cursor:pointer;width:100%}
 .hr:last-child{border-bottom:none}
 .hr:hover{background:rgba(255,255,255,.02)}
 .hr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
@@ -116,11 +117,12 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .rec-team{font-size:10px;color:var(--mu)}
 .hof-inductees{background:var(--s1);border:1px solid var(--b);border-radius:12px;overflow:hidden;position:relative;margin-top:16px;width:100%}
 .hof-inductees::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold-border),transparent 50%)}
-.hof-ind-hd{display:grid;grid-template-columns:30px 1fr 60px 70px 60px 70px 90px 1fr;padding:8px 14px;background:var(--s2);border-bottom:1px solid var(--b)}
+/* FIX 3: HOF table — Notable column gets more minimum room */
+.hof-ind-hd{display:grid;grid-template-columns:30px 1fr 60px 70px 60px 70px 90px minmax(180px,1.5fr);padding:8px 14px;background:var(--s2);border-bottom:1px solid var(--b)}
 .hof-ind-hd span{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
 .hof-ind-hd span:nth-child(1){text-align:center}
 .hof-ind-hd span:nth-child(3),.hof-ind-hd span:nth-child(4),.hof-ind-hd span:nth-child(5),.hof-ind-hd span:nth-child(6),.hof-ind-hd span:nth-child(7){text-align:center}
-.hof-ind-row{display:grid;grid-template-columns:30px 1fr 60px 70px 60px 70px 90px 1fr;padding:9px 14px;align-items:center;border-bottom:1px solid var(--b2);position:relative;transition:background .12s;cursor:pointer;width:100%}
+.hof-ind-row{display:grid;grid-template-columns:30px 1fr 60px 70px 60px 70px 90px minmax(180px,1.5fr);padding:9px 14px;align-items:center;border-bottom:1px solid var(--b2);position:relative;transition:background .12s;cursor:pointer;width:100%}
 .hof-ind-row:last-child{border-bottom:none}
 .hof-ind-row:hover{background:rgba(255,255,255,.02)}
 .hof-ind-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
@@ -133,7 +135,8 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .hof-mvps{text-align:center;font-size:12px;color:var(--win);font-family:'JetBrains Mono',monospace;font-weight:700}
 .hof-fmvps{text-align:center;font-size:12px;color:var(--pur);font-family:'JetBrains Mono',monospace;font-weight:700}
 .hof-score-cell{text-align:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700}
-.hof-awards-cell{font-size:10px;color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* FIX 2: HOF awards cell — allow badges to wrap, no more clipping */
+.hof-awards-cell{font-size:10px;color:var(--mu);overflow:visible;min-width:0;line-height:1.6}
 .hof-badge-wrap{display:inline-flex;gap:4px;flex-wrap:wrap}
 .hof-badge{display:inline-flex;font-size:8px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 5px;border-radius:3px;white-space:nowrap}
 .hof-badge.gold{background:var(--gold-dim);color:var(--gold-hi);border:1px solid var(--gold-border)}
@@ -334,7 +337,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 .admin-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-hi)}
 .btn-row{display:flex;gap:8px}
 .btn-outline{background:transparent;border:1px solid var(--b);color:var(--mu)}
-/* HOF Score breakdown panel */
 .hof-breakdown{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:12px;margin-top:8px}
 .hof-breakdown-title{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:8px}
 .hof-breakdown-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:11px;border-bottom:1px solid var(--b2)}
@@ -347,8 +349,8 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
   .hero{padding:20px 16px 18px}.hero-h1{font-size:34px}.hero-top{gap:12px}
   .kc-lbl{display:none}.kc{padding:5px 8px;gap:5px}
   .main{padding:16px 16px 60px}
-  .ht-hd{grid-template-columns:28px 1fr 90px 100px}.ht-hd span:nth-child(5),.ht-hd span:nth-child(6),.ht-hd span:nth-child(7){display:none}
-  .hr{grid-template-columns:28px 1fr 90px 100px}.hser,.hdate,.hfmvp{display:none}
+  .ht-hd{grid-template-columns:28px 1fr 80px minmax(90px,1fr)}.ht-hd span:nth-child(5),.ht-hd span:nth-child(6),.ht-hd span:nth-child(7){display:none}
+  .hr{grid-template-columns:28px 1fr 80px minmax(90px,1fr)}.hser,.hdate,.hfmvp{display:none}
   .hof-ind-hd{grid-template-columns:26px 1fr 50px 60px 50px 70px}.hof-ind-hd span:last-child,.hof-ind-hd span:nth-child(7){display:none}
   .hof-ind-row{grid-template-columns:26px 1fr 50px 60px 50px 70px}.hof-awards-cell,.hof-score-cell{display:none}
   .records-grid-wrap{grid-template-columns:1fr 1fr}
@@ -653,9 +655,6 @@ select.fc{padding-right:24px;cursor:pointer;-webkit-appearance:none;appearance:n
 </div>
 
 <script>
-// ═══════════════════════════════════════════════
-// CONSTANTS & LOOKUPS
-// ═══════════════════════════════════════════════
 const AWARD_LABELS={MVP:'Most Valuable Player',OPOTY:'Off. Player of the Year',DPOY:'Def. Player of the Year',PMOTY:'Play-Making of the Year',ROTY:'Rookie of the Year',MIP:'Most Improved Player',CPOTY:'Clutch Player of the Year','4MOTY':'4th Man of the Year','5MOTY':'5th Man of the Year',BMOTY:'Big Man of the Year',DEVOTY:'Developer of the Year',FMVP:'Finals MVP'};
 const STAT_SHORT={'Scoring Champion':'PTS','Steals Leader':'STL','Assist Leader':'AST','Rebounds Leader':'REB','Player Efficiency Rating':'PER','Turnover Leader':'TOV'};
 function statShort(cat){return STAT_SHORT[cat]||cat.replace(/\s*(Leader|Champion)$/i,'').trim().toUpperCase().slice(0,4);}
@@ -668,9 +667,6 @@ const teamLogo=n=>{const k=ESPN_MAP[n];return k?`https://a.espncdn.com/i/teamlog
 const NAME_MAP={'Dvloz':'Dohziez','Dv0lz':'Dohziez','dohziez':'Dohziez','vAcevx':'Pox','miniszl':'Minis','zpud':'ZPud','slap':'Slapclosed','Slap':'Slapclosed','shawn':'Shawn','aether':'Aether','counted':'Counted','tsutsumi':'Tsutsumi','Lamelo':'MaybeLaMelo','lamelo':'MaybeLaMelo','lamelo ball':'MaybeLaMelo'};
 function normName(n){if(!n)return n;const t=n.trim();return NAME_MAP[t]||t;}
 
-// ═══════════════════════════════════════════════
-// ALL-STAR DATA
-// ═══════════════════════════════════════════════
 let allStarData={
   'Dohziez':{apps:3,wins:3,mvps:0,dunk:0,skills:0,threepoint:0},
   'Chef_7s':{apps:3,wins:3,mvps:0,dunk:0,skills:0,threepoint:0},
@@ -711,9 +707,6 @@ let allStarData={
   'MaybeLaMelo':{apps:0,wins:0,mvps:0,dunk:0,skills:0,threepoint:3},
 };
 
-// ═══════════════════════════════════════════════
-// SEASON DATA
-// ═══════════════════════════════════════════════
 let seasons=[
   {id:1,champion:'Denver Nuggets',record:'7-0',defeated:'Boston Celtics',defeatedRecord:'6-2',seriesResult:'2-1 (3 Games)',owners:['Minis','ZPud','Northside','Chef_7s','Solarstix'],toty:'Boston Celtics',fmvp:'ZPud',awards:{MVP:'Tsutsumi',OPOTY:'Chris',DPOY:'Mari',ROTY:'Omx',MIP:'Zion',BMOTY:'Ben',PMOTY:'Javon',CPOTY:'Chef_7s','4MOTY':'Bomber'},allRPL:{first:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Omx'},{pos:'SF',name:'Chris'},{pos:'PF',name:'Tsutsumi'},{pos:'C',name:'Ben'}],second:[{pos:'PG',name:'Javon'},{pos:'SG',name:'Cal'},{pos:'SF',name:'Zion'},{pos:'PF',name:'Cartier'},{pos:'C',name:'ZPud'}],third:[{pos:'PG',name:'Bosh'},{pos:'SG',name:'Bomber'},{pos:'SF',name:'Bones'},{pos:'PF',name:'Minis'},{pos:'C',name:'Carson'}]}},
   {id:2,champion:'Chicago Bulls',record:'8-1',defeated:'Golden State Warriors',defeatedRecord:'17-1',seriesResult:'2-0 (2 Games)',owners:['Minis','ZPud','Northside','Chef_7s','Solarstix','Zulifix'],toty:'Chicago Bulls',fmvp:'ZPud',awards:{MVP:'Tsutsumi',OPOTY:'ZPud',DPOY:'Mari',PMOTY:'Erro',ROTY:'Fearsvamp',MIP:'24kslxckz',CPOTY:'Tsutsumi','4MOTY':'Chef_7s',DEVOTY:'24kslxckz'},allRPL:{first:[{pos:'PG',name:'Cal'},{pos:'SG',name:'Tsutsumi'},{pos:'SF',name:'Javon'},{pos:'PF',name:'ZPud'},{pos:'C',name:'Fearsvamp'}],second:[{pos:'PG',name:'Mari'},{pos:'SG',name:'Slack'},{pos:'SF',name:'Omx'},{pos:'PF',name:'Dohziez'},{pos:'C',name:'Chip'}]}},
@@ -727,9 +720,6 @@ let seasons=[
   {id:10,champion:'San Antonio Spurs',record:'11-5',defeated:'Philadelphia 76ers',defeatedRecord:'11-4',seriesResult:'2-1 (1 Game)',owners:['Tom','bugwars','conzlx','MELO','Dohziez','1v_k','Northside','Pox','ZPud'],toty:'Philadelphia 76ers',fmvp:'ZPud',awards:{MVP:'Chris',OPOTY:'Cahmmie',DPOY:'Minis',PMOTY:'Roji',ROTY:'Pop',CPOTY:'Tsutsumi',MIP:'Pox','5MOTY':'Eazy'},statLeaders:{'Scoring Champion':'Pox','Assist Leader':'Roji','Rebounds Leader':'Shawn','Player Efficiency Rating':'Cahmmie'},allRPL:{first:[{pos:'PG',name:'Tom'},{pos:'SG',name:'Cahmmie'},{pos:'SF',name:'Aether'},{pos:'PF',name:'Tsutsumi'},{pos:'C',name:'Chris'}],second:[{pos:'PG',name:'Shawn'},{pos:'SG',name:'Berry'},{pos:'SF',name:'Logs'},{pos:'PF',name:'Pox'},{pos:'C',name:'Cal'}],third:[{pos:'PG',name:'Minis'},{pos:'SG',name:'Roji'},{pos:'SF',name:'Tax'},{pos:'PF',name:'Love'},{pos:'C',name:'Cartier'}],defensive:[{pos:'PG',name:'Minis'},{pos:'SG',name:'Mari'},{pos:'SF',name:'Cahmmie'},{pos:'PF',name:'Love'},{pos:'C',name:'Cartier'}]}},
 ];
 
-// ═══════════════════════════════════════════════
-// RECORDS DATA
-// ═══════════════════════════════════════════════
 let records={
   pts:{label:'Points',value:169,holder:'Cahmmie',team:'Spurs'},
   ast:{label:'Assists',value:64,holder:'24kslxckz & Tom',team:'Rockets'},
@@ -739,283 +729,92 @@ let records={
   tov:{label:'Turnovers',value:40,holder:'trey',team:'Trailblazers'},
 };
 
-// ═══════════════════════════════════════════════
-// ★★★ NEW HOF SCORING SYSTEM ★★★
-// Philosophy: Individual greatness > team success
-// Rings are a bonus, not a backbone. MVPs, Finals MVPs,
-// All-RPL selections, and sustained dominance define a HOF career.
-// ═══════════════════════════════════════════════
 const HOF_WEIGHTS={
-  // ─── INDIVIDUAL AWARDS (heaviest) ───
-  MVP:          20,   // Highest individual honor — single most important accolade
-  fmvp:         14,   // Proves you were THE guy on a champion — not just a passenger
-  OPOTY:        10,   // Elite offensive excellence
-  DPOY:         10,   // Elite defensive excellence
-  PMOTY:         7,   // Playmaking recognition
-  // ─── MINOR AWARDS ───
-  CPOTY:         4,
-  MIP:           3,
-  BMOTY:         3,
-  '4MOTY':       2,
-  '5MOTY':       2,
-  ROTY:          2,
-  DEVOTY:        1,
-  // ─── ALL-RPL SELECTIONS (sustained excellence) ───
-  allRPL_1st:    7,   // First team is a premier honor — comparable to All-NBA 1st
-  allRPL_2nd:    4,
-  allRPL_3rd:    2,
-  allRPL_def:    5,   // All-Defensive team — specialized excellence
-  // ─── STAT TITLES ───
-  statLead:      2,   // Per stat title won per season
-  // ─── CHAMPIONSHIPS (bonus, not requirement) ───
-  ring:          6,   // Meaningful but not dominant — proves winning environment
-  // ─── ALL-STAR ───
-  allStar_win:   2,
-  allStar_mvp:   4,
-  dunk:          2,
-  skills:        2,
-  threepoint:    2,
-  // ─── LONGEVITY ───
-  seasons:       1,   // Each season active — rewards sustained careers
-  // ─── PEAK SEASON BONUS ───
-  // Applied automatically when MVP + 1st Team All-RPL in same season (+5)
-  peakSeason:    5,
+  MVP:20,fmvp:14,OPOTY:10,DPOY:10,PMOTY:7,
+  CPOTY:4,MIP:3,BMOTY:3,'4MOTY':2,'5MOTY':2,ROTY:2,DEVOTY:1,
+  allRPL_1st:7,allRPL_2nd:4,allRPL_3rd:2,allRPL_def:5,
+  statLead:2,ring:6,allStar_win:2,allStar_mvp:4,dunk:2,skills:2,threepoint:2,seasons:1,peakSeason:5,
 };
-
-// HOF Thresholds
-// HOF (inducted):       55+ pts  — proven all-time great
-// Ring of Honor:        30–54 pts — excellent career, borderline
-// Not eligible:         < 30 pts
-const HOF_THRESHOLD_HOF = 55;
-const HOF_THRESHOLD_ROH = 30;
-
-// Scoring explanation for the UI
 const HOF_SCORE_LABELS=[
-  {key:'MVP',         label:'Season MVP',              pts:20, color:'gold'},
-  {key:'fmvp',        label:'Finals MVP',              pts:14, color:'purple'},
-  {key:'allRPL_1st',  label:'1st Team All-RPL',        pts:7,  color:'blue'},
-  {key:'OPOTY',       label:'Off. Player of the Year', pts:10, color:'green'},
-  {key:'DPOY',        label:'Def. Player of the Year', pts:10, color:'green'},
-  {key:'allRPL_def',  label:'All-RPL Defensive Team',  pts:5,  color:'blue'},
-  {key:'PMOTY',       label:'Play-Making of the Year', pts:7,  color:'green'},
-  {key:'allRPL_2nd',  label:'2nd Team All-RPL',        pts:4,  color:'blue'},
-  {key:'allStar_mvp', label:'All-Star Game MVP',       pts:4,  color:'pink'},
-  {key:'CPOTY',       label:'Clutch Player of Year',   pts:4,  color:'cyan'},
-  {key:'ring',        label:'Championship Ring',       pts:6,  color:'gold'},
-  {key:'peakSeason',  label:'Peak Season Bonus (MVP + 1st All-RPL same year)', pts:5, color:'orange'},
-  {key:'allRPL_3rd',  label:'3rd Team All-RPL',        pts:2,  color:'blue'},
-  {key:'statLead',    label:'Stat Title (per season)',  pts:2,  color:'cyan'},
-  {key:'allStar_win', label:'All-Star Game Win',       pts:2,  color:'pink'},
-  {key:'seasons',     label:'Seasons Active (each)',   pts:1,  color:'silver'},
+  {key:'MVP',label:'Season MVP',pts:20,color:'gold'},
+  {key:'fmvp',label:'Finals MVP',pts:14,color:'purple'},
+  {key:'allRPL_1st',label:'1st Team All-RPL',pts:7,color:'blue'},
+  {key:'OPOTY',label:'Off. Player of the Year',pts:10,color:'green'},
+  {key:'DPOY',label:'Def. Player of the Year',pts:10,color:'green'},
+  {key:'allRPL_def',label:'All-RPL Defensive Team',pts:5,color:'blue'},
+  {key:'PMOTY',label:'Play-Making of the Year',pts:7,color:'green'},
+  {key:'allRPL_2nd',label:'2nd Team All-RPL',pts:4,color:'blue'},
+  {key:'allStar_mvp',label:'All-Star Game MVP',pts:4,color:'pink'},
+  {key:'CPOTY',label:'Clutch Player of Year',pts:4,color:'cyan'},
+  {key:'ring',label:'Championship Ring',pts:6,color:'gold'},
+  {key:'peakSeason',label:'Peak Season Bonus (MVP + 1st All-RPL same year)',pts:5,color:'orange'},
+  {key:'allRPL_3rd',label:'3rd Team All-RPL',pts:2,color:'blue'},
+  {key:'statLead',label:'Stat Title (per season)',pts:2,color:'cyan'},
+  {key:'allStar_win',label:'All-Star Game Win',pts:2,color:'pink'},
+  {key:'seasons',label:'Seasons Active (each)',pts:1,color:'silver'},
 ];
+const HOF_THRESHOLD_HOF=55;
+const HOF_THRESHOLD_ROH=30;
 
-// ─── COMPUTE HOF SCORE ───
 function computeHofScore(p){
-  let score = 0;
-  const breakdown = {};
-
-  // Championships (bonus weight)
-  const ringPts = p.rings * HOF_WEIGHTS.ring;
-  score += ringPts;
-  if(ringPts) breakdown['Championship Rings ×'+p.rings] = ringPts;
-
-  // Finals MVP (proves you were THE guy)
-  const fmvpPts = p.fmvpAwards.length * HOF_WEIGHTS.fmvp;
-  score += fmvpPts;
-  if(fmvpPts) breakdown['Finals MVP ×'+p.fmvpAwards.length] = fmvpPts;
-
-  // Major individual awards
-  p.majorAwards.forEach(a => {
-    const pts = HOF_WEIGHTS[a.award] || 8;
-    score += pts;
-    const k = AWARD_LABELS[a.award]||a.award;
-    breakdown[k] = (breakdown[k]||0) + pts;
-  });
-
-  // Minor awards
-  p.minorAwards.forEach(a => {
-    const pts = HOF_WEIGHTS[a.award] || 2;
-    score += pts;
-    const k = AWARD_LABELS[a.award]||a.award;
-    breakdown[k] = (breakdown[k]||0) + pts;
-  });
-
-  // Stat titles
-  const statPts = p.statLeads.length * HOF_WEIGHTS.statLead;
-  score += statPts;
-  if(statPts) breakdown['Stat Titles ×'+p.statLeads.length] = statPts;
-
-  // Longevity (seasons active)
-  const longevityPts = p.seasonLog.length * HOF_WEIGHTS.seasons;
-  score += longevityPts;
-  if(longevityPts) breakdown['Seasons Active ×'+p.seasonLog.length] = longevityPts;
-
-  // All-RPL selections
+  let score=0;const breakdown={};
+  const ringPts=p.rings*HOF_WEIGHTS.ring;score+=ringPts;if(ringPts)breakdown['Championship Rings ×'+p.rings]=ringPts;
+  const fmvpPts=p.fmvpAwards.length*HOF_WEIGHTS.fmvp;score+=fmvpPts;if(fmvpPts)breakdown['Finals MVP ×'+p.fmvpAwards.length]=fmvpPts;
+  p.majorAwards.forEach(a=>{const pts=HOF_WEIGHTS[a.award]||8;score+=pts;const k=AWARD_LABELS[a.award]||a.award;breakdown[k]=(breakdown[k]||0)+pts;});
+  p.minorAwards.forEach(a=>{const pts=HOF_WEIGHTS[a.award]||2;score+=pts;const k=AWARD_LABELS[a.award]||a.award;breakdown[k]=(breakdown[k]||0)+pts;});
+  const statPts=p.statLeads.length*HOF_WEIGHTS.statLead;score+=statPts;if(statPts)breakdown['Stat Titles ×'+p.statLeads.length]=statPts;
+  const longevityPts=p.seasonLog.length*HOF_WEIGHTS.seasons;score+=longevityPts;if(longevityPts)breakdown['Seasons Active ×'+p.seasonLog.length]=longevityPts;
   let t1=0,t2=0,t3=0,td=0;
-  p.seasonLog.forEach(sl=>{
-    if(sl.allRPLTeams.includes('1st')) t1++;
-    if(sl.allRPLTeams.includes('2nd')) t2++;
-    if(sl.allRPLTeams.includes('3rd')) t3++;
-    if(sl.allRPLTeams.includes('Def')) td++;
-  });
-  const allRplPts = t1*HOF_WEIGHTS.allRPL_1st + t2*HOF_WEIGHTS.allRPL_2nd + t3*HOF_WEIGHTS.allRPL_3rd + td*HOF_WEIGHTS.allRPL_def;
-  score += allRplPts;
-  if(t1) breakdown['1st Team All-RPL ×'+t1] = t1*HOF_WEIGHTS.allRPL_1st;
-  if(t2) breakdown['2nd Team All-RPL ×'+t2] = t2*HOF_WEIGHTS.allRPL_2nd;
-  if(t3) breakdown['3rd Team All-RPL ×'+t3] = t3*HOF_WEIGHTS.allRPL_3rd;
-  if(td) breakdown['All-RPL Defensive ×'+td] = td*HOF_WEIGHTS.allRPL_def;
-
-  // Peak Season Bonus: MVP + 1st Team All-RPL in the same season = +5 pts per occurrence
-  // This rewards truly dominant individual seasons (like KD or LeBron MVP seasons)
-  let peakBonusTotal = 0;
-  p.seasonLog.forEach(sl => {
-    const hasMVP = sl.awards.includes('MVP');
-    const has1st = sl.allRPLTeams.includes('1st');
-    if(hasMVP && has1st) peakBonusTotal += HOF_WEIGHTS.peakSeason;
-  });
-  score += peakBonusTotal;
-  if(peakBonusTotal) breakdown['⚡ Peak Season Bonus ×'+(peakBonusTotal/HOF_WEIGHTS.peakSeason)] = peakBonusTotal;
-
-  // All-Star accolades
-  const as = allStarData[p.name];
-  if(as){
-    const asPts = as.wins*HOF_WEIGHTS.allStar_win + as.mvps*HOF_WEIGHTS.allStar_mvp + as.dunk*HOF_WEIGHTS.dunk + as.skills*HOF_WEIGHTS.skills + as.threepoint*HOF_WEIGHTS.threepoint;
-    score += asPts;
-    if(asPts) breakdown['All-Star Accolades'] = asPts;
-  }
-
-  return {score: Math.round(score), breakdown};
+  p.seasonLog.forEach(sl=>{if(sl.allRPLTeams.includes('1st'))t1++;if(sl.allRPLTeams.includes('2nd'))t2++;if(sl.allRPLTeams.includes('3rd'))t3++;if(sl.allRPLTeams.includes('Def'))td++;});
+  const allRplPts=t1*HOF_WEIGHTS.allRPL_1st+t2*HOF_WEIGHTS.allRPL_2nd+t3*HOF_WEIGHTS.allRPL_3rd+td*HOF_WEIGHTS.allRPL_def;
+  score+=allRplPts;
+  if(t1)breakdown['1st Team All-RPL ×'+t1]=t1*HOF_WEIGHTS.allRPL_1st;
+  if(t2)breakdown['2nd Team All-RPL ×'+t2]=t2*HOF_WEIGHTS.allRPL_2nd;
+  if(t3)breakdown['3rd Team All-RPL ×'+t3]=t3*HOF_WEIGHTS.allRPL_3rd;
+  if(td)breakdown['All-RPL Defensive ×'+td]=td*HOF_WEIGHTS.allRPL_def;
+  let peakBonusTotal=0;
+  p.seasonLog.forEach(sl=>{if(sl.awards.includes('MVP')&&sl.allRPLTeams.includes('1st'))peakBonusTotal+=HOF_WEIGHTS.peakSeason;});
+  score+=peakBonusTotal;if(peakBonusTotal)breakdown['⚡ Peak Season Bonus ×'+(peakBonusTotal/HOF_WEIGHTS.peakSeason)]=peakBonusTotal;
+  const as=allStarData[p.name];
+  if(as){const asPts=as.wins*HOF_WEIGHTS.allStar_win+as.mvps*HOF_WEIGHTS.allStar_mvp+as.dunk*HOF_WEIGHTS.dunk+as.skills*HOF_WEIGHTS.skills+as.threepoint*HOF_WEIGHTS.threepoint;score+=asPts;if(asPts)breakdown['All-Star Accolades']=asPts;}
+  return{score:Math.round(score),breakdown};
 }
-
-function getHofScore(p){ return computeHofScore(p).score; }
-
-function hofTier(score, p, manual){
-  if(manual) return manual;
-  if(score >= HOF_THRESHOLD_HOF) return 'hof';
-  if(score >= HOF_THRESHOLD_ROH) return 'ring-of-honor';
-  return 'not-eligible';
-}
-
-function tierLabel(t){
-  if(t==='hof') return 'Hall of Fame';
-  if(t==='ring-of-honor') return 'Ring of Honor';
-  return 'Not Eligible';
-}
-
-function scoreColor(s){
-  return s >= HOF_THRESHOLD_HOF ? 'var(--gold-hi)' : s >= HOF_THRESHOLD_ROH ? 'var(--silver)' : 'var(--mu)';
-}
-
-function playerTier(p){
-  const s = getHofScore(p);
-  if(s >= 80 || p.majorAwards.filter(a=>a.award==='MVP').length >= 2) return 'elite';
-  if(s >= HOF_THRESHOLD_HOF || p.majorAwards.length >= 2 || p.fmvpAwards.length >= 2) return 'great';
-  if(s >= HOF_THRESHOLD_ROH || p.majorAwards.length >= 1 || p.allRPL >= 3) return 'good';
-  return 'role';
-}
-
-// ─── COUNT PEAK SEASONS ───
-function countPeakSeasons(p){
-  return p.seasonLog.filter(sl => sl.awards.includes('MVP') && sl.allRPLTeams.includes('1st')).length;
-}
+function getHofScore(p){return computeHofScore(p).score;}
+function hofTier(score,p,manual){if(manual)return manual;if(score>=HOF_THRESHOLD_HOF)return'hof';if(score>=HOF_THRESHOLD_ROH)return'ring-of-honor';return'not-eligible';}
+function tierLabel(t){if(t==='hof')return'Hall of Fame';if(t==='ring-of-honor')return'Ring of Honor';return'Not Eligible';}
+function scoreColor(s){return s>=HOF_THRESHOLD_HOF?'var(--gold-hi)':s>=HOF_THRESHOLD_ROH?'var(--silver)':'var(--mu)';}
+function playerTier(p){const s=getHofScore(p);if(s>=80||p.majorAwards.filter(a=>a.award==='MVP').length>=2)return'elite';if(s>=HOF_THRESHOLD_HOF||p.majorAwards.length>=2||p.fmvpAwards.length>=2)return'great';if(s>=HOF_THRESHOLD_ROH||p.majorAwards.length>=1||p.allRPL>=3)return'good';return'role';}
+function countPeakSeasons(p){return p.seasonLog.filter(sl=>sl.awards.includes('MVP')&&sl.allRPLTeams.includes('1st')).length;}
 
 let hofManualInductions={};
 let hofManualRemovals=new Set();
 
-// ═══════════════════════════════════════════════
-// PLAYER MAP BUILDER
-// ═══════════════════════════════════════════════
 function buildPlayerMap(){
   const map={};
-  const ensure=rawName=>{
-    const n=normName(rawName);
-    if(!map[n])map[n]={name:n,rings:0,allRPL:0,majorAwards:[],minorAwards:[],fmvpAwards:[],statLeads:[],seasonLog:[]};
-    return map[n];
-  };
+  const ensure=rawName=>{const n=normName(rawName);if(!map[n])map[n]={name:n,rings:0,allRPL:0,majorAwards:[],minorAwards:[],fmvpAwards:[],statLeads:[],seasonLog:[]};return map[n];};
   seasons.forEach(s=>{
     const teamAppearances={};
-    Object.entries(s.allRPL||{}).forEach(([teamKey,players])=>{
-      players.forEach(p=>{
-        const pl=ensure(p.name);
-        pl.allRPL++;
-        if(!teamAppearances[normName(p.name)])teamAppearances[normName(p.name)]=[];
-        teamAppearances[normName(p.name)].push(TEAM_KEYS[teamKey]||teamKey);
-      });
-    });
+    Object.entries(s.allRPL||{}).forEach(([teamKey,players])=>{players.forEach(p=>{const pl=ensure(p.name);pl.allRPL++;if(!teamAppearances[normName(p.name)])teamAppearances[normName(p.name)]=[];teamAppearances[normName(p.name)].push(TEAM_KEYS[teamKey]||teamKey);});});
     const seasonAwards={};
-    Object.entries(s.awards||{}).forEach(([k,rawV])=>{
-      const v=normName(rawV);
-      const pl=ensure(v);
-      if(MAJOR_AWARDS.includes(k)){pl.majorAwards.push({season:s.id,award:k,label:AWARD_LABELS[k]||k});}
-      else if(MINOR_AWARDS.includes(k)){pl.minorAwards.push({season:s.id,award:k,label:AWARD_LABELS[k]||k});}
-      if(!seasonAwards[v])seasonAwards[v]=[];
-      seasonAwards[v].push(k);
-    });
-    if(s.fmvp){
-      const fmvpName=normName(s.fmvp);
-      ensure(s.fmvp).fmvpAwards.push({season:s.id,award:'FMVP',label:'Finals MVP'});
-      if(!seasonAwards[fmvpName])seasonAwards[fmvpName]=[];
-      seasonAwards[fmvpName].push('FMVP');
-    }
+    Object.entries(s.awards||{}).forEach(([k,rawV])=>{const v=normName(rawV);const pl=ensure(v);if(MAJOR_AWARDS.includes(k)){pl.majorAwards.push({season:s.id,award:k,label:AWARD_LABELS[k]||k});}else if(MINOR_AWARDS.includes(k)){pl.minorAwards.push({season:s.id,award:k,label:AWARD_LABELS[k]||k});}if(!seasonAwards[v])seasonAwards[v]=[];seasonAwards[v].push(k);});
+    if(s.fmvp){const fmvpName=normName(s.fmvp);ensure(s.fmvp).fmvpAwards.push({season:s.id,award:'FMVP',label:'Finals MVP'});if(!seasonAwards[fmvpName])seasonAwards[fmvpName]=[];seasonAwards[fmvpName].push('FMVP');}
     (s.owners||[]).forEach(rawOwner=>{ensure(rawOwner).rings++;});
-    Object.entries(s.statLeaders||{}).forEach(([cat,rawWinner])=>{
-      ensure(rawWinner).statLeads.push({season:s.id,cat});
-    });
+    Object.entries(s.statLeaders||{}).forEach(([cat,rawWinner])=>{ensure(rawWinner).statLeads.push({season:s.id,cat});});
     const champSet=new Set((s.owners||[]).map(normName));
-    const allThisSeason=new Set([
-      ...Object.values(s.allRPL||{}).flat().map(p=>normName(p.name)),
-      ...Object.values(s.awards||{}).map(normName),
-      ...(s.fmvp?[normName(s.fmvp)]:[]),
-      ...Object.values(s.statLeaders||{}).map(normName),
-      ...(s.owners||[]).map(normName),
-    ]);
-    allThisSeason.forEach(name=>{
-      const pl=ensure(name);
-      const thisAwards=seasonAwards[name]||[];
-      const thisTeams=teamAppearances[name]||[];
-      const fmvpThisSeason=!!(s.fmvp&&normName(s.fmvp)===name);
-      const thisStatLeads=Object.entries(s.statLeaders||{}).filter(([,v])=>normName(v)===name).map(([k])=>k);
-      if(!pl.seasonLog.find(sl=>sl.season===s.id)){
-        pl.seasonLog.push({season:s.id,champion:s.champion,ring:champSet.has(name),allRPLTeams:thisTeams,awards:thisAwards,fmvp:fmvpThisSeason,statLeads:thisStatLeads});
-      }
-    });
+    const allThisSeason=new Set([...Object.values(s.allRPL||{}).flat().map(p=>normName(p.name)),...Object.values(s.awards||{}).map(normName),...(s.fmvp?[normName(s.fmvp)]:[]),...Object.values(s.statLeaders||{}).map(normName),...(s.owners||[]).map(normName)]);
+    allThisSeason.forEach(name=>{const pl=ensure(name);const thisAwards=seasonAwards[name]||[];const thisTeams=teamAppearances[name]||[];const fmvpThisSeason=!!(s.fmvp&&normName(s.fmvp)===name);const thisStatLeads=Object.entries(s.statLeaders||{}).filter(([,v])=>normName(v)===name).map(([k])=>k);if(!pl.seasonLog.find(sl=>sl.season===s.id)){pl.seasonLog.push({season:s.id,champion:s.champion,ring:champSet.has(name),allRPLTeams:thisTeams,awards:thisAwards,fmvp:fmvpThisSeason,statLeads:thisStatLeads});}});
   });
   return map;
 }
 
-// ═══════════════════════════════════════════════
-// HOF COMPUTATION
-// ═══════════════════════════════════════════════
 function computeHOF(playerMap){
-  const hofMembers=Object.values(playerMap).filter(p=>{
-    if(hofManualRemovals.has(p.name))return false;
-    if(hofManualInductions[p.name])return true;
-    return getHofScore(p) >= HOF_THRESHOLD_HOF;
-  }).map(p=>{
-    const score=getHofScore(p);
-    const manualTier=hofManualInductions[p.name]?.tier;
-    return Object.assign({},p,{hofScore:score,hofTier:hofTier(score,p,manualTier),isHofMember:true});
-  });
-
+  const hofMembers=Object.values(playerMap).filter(p=>{if(hofManualRemovals.has(p.name))return false;if(hofManualInductions[p.name])return true;return getHofScore(p)>=HOF_THRESHOLD_HOF;}).map(p=>{const score=getHofScore(p);const manualTier=hofManualInductions[p.name]?.tier;return Object.assign({},p,{hofScore:score,hofTier:hofTier(score,p,manualTier),isHofMember:true});});
   const hofNames=new Set(hofMembers.map(p=>p.name));
-  const ringOfHonor=Object.values(playerMap).filter(p=>{
-    if(hofManualRemovals.has(p.name))return false;
-    if(hofNames.has(p.name))return false;
-    const s=getHofScore(p);
-    return s >= HOF_THRESHOLD_ROH && s < HOF_THRESHOLD_HOF;
-  }).map(p=>{
-    const score=getHofScore(p);
-    return Object.assign({},p,{hofScore:score,hofTier:'ring-of-honor',isHofMember:false});
-  });
-
-  return [...hofMembers,...ringOfHonor].sort((a,b)=>b.hofScore-a.hofScore);
+  const ringOfHonor=Object.values(playerMap).filter(p=>{if(hofManualRemovals.has(p.name))return false;if(hofNames.has(p.name))return false;const s=getHofScore(p);return s>=HOF_THRESHOLD_ROH&&s<HOF_THRESHOLD_HOF;}).map(p=>{const score=getHofScore(p);return Object.assign({},p,{hofScore:score,hofTier:'ring-of-honor',isHofMember:false});});
+  return[...hofMembers,...ringOfHonor].sort((a,b)=>b.hofScore-a.hofScore);
 }
 
-// ═══════════════════════════════════════════════
-// CAREER RECORDS
-// ═══════════════════════════════════════════════
-let careerRecords=[];
-let seasonRecords=[];
+let careerRecords=[],seasonRecords=[];
 function buildCareerRecords(pm){
   const pl=Object.values(pm);
   const safe=arr=>arr.length?Math.max(...arr):0;
@@ -1042,83 +841,41 @@ function buildCareerRecords(pm){
   seasonRecords.unshift({label:'Most Wins in a Season',type:'season',value:maxWins,holder:mws?.champion||'—',note:`Season ${mws?.id||'?'}`});
 }
 
-// ═══════════════════════════════════════════════
-// APP STATE
-// ═══════════════════════════════════════════════
 let pg=1,pgHof=1,pgPlayers=1,currentTab='seasons',isAdmin=false;
 let hofInductees=[],playerMap={},allPlayers=[];
 
-function toast(msg,c='gold',dur=5000){
-  const t=Object.assign(document.createElement('div'),{className:`toast ${c}`,textContent:msg});
-  document.getElementById('toasts').prepend(t);
-  setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),240)},dur);
-}
+function toast(msg,c='gold',dur=5000){const t=Object.assign(document.createElement('div'),{className:`toast ${c}`,textContent:msg});document.getElementById('toasts').prepend(t);setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),240)},dur);}
 function eraClass(id){return id<=3?'era-1':id<=6?'era-2':id<=8?'era-3':'era-4';}
-function updateHeroStats(){
-  document.getElementById('hero-seasons').textContent=seasons.length;
-  document.getElementById('hero-owners').textContent=seasons.reduce((a,s)=>a+(s.owners?.length||0),0);
-  document.getElementById('hero-champs').textContent=new Set(seasons.map(s=>s.champion)).size;
-  document.getElementById('hero-allstars').textContent=Object.keys(allStarData).length;
-}
-function rebuildData(){
-  playerMap=buildPlayerMap();
-  allPlayers=Object.values(playerMap).sort((a,b)=>a.name.localeCompare(b.name));
-  hofInductees=computeHOF(playerMap);
-  buildCareerRecords(playerMap);
-}
+function updateHeroStats(){document.getElementById('hero-seasons').textContent=seasons.length;document.getElementById('hero-owners').textContent=seasons.reduce((a,s)=>a+(s.owners?.length||0),0);document.getElementById('hero-champs').textContent=new Set(seasons.map(s=>s.champion)).size;document.getElementById('hero-allstars').textContent=Object.keys(allStarData).length;}
+function rebuildData(){playerMap=buildPlayerMap();allPlayers=Object.values(playerMap).sort((a,b)=>a.name.localeCompare(b.name));hofInductees=computeHOF(playerMap);buildCareerRecords(playerMap);}
 
-// ═══════════════════════════════════════════════
-// PAGER HELPER
-// ═══════════════════════════════════════════════
 function renderPagerBtns(btnsId,prevId,nextId,curPg,total,cb){
-  const el=document.getElementById(btnsId);
-  const W=2;let h=`<button class="pb" id="${prevId}"${curPg<=1?' disabled':''}>‹ Prev</button>`;
-  const pages=[1];
-  for(let i=Math.max(2,curPg-W);i<=Math.min(total-1,curPg+W);i++)pages.push(i);
-  if(total>1)pages.push(total);
-  let last=0;
-  for(const p of pages){
-    if(p-last>1)h+=`<span class="pb-ellip">…</span>`;
-    h+=`<button class="pb${p===curPg?' cur':''}" data-pg="${p}">${p}</button>`;
-    last=p;
-  }
+  const el=document.getElementById(btnsId);const W=2;let h=`<button class="pb" id="${prevId}"${curPg<=1?' disabled':''}>‹ Prev</button>`;
+  const pages=[1];for(let i=Math.max(2,curPg-W);i<=Math.min(total-1,curPg+W);i++)pages.push(i);if(total>1)pages.push(total);
+  let last=0;for(const p of pages){if(p-last>1)h+=`<span class="pb-ellip">…</span>`;h+=`<button class="pb${p===curPg?' cur':''}" data-pg="${p}">${p}</button>`;last=p;}
   h+=`<button class="pb" id="${nextId}"${curPg>=total?' disabled':''}>Next ›</button>`;
-  el.innerHTML=h;
-  el.querySelector('#'+prevId)?.addEventListener('click',()=>cb(curPg-1));
-  el.querySelector('#'+nextId)?.addEventListener('click',()=>cb(curPg+1));
-  el.querySelectorAll('[data-pg]').forEach(b=>b.addEventListener('click',()=>cb(parseInt(b.dataset.pg,10))));
+  el.innerHTML=h;el.querySelector('#'+prevId)?.addEventListener('click',()=>cb(curPg-1));el.querySelector('#'+nextId)?.addEventListener('click',()=>cb(curPg+1));el.querySelectorAll('[data-pg]').forEach(b=>b.addEventListener('click',()=>cb(parseInt(b.dataset.pg,10))));
 }
 
-// ═══════════════════════════════════════════════
-// SEASONS TAB
-// ═══════════════════════════════════════════════
 function getSeasonFilters(){
-  const tq=document.getElementById('f-team').value.trim().toLowerCase();
-  const sort=document.getElementById('f-sort').value;
-  let list=[...seasons];
+  const tq=document.getElementById('f-team').value.trim().toLowerCase();const sort=document.getElementById('f-sort').value;let list=[...seasons];
   if(tq)list=list.filter(s=>s.champion.toLowerCase().includes(tq)||s.defeated.toLowerCase().includes(tq)||(s.toty||'').toLowerCase().includes(tq)||(s.fmvp?normName(s.fmvp).toLowerCase().includes(tq):false)||(s.owners||[]).some(o=>normName(o).toLowerCase().includes(tq)));
   return sort==='asc'?list.sort((a,b)=>a.id-b.id):list.sort((a,b)=>b.id-a.id);
 }
 function getPPSeasons(){const v=document.getElementById('f-pp').value;return v==='all'?999999:parseInt(v,10)||10;}
 
 function renderSeasons(){
-  const filt=getSeasonFilters(),pp=getPPSeasons();
-  const total=Math.max(1,Math.ceil(filt.length/pp));
-  if(pg>total)pg=total;
+  const filt=getSeasonFilters(),pp=getPPSeasons();const total=Math.max(1,Math.ceil(filt.length/pp));if(pg>total)pg=total;
   document.getElementById('seasons-ct').textContent=filt.length===seasons.length?`${seasons.length} season${seasons.length!==1?'s':''}`:`${filt.length}/${seasons.length}`;
   const start=(pg-1)*pp,slice=pp>=999999?filt:filt.slice(start,start+pp);
   const rowsEl=document.getElementById('hist-rows'),emptyEl=document.getElementById('hist-empty');
   if(!filt.length){rowsEl.innerHTML='';emptyEl.style.display='block';document.getElementById('pager').style.display='none';return;}
   emptyEl.style.display='none';
   rowsEl.innerHTML=slice.map(s=>{
-    const lo=teamLogo(s.champion),dl=teamLogo(s.defeated);
-    const displayOwners=(s.owners||[]).map(normName);
+    const lo=teamLogo(s.champion),dl=teamLogo(s.defeated);const displayOwners=(s.owners||[]).map(normName);
     return`<div class="hr ${eraClass(s.id)}" data-id="${s.id}" role="button" tabindex="0">
       <span class="hn">${s.id}</span>
-      <span class="hm">
-        ${lo?`<img class="hm-logo" src="${lo}" alt="" loading="lazy">`:'<span class="hm-nolog"></span>'}
-        <span><div class="hm-champ">${s.champion}</div><div class="hm-sub">${displayOwners.slice(0,3).join(', ')}${displayOwners.length>3?` +${displayOwners.length-3}`:''}${!displayOwners.length?'—':''}</div></span>
-      </span>
+      <span class="hm">${lo?`<img class="hm-logo" src="${lo}" alt="" loading="lazy">`:'<span class="hm-nolog"></span>'}<span><div class="hm-champ">${s.champion}</div><div class="hm-sub">${displayOwners.slice(0,3).join(', ')}${displayOwners.length>3?` +${displayOwners.length-3}`:''}${!displayOwners.length?'—':''}</div></span></span>
       <span class="hs">${s.record}</span>
       <span class="hdef">${dl?`<img class="hm-logo" src="${dl}" alt="" loading="lazy" style="vertical-align:middle;margin-right:4px">`:''}${s.defeated}</span>
       <span class="hser">${s.seriesResult}</span>
@@ -1126,15 +883,10 @@ function renderSeasons(){
       <span class="hfmvp">${s.fmvp?normName(s.fmvp):'—'}</span>
     </div>`;
   }).join('');
-  rowsEl.querySelectorAll('.hr').forEach(el=>{
-    const s=seasons.find(x=>x.id===parseInt(el.dataset.id,10));
-    el.addEventListener('click',()=>openSeasonModal(s));
-    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openSeasonModal(s);});
-  });
+  rowsEl.querySelectorAll('.hr').forEach(el=>{const s=seasons.find(x=>x.id===parseInt(el.dataset.id,10));el.addEventListener('click',()=>openSeasonModal(s));el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openSeasonModal(s);});});
   const pagerEl=document.getElementById('pager');
   if(pp>=999999){pagerEl.style.display='none';return;}
-  pagerEl.style.display='flex';
-  document.getElementById('pg-info').textContent=`${start+1}–${Math.min(start+pp,filt.length)} of ${filt.length}`;
+  pagerEl.style.display='flex';document.getElementById('pg-info').textContent=`${start+1}–${Math.min(start+pp,filt.length)} of ${filt.length}`;
   renderPagerBtns('pg-btns','p-prev','p-next',pg,total,p=>{pg=p;renderSeasons();});
   const ji=document.getElementById('pg-jump');ji.max=total;ji.value=pg;
 }
@@ -1144,11 +896,7 @@ document.getElementById('pg-jump').addEventListener('change',e=>{const v=parseIn
 function openSeasonModal(s){
   if(!s)return;
   const lo=teamLogo(s.champion),dl=teamLogo(s.defeated);
-  document.getElementById('m-matchup').innerHTML=`
-    <div style="display:flex;align-items:center;gap:10px">${lo?`<img src="${lo}" alt="" style="width:32px;height:32px;object-fit:contain">`:''}<div><div class="mchamp-name">${s.champion}</div><div class="mchamp-rec">${s.record}</div></div></div>
-    <span class="msep">def.</span>
-    <div style="opacity:.7;display:flex;align-items:center;gap:8px">${dl?`<img src="${dl}" alt="" style="width:26px;height:26px;object-fit:contain;opacity:.6">`:''}
-    <div><div class="mdef-name">${s.defeated}</div><div class="mdef-rec">${s.defeatedRecord} · ${s.seriesResult}</div></div></div>`;
+  document.getElementById('m-matchup').innerHTML=`<div style="display:flex;align-items:center;gap:10px">${lo?`<img src="${lo}" alt="" style="width:32px;height:32px;object-fit:contain">`:''}<div><div class="mchamp-name">${s.champion}</div><div class="mchamp-rec">${s.record}</div></div></div><span class="msep">def.</span><div style="opacity:.7;display:flex;align-items:center;gap:8px">${dl?`<img src="${dl}" alt="" style="width:26px;height:26px;object-fit:contain;opacity:.6">`:''}<div><div class="mdef-name">${s.defeated}</div><div class="mdef-rec">${s.defeatedRecord} · ${s.seriesResult}</div></div></div>`;
   document.getElementById('m-season').textContent=`Season ${s.id}`;
   const teamKeys=Object.keys(s.allRPL||{});
   const allRplHtml=teamKeys.length?`<div class="allrpl-tabs" id="m-at">${teamKeys.map((k,i)=>`<button class="at-btn${i===0?' active':''}" onclick="mSwitchTeam('${k}',this)">${TEAM_KEYS[k]||k}</button>`).join('')}</div>${teamKeys.map((k,i)=>`<div id="m-allrpl-${k}" style="${i===0?'':'display:none'}"><table class="allrpl-tbl"><tbody>${(s.allRPL[k]||[]).map(p=>`<tr><td>${p.pos}</td><td>${normName(p.name)}</td></tr>`).join('')}</tbody></table></div>`).join('')}`:'<p style="font-size:12px;color:var(--mu)">Not recorded</p>';
@@ -1156,465 +904,192 @@ function openSeasonModal(s){
   const awardsHtml=fmvpHtml+Object.entries(s.awards||{}).map(([k,v])=>`<div class="award-row"><span class="award-lbl">${AWARD_LABELS[k]||k}</span><span class="award-win">${normName(v)}</span></div>`).join('');
   const statHtml=s.statLeaders?`<div class="stat-grid">${Object.entries(s.statLeaders).map(([k,v])=>`<div class="stat-item"><div class="stat-lbl">${k}</div><div class="stat-val" style="color:var(--cy)">${normName(v)}</div></div>`).join('')}</div>`:'<p style="font-size:12px;color:var(--mu)">Not recorded</p>';
   const champHtml=(s.owners||[]).length?`<div class="chip-list">${(s.owners||[]).map(o=>`<span class="chip">🏆 ${normName(o)}</span>`).join('')}</div>`:'';
-  document.getElementById('m-body').innerHTML=`
-    ${s.toty||s.fmvp?`<div style="display:flex;gap:8px;flex-wrap:wrap">${s.toty?`<div class="toty-row"><span class="toty-label">🏆 TOTY</span><span class="toty-val">${s.toty}</span></div>`:''}${s.fmvp?`<div class="fmvp-row"><span class="fmvp-row-label">⭐ Finals MVP</span><span class="fmvp-row-val">${normName(s.fmvp)}</span></div>`:''}</div>`:''}
-    ${champHtml}
-    <div class="minfo"><div class="icard"><div class="ilbl">🏅 Awards</div>${awardsHtml||'—'}</div><div class="icard"><div class="ilbl">⭐ All-RPL Teams</div>${allRplHtml}</div></div>
-    <div class="icard"><div class="ilbl">📊 Stat Leaders</div>${statHtml}</div>`;
-  document.getElementById('modal-bg').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.getElementById('m-body').innerHTML=`${s.toty||s.fmvp?`<div style="display:flex;gap:8px;flex-wrap:wrap">${s.toty?`<div class="toty-row"><span class="toty-label">🏆 TOTY</span><span class="toty-val">${s.toty}</span></div>`:''}${s.fmvp?`<div class="fmvp-row"><span class="fmvp-row-label">⭐ Finals MVP</span><span class="fmvp-row-val">${normName(s.fmvp)}</span></div>`:''}</div>`:''} ${champHtml}<div class="minfo"><div class="icard"><div class="ilbl">🏅 Awards</div>${awardsHtml||'—'}</div><div class="icard"><div class="ilbl">⭐ All-RPL Teams</div>${allRplHtml}</div></div><div class="icard"><div class="ilbl">📊 Stat Leaders</div>${statHtml}</div>`;
+  document.getElementById('modal-bg').classList.add('open');document.body.style.overflow='hidden';
 }
-function mSwitchTeam(key,btn){
-  document.getElementById('m-at').querySelectorAll('.at-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('[id^="m-allrpl-"]').forEach(el=>{el.style.display=el.id===`m-allrpl-${key}`?'':'none';});
-}
+function mSwitchTeam(key,btn){document.getElementById('m-at').querySelectorAll('.at-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('[id^="m-allrpl-"]').forEach(el=>{el.style.display=el.id===`m-allrpl-${key}`?'':'none';});}
 function closeModal(){document.getElementById('modal-bg').classList.remove('open');document.body.style.overflow='';}
 document.getElementById('m-close').addEventListener('click',closeModal);
 document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target.id==='modal-bg')closeModal();});
 
-// ═══════════════════════════════════════════════
-// RECORDS TAB
-// ═══════════════════════════════════════════════
 function renderRecords(){
   document.getElementById('records-grid').innerHTML=Object.values(records).map(r=>`<div class="rec-card"><div class="rec-stat">${r.label}</div><div class="rec-val">${r.value}</div><div class="rec-holder">${r.holder}</div><div class="rec-team">${r.team}</div></div>`).join('');
   document.getElementById('career-records-grid').innerHTML=careerRecords.map(r=>`<div class="career-rec-card type-career"><div class="career-rec-stat">${r.label}</div><div class="career-rec-val career">${r.value}</div><div class="career-rec-holder">${r.holder}</div><div class="career-rec-note">${r.note||''}</div></div>`).join('');
   document.getElementById('season-records-grid').innerHTML=seasonRecords.map(r=>`<div class="career-rec-card type-season"><div class="career-rec-stat">${r.label}</div><div class="career-rec-val season">${r.value}</div><div class="career-rec-holder">${r.holder}</div><div class="career-rec-note">${r.note||''}</div></div>`).join('');
 }
 
-// ═══════════════════════════════════════════════
-// ALL-STAR TAB
-// ═══════════════════════════════════════════════
 function getAllStarFiltered(){
-  const tq=document.getElementById('f-allstar').value.trim().toLowerCase();
-  const sort=document.getElementById('f-allstar-sort').value;
+  const tq=document.getElementById('f-allstar').value.trim().toLowerCase();const sort=document.getElementById('f-allstar-sort').value;
   let list=Object.entries(allStarData).map(([name,data])=>({name,...data}));
   if(tq)list=list.filter(p=>p.name.toLowerCase().includes(tq));
-  if(sort==='wins')list.sort((a,b)=>b.wins-a.wins||b.apps-a.apps);
-  else if(sort==='apps')list.sort((a,b)=>b.apps-a.apps||b.wins-a.wins);
-  else if(sort==='mvps')list.sort((a,b)=>b.mvps-a.mvps||b.wins-a.wins);
-  else if(sort==='dunk')list.sort((a,b)=>b.dunk-a.dunk);
-  else if(sort==='skills')list.sort((a,b)=>b.skills-a.skills);
-  else if(sort==='threepoint')list.sort((a,b)=>b.threepoint-a.threepoint);
+  if(sort==='wins')list.sort((a,b)=>b.wins-a.wins||b.apps-a.apps);else if(sort==='apps')list.sort((a,b)=>b.apps-a.apps||b.wins-a.wins);else if(sort==='mvps')list.sort((a,b)=>b.mvps-a.mvps||b.wins-a.wins);else if(sort==='dunk')list.sort((a,b)=>b.dunk-a.dunk);else if(sort==='skills')list.sort((a,b)=>b.skills-a.skills);else if(sort==='threepoint')list.sort((a,b)=>b.threepoint-a.threepoint);
   return list;
 }
 function renderAllStar(){
-  const list=getAllStarFiltered();
-  document.getElementById('allstar-ct').textContent=`${Object.keys(allStarData).length} participants`;
+  const list=getAllStarFiltered();document.getElementById('allstar-ct').textContent=`${Object.keys(allStarData).length} participants`;
   const gridEl=document.getElementById('allstar-grid'),emptyEl=document.getElementById('allstar-empty');
-  if(!list.length){gridEl.innerHTML='';emptyEl.style.display='block';return;}
-  emptyEl.style.display='none';
-  gridEl.innerHTML=list.map(p=>`<div class="allstar-card" onclick="if(playerMap['${p.name}'])openPlayerModal(playerMap['${p.name}'])">
-    <div class="allstar-name">${p.name}</div>
-    <div class="allstar-stats">
-      <div class="allstar-stat"><span class="allstar-sv" style="color:var(--pink)">${p.apps}</span><span class="allstar-sl">Apps</span></div>
-      <div class="allstar-stat"><span class="allstar-sv" style="color:var(--gr)">${p.wins}</span><span class="allstar-sl">Wins</span></div>
-      ${p.mvps?`<div class="allstar-stat"><span class="allstar-sv" style="color:var(--pur)">${p.mvps}</span><span class="allstar-sl">MVP</span></div>`:''}
-      ${p.dunk?`<div class="allstar-stat"><span class="allstar-sv" style="color:var(--gold-hi)">${p.dunk}</span><span class="allstar-sl">Dunk</span></div>`:''}
-      ${p.skills?`<div class="allstar-stat"><span class="allstar-sv" style="color:var(--bl)">${p.skills}</span><span class="allstar-sl">Skls</span></div>`:''}
-      ${p.threepoint?`<div class="allstar-stat"><span class="allstar-sv" style="color:var(--cy)">${p.threepoint}</span><span class="allstar-sl">3PT</span></div>`:''}
-    </div>
-  </div>`).join('');
-  const makeLeaderboard=(title,key,color)=>{
-    const sorted=Object.entries(allStarData).filter(([,v])=>v[key]>0).sort((a,b)=>b[1][key]-a[1][key]).slice(0,8);
-    if(!sorted.length)return'';
-    return`<div style="background:var(--s1);border:1px solid var(--b);border-radius:11px;overflow:hidden">
-      <div style="padding:10px 14px;background:var(--s2);border-bottom:1px solid var(--b);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${color}">${title}</div>
-      <table class="allstar-leader-tbl">${sorted.map(([name,data],i)=>`<tr><td>${i+1}</td><td>${name}</td><td style="color:${color}">${data[key]}</td></tr>`).join('')}</table>
-    </div>`;
-  };
-  document.getElementById('allstar-leaderboards').innerHTML=[
-    makeLeaderboard('All-Star Game Wins','wins','var(--gr)'),
-    makeLeaderboard('All-Star Appearances','apps','var(--pink)'),
-    makeLeaderboard('All-Star Game MVPs','mvps','var(--pur)'),
-    makeLeaderboard('Dunk Contest Wins','dunk','var(--gold-hi)'),
-    makeLeaderboard('Skills Challenge Wins','skills','var(--bl)'),
-    makeLeaderboard('3PT Contest Wins','threepoint','var(--cy)'),
-  ].filter(Boolean).join('');
+  if(!list.length){gridEl.innerHTML='';emptyEl.style.display='block';return;}emptyEl.style.display='none';
+  gridEl.innerHTML=list.map(p=>`<div class="allstar-card" onclick="if(playerMap['${p.name}'])openPlayerModal(playerMap['${p.name}'])"><div class="allstar-name">${p.name}</div><div class="allstar-stats"><div class="allstar-stat"><span class="allstar-sv" style="color:var(--pink)">${p.apps}</span><span class="allstar-sl">Apps</span></div><div class="allstar-stat"><span class="allstar-sv" style="color:var(--gr)">${p.wins}</span><span class="allstar-sl">Wins</span></div>${p.mvps?`<div class="allstar-stat"><span class="allstar-sv" style="color:var(--pur)">${p.mvps}</span><span class="allstar-sl">MVP</span></div>`:''}${p.dunk?`<div class="allstar-stat"><span class="allstar-sv" style="color:var(--gold-hi)">${p.dunk}</span><span class="allstar-sl">Dunk</span></div>`:''}${p.skills?`<div class="allstar-stat"><span class="allstar-sv" style="color:var(--bl)">${p.skills}</span><span class="allstar-sl">Skls</span></div>`:''}${p.threepoint?`<div class="allstar-stat"><span class="allstar-sv" style="color:var(--cy)">${p.threepoint}</span><span class="allstar-sl">3PT</span></div>`:''}</div></div>`).join('');
+  const makeLeaderboard=(title,key,color)=>{const sorted=Object.entries(allStarData).filter(([,v])=>v[key]>0).sort((a,b)=>b[1][key]-a[1][key]).slice(0,8);if(!sorted.length)return'';return`<div style="background:var(--s1);border:1px solid var(--b);border-radius:11px;overflow:hidden"><div style="padding:10px 14px;background:var(--s2);border-bottom:1px solid var(--b);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${color}">${title}</div><table class="allstar-leader-tbl">${sorted.map(([name,data],i)=>`<tr><td>${i+1}</td><td>${name}</td><td style="color:${color}">${data[key]}</td></tr>`).join('')}</table></div>`;};
+  document.getElementById('allstar-leaderboards').innerHTML=[makeLeaderboard('All-Star Game Wins','wins','var(--gr)'),makeLeaderboard('All-Star Appearances','apps','var(--pink)'),makeLeaderboard('All-Star Game MVPs','mvps','var(--pur)'),makeLeaderboard('Dunk Contest Wins','dunk','var(--gold-hi)'),makeLeaderboard('Skills Challenge Wins','skills','var(--bl)'),makeLeaderboard('3PT Contest Wins','threepoint','var(--cy)')].filter(Boolean).join('');
 }
 ['f-allstar','f-allstar-sort'].forEach(id=>document.getElementById(id).addEventListener('input',renderAllStar));
 
-// ═══════════════════════════════════════════════
-// HOF TAB
-// ═══════════════════════════════════════════════
 function getHofFilter(){
-  const tq=document.getElementById('f-hof').value.trim().toLowerCase();
-  const tier=document.getElementById('f-hof-tier').value;
-  const sort=document.getElementById('f-hof-sort').value;
+  const tq=document.getElementById('f-hof').value.trim().toLowerCase();const tier=document.getElementById('f-hof-tier').value;const sort=document.getElementById('f-hof-sort').value;
   let list=hofInductees.filter(p=>(!tq||p.name.toLowerCase().includes(tq))&&(tier==='all'||p.hofTier===tier));
-  if(sort==='mvp')list=[...list].sort((a,b)=>b.majorAwards.filter(x=>x.award==='MVP').length-a.majorAwards.filter(x=>x.award==='MVP').length||b.hofScore-a.hofScore);
-  else if(sort==='major')list=[...list].sort((a,b)=>b.majorAwards.length-a.majorAwards.length||b.hofScore-a.hofScore);
-  else if(sort==='fmvp')list=[...list].sort((a,b)=>b.fmvpAwards.length-a.fmvpAwards.length||b.hofScore-a.hofScore);
-  else if(sort==='allrpl')list=[...list].sort((a,b)=>b.allRPL-a.allRPL||b.hofScore-a.hofScore);
-  else if(sort==='rings')list=[...list].sort((a,b)=>b.rings-a.rings||b.hofScore-a.hofScore);
-  else list=[...list].sort((a,b)=>b.hofScore-a.hofScore);
+  if(sort==='mvp')list=[...list].sort((a,b)=>b.majorAwards.filter(x=>x.award==='MVP').length-a.majorAwards.filter(x=>x.award==='MVP').length||b.hofScore-a.hofScore);else if(sort==='major')list=[...list].sort((a,b)=>b.majorAwards.length-a.majorAwards.length||b.hofScore-a.hofScore);else if(sort==='fmvp')list=[...list].sort((a,b)=>b.fmvpAwards.length-a.fmvpAwards.length||b.hofScore-a.hofScore);else if(sort==='allrpl')list=[...list].sort((a,b)=>b.allRPL-a.allRPL||b.hofScore-a.hofScore);else if(sort==='rings')list=[...list].sort((a,b)=>b.rings-a.rings||b.hofScore-a.hofScore);else list=[...list].sort((a,b)=>b.hofScore-a.hofScore);
   return list;
 }
 
 const PG_HOF=10;
 function renderHOF(){hofInductees=computeHOF(playerMap);renderHOFRows();renderHOFScoringExplain();}
 function renderHOFRows(){
-  const filt=getHofFilter();
-  const total=Math.max(1,Math.ceil(filt.length/PG_HOF));
-  if(pgHof>total)pgHof=total;
+  const filt=getHofFilter();const total=Math.max(1,Math.ceil(filt.length/PG_HOF));if(pgHof>total)pgHof=total;
   const start=(pgHof-1)*PG_HOF,slice=filt.slice(start,start+PG_HOF);
   const hofCount=hofInductees.filter(p=>p.hofTier==='hof').length;
   document.getElementById('hof-ct').textContent=`${hofCount} inductee${hofCount!==1?'s':''}`;
   const rowsEl=document.getElementById('hof-rows');
   if(!filt.length){rowsEl.innerHTML=`<div class="hist-empty">No players match.</div>`;document.getElementById('pager-hof').style.display='none';return;}
-  let html='';
-  let lastTier=null;
+  let html='';let lastTier=null;
   slice.forEach((p,i)=>{
     const rank=start+i+1;
-    if(p.hofTier!==lastTier){
-      if(p.hofTier==='ring-of-honor'){
-        html+=`<div class="hof-section-divider roh">🏅 Ring of Honor — Elite careers, honored but not quite inducted</div>`;
-      }
-      lastTier=p.hofTier;
-    }
-    const as=allStarData[p.name]||{apps:0};
-    const sc=scoreColor(p.hofScore);
-    const mvpCount=p.majorAwards.filter(a=>a.award==='MVP').length;
-    const peakCount=countPeakSeasons(p);
-    const badges=[
-      mvpCount?`<span class="hof-badge gold">🏆 ${mvpCount}× MVP</span>`:'',
-      ...p.fmvpAwards.map(a=>`<span class="hof-badge purple">S${a.season} FMVP</span>`),
-      ...p.majorAwards.filter(a=>a.award!=='MVP').map(a=>`<span class="hof-badge green">S${a.season} ${a.award}</span>`),
-      peakCount?`<span class="hof-badge orange">⚡ ${peakCount}× Peak</span>`:'',
-      p.statLeads.length?`<span class="hof-badge cyan">📊 ×${p.statLeads.length}</span>`:'',
-      p.allRPL?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`:'',
-      as.wins?`<span class="hof-badge pink">⭐ AS ×${as.wins}</span>`:'',
-    ].filter(Boolean).join('');
-    // Column: MVPs | Major | FMVP | All-RPL | HOF Score | Notable
-    html+=`<div class="hof-ind-row tier-${p.hofTier}" data-name="${p.name}" role="button" tabindex="0">
-      <span class="hof-rn">${rank}</span>
-      <span><div class="hof-name">${p.name}<span class="hof-harrow">↗</span></div><div class="hof-name-sub"><span class="hof-tier-badge ${p.hofTier}">${tierLabel(p.hofTier)}</span>${peakCount?` <span class="peak-badge">⚡ ${peakCount}× Peak</span>`:''}</div></span>
-      <span class="hof-mvps" style="color:var(--gold-hi)">${mvpCount||'—'}</span>
-      <span class="hof-mvps">${p.majorAwards.length||'—'}</span>
-      <span class="hof-fmvps">${p.fmvpAwards.length?`<span style="color:var(--pur)">⭐ ×${p.fmvpAwards.length}</span>`:'—'}</span>
-      <span class="hof-mvps" style="color:var(--bl)">${p.allRPL||'—'}</span>
-      <span class="hof-score-cell"><span style="color:${sc}">${p.hofScore}</span><div class="hof-score-bar"><div class="hof-score-fill" style="width:${Math.min(100,p.hofScore*1.2)}%;background:${sc}"></div></div></span>
-      <span class="hof-awards-cell"><div class="hof-badge-wrap">${badges}</div></span>
-    </div>`;
+    if(p.hofTier!==lastTier){if(p.hofTier==='ring-of-honor'){html+=`<div class="hof-section-divider roh">🏅 Ring of Honor — Elite careers, honored but not quite inducted</div>`;}lastTier=p.hofTier;}
+    const as=allStarData[p.name]||{apps:0};const sc=scoreColor(p.hofScore);const mvpCount=p.majorAwards.filter(a=>a.award==='MVP').length;const peakCount=countPeakSeasons(p);
+    const badges=[mvpCount?`<span class="hof-badge gold">🏆 ${mvpCount}× MVP</span>`'',...p.fmvpAwards.map(a=>`<span class="hof-badge purple">S${a.season} FMVP</span>`),...p.majorAwards.filter(a=>a.award!=='MVP').map(a=>`<span class="hof-badge green">S${a.season} ${a.award}</span>`),peakCount?`<span class="hof-badge orange">⚡ ${peakCount}× Peak</span>`'',p.statLeads.length?`<span class="hof-badge cyan">📊 ×${p.statLeads.length}</span>`'',p.allRPL?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`'',as.wins?`<span class="hof-badge pink">⭐ AS ×${as.wins}</span>`''].filter(Boolean).join('');
+    html+=`<div class="hof-ind-row tier-${p.hofTier}" data-name="${p.name}" role="button" tabindex="0"><span class="hof-rn">${rank}</span><span><div class="hof-name">${p.name}<span class="hof-harrow">↗</span></div><div class="hof-name-sub"><span class="hof-tier-badge ${p.hofTier}">${tierLabel(p.hofTier)}</span>${peakCount?` <span class="peak-badge">⚡ ${peakCount}× Peak</span>`:''}</div></span><span class="hof-mvps" style="color:var(--gold-hi)">${mvpCount||'—'}</span><span class="hof-mvps">${p.majorAwards.length||'—'}</span><span class="hof-fmvps">${p.fmvpAwards.length?`<span style="color:var(--pur)">⭐ ×${p.fmvpAwards.length}</span>`:'—'}</span><span class="hof-mvps" style="color:var(--bl)">${p.allRPL||'—'}</span><span class="hof-score-cell"><span style="color:${sc}">${p.hofScore}</span><div class="hof-score-bar"><div class="hof-score-fill" style="width:${Math.min(100,p.hofScore*1.2)}%;background:${sc}"></div></div></span><span class="hof-awards-cell"><div class="hof-badge-wrap">${badges}</div></span></div>`;
   });
   rowsEl.innerHTML=html;
-  rowsEl.querySelectorAll('.hof-ind-row').forEach(el=>{
-    const p=playerMap[el.dataset.name];
-    el.addEventListener('click',()=>openPlayerModal(p));
-    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openPlayerModal(p);});
-  });
-  const pagerEl=document.getElementById('pager-hof');
-  if(total<=1){pagerEl.style.display='none';return;}
-  pagerEl.style.display='flex';
-  document.getElementById('pg-info-hof').textContent=`${start+1}–${Math.min(start+PG_HOF,filt.length)} of ${filt.length}`;
+  rowsEl.querySelectorAll('.hof-ind-row').forEach(el=>{const p=playerMap[el.dataset.name];el.addEventListener('click',()=>openPlayerModal(p));el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openPlayerModal(p);});});
+  const pagerEl=document.getElementById('pager-hof');if(total<=1){pagerEl.style.display='none';return;}
+  pagerEl.style.display='flex';document.getElementById('pg-info-hof').textContent=`${start+1}–${Math.min(start+PG_HOF,filt.length)} of ${filt.length}`;
   renderPagerBtns('pg-btns-hof','p-prev-hof','p-next-hof',pgHof,total,p=>{pgHof=p;renderHOFRows();});
   document.getElementById('pg-jump-hof').max=total;document.getElementById('pg-jump-hof').value=pgHof;
 }
 ['f-hof','f-hof-tier','f-hof-sort'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{pgHof=1;renderHOFRows();}));
 document.getElementById('pg-jump-hof').addEventListener('change',e=>{const v=parseInt(e.target.value,10),tot=Math.max(1,Math.ceil(getHofFilter().length/PG_HOF));if(v>=1&&v<=tot){pgHof=v;renderHOFRows();}else e.target.value=pgHof;});
 
-function renderHOFScoringExplain(){
-  document.getElementById('hof-scoring-grid').innerHTML=HOF_SCORE_LABELS.map(item=>`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;color:var(--tx2)">${item.label}</span><span class="hof-badge ${item.color}">+${item.pts} pts</span></div>`).join('')+`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;grid-column:1/-1"><div style="font-size:10px;color:var(--mu);margin-bottom:6px">HOF Thresholds</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="hof-tier-badge hof">Hall of Fame ≥${HOF_THRESHOLD_HOF} pts</span><span class="hof-tier-badge ring-of-honor">Ring of Honor ≥${HOF_THRESHOLD_ROH} pts</span><span class="hof-tier-badge not-eligible">Not Eligible &lt;${HOF_THRESHOLD_ROH} pts</span></div></div>`;
-}
+function renderHOFScoringExplain(){document.getElementById('hof-scoring-grid').innerHTML=HOF_SCORE_LABELS.map(item=>`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;color:var(--tx2)">${item.label}</span><span class="hof-badge ${item.color}">+${item.pts} pts</span></div>`).join('')+`<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 12px;grid-column:1/-1"><div style="font-size:10px;color:var(--mu);margin-bottom:6px">HOF Thresholds</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="hof-tier-badge hof">Hall of Fame ≥${HOF_THRESHOLD_HOF} pts</span><span class="hof-tier-badge ring-of-honor">Ring of Honor ≥${HOF_THRESHOLD_ROH} pts</span><span class="hof-tier-badge not-eligible">Not Eligible &lt;${HOF_THRESHOLD_ROH} pts</span></div></div>`;}
 
-// ═══════════════════════════════════════════════
-// PLAYERS TAB
-// ═══════════════════════════════════════════════
 function getPlayerFilters(){
-  const tq=document.getElementById('f-player').value.trim().toLowerCase();
-  const sort=document.getElementById('f-player-sort').value;
+  const tq=document.getElementById('f-player').value.trim().toLowerCase();const sort=document.getElementById('f-player-sort').value;
   let list=tq?allPlayers.filter(p=>p.name.toLowerCase().includes(tq)):[...allPlayers];
-  if(sort==='major')list.sort((a,b)=>b.majorAwards.length-a.majorAwards.length||b.allRPL-a.allRPL);
-  else if(sort==='allrpl')list.sort((a,b)=>b.allRPL-a.allRPL);
-  else if(sort==='rings')list.sort((a,b)=>b.rings-a.rings);
-  else if(sort==='fmvp')list.sort((a,b)=>b.fmvpAwards.length-a.fmvpAwards.length);
-  else if(sort==='stat')list.sort((a,b)=>b.statLeads.length-a.statLeads.length);
-  else if(sort==='allstar')list.sort((a,b)=>(allStarData[b.name]?.wins||0)-(allStarData[a.name]?.wins||0));
-  else if(sort==='hofscore')list.sort((a,b)=>getHofScore(b)-getHofScore(a));
-  else list.sort((a,b)=>a.name.localeCompare(b.name));
+  if(sort==='major')list.sort((a,b)=>b.majorAwards.length-a.majorAwards.length||b.allRPL-a.allRPL);else if(sort==='allrpl')list.sort((a,b)=>b.allRPL-a.allRPL);else if(sort==='rings')list.sort((a,b)=>b.rings-a.rings);else if(sort==='fmvp')list.sort((a,b)=>b.fmvpAwards.length-a.fmvpAwards.length);else if(sort==='stat')list.sort((a,b)=>b.statLeads.length-a.statLeads.length);else if(sort==='allstar')list.sort((a,b)=>(allStarData[b.name]?.wins||0)-(allStarData[a.name]?.wins||0));else if(sort==='hofscore')list.sort((a,b)=>getHofScore(b)-getHofScore(a));else list.sort((a,b)=>a.name.localeCompare(b.name));
   return list;
 }
 function getPPPlayers(){const v=document.getElementById('f-player-pp').value;return v==='all'?999999:parseInt(v,10)||24;}
 function renderPlayers(){
-  const filt=getPlayerFilters(),pp=getPPPlayers();
-  const total=Math.max(1,Math.ceil(filt.length/pp));
-  if(pgPlayers>total)pgPlayers=total;
+  const filt=getPlayerFilters(),pp=getPPPlayers();const total=Math.max(1,Math.ceil(filt.length/pp));if(pgPlayers>total)pgPlayers=total;
   document.getElementById('players-ct').textContent=filt.length===allPlayers.length?`${allPlayers.length} players`:`${filt.length}/${allPlayers.length}`;
   const start=(pgPlayers-1)*pp,slice=pp>=999999?filt:filt.slice(start,start+pp);
   const gridEl=document.getElementById('players-grid'),emptyEl=document.getElementById('players-empty');
-  if(!filt.length){gridEl.innerHTML='';emptyEl.style.display='block';document.getElementById('pager-players').style.display='none';return;}
-  emptyEl.style.display='none';
-  const hofNames=new Set(hofInductees.filter(p=>p.hofTier==='hof').map(p=>p.name));
-  const rohNames=new Set(hofInductees.filter(p=>p.hofTier==='ring-of-honor').map(p=>p.name));
+  if(!filt.length){gridEl.innerHTML='';emptyEl.style.display='block';document.getElementById('pager-players').style.display='none';return;}emptyEl.style.display='none';
+  const hofNames=new Set(hofInductees.filter(p=>p.hofTier==='hof').map(p=>p.name));const rohNames=new Set(hofInductees.filter(p=>p.hofTier==='ring-of-honor').map(p=>p.name));
   gridEl.innerHTML=slice.map(p=>{
-    const tier=playerTier(p);
-    const as=allStarData[p.name]||{wins:0};
-    const hofScore=getHofScore(p);
-    const mvpCount=p.majorAwards.filter(a=>a.award==='MVP').length;
-    const peakCount=countPeakSeasons(p);
-    const miniBadges=[
-      mvpCount?`<span class="hof-badge gold">🏆 ${mvpCount}× MVP</span>`:'',
-      p.fmvpAwards.length?`<span class="hof-badge purple">FMVP ×${p.fmvpAwards.length}</span>`:'',
-      peakCount?`<span class="hof-badge orange">⚡ Peak ×${peakCount}</span>`:'',
-      p.allRPL?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`:'',
-      p.rings?`<span class="hof-badge gold">Ring ×${p.rings}</span>`:'',
-      hofNames.has(p.name)?`<span class="hof-badge green">HOF</span>`:'',
-      rohNames.has(p.name)?`<span class="hof-badge silver">Ring of Honor</span>`:'',
-    ].filter(Boolean).join('');
-    return`<div class="player-card tier-${tier}" data-name="${p.name}" role="button" tabindex="0">
-      <div class="pc-name">${p.name}</div>
-      <div class="pc-seasons">${p.seasonLog.length} season${p.seasonLog.length!==1?'s':''} · HOF ${hofScore}</div>
-      <div class="pc-stats">
-        <div class="pc-stat"><span class="pc-sv" style="color:var(--gold-hi)">${mvpCount}</span><span class="pc-sl">MVP</span></div>
-        <div class="pc-stat"><span class="pc-sv">${p.majorAwards.length}</span><span class="pc-sl">Major</span></div>
-        <div class="pc-stat"><span class="pc-sv pur">${p.fmvpAwards.length}</span><span class="pc-sl">FMVP</span></div>
-        <div class="pc-stat"><span class="pc-sv">${p.allRPL}</span><span class="pc-sl">All-RPL</span></div>
-        <div class="pc-stat"><span class="pc-sv" style="color:var(--or)">${peakCount}</span><span class="pc-sl">Peak</span></div>
-        <div class="pc-stat"><span class="pc-sv" style="color:var(--tx2)">${p.rings}</span><span class="pc-sl">Rings</span></div>
-      </div>
-      <div class="pc-badges">${miniBadges}</div>
-    </div>`;
+    const tier=playerTier(p);const as=allStarData[p.name]||{wins:0};const hofScore=getHofScore(p);const mvpCount=p.majorAwards.filter(a=>a.award==='MVP').length;const peakCount=countPeakSeasons(p);
+    const miniBadges=[mvpCount?`<span class="hof-badge gold">🏆 ${mvpCount}× MVP</span>`'',p.fmvpAwards.length?`<span class="hof-badge purple">FMVP ×${p.fmvpAwards.length}</span>`'',peakCount?`<span class="hof-badge orange">⚡ Peak ×${peakCount}</span>`'',p.allRPL?`<span class="hof-badge blue">All-RPL ×${p.allRPL}</span>`'',p.rings?`<span class="hof-badge gold">Ring ×${p.rings}</span>`'',hofNames.has(p.name)?`<span class="hof-badge green">HOF</span>`'',rohNames.has(p.name)?`<span class="hof-badge silver">Ring of Honor</span>`''].filter(Boolean).join('');
+    return`<div class="player-card tier-${tier}" data-name="${p.name}" role="button" tabindex="0"><div class="pc-name">${p.name}</div><div class="pc-seasons">${p.seasonLog.length} season${p.seasonLog.length!==1?'s':''} · HOF ${hofScore}</div><div class="pc-stats"><div class="pc-stat"><span class="pc-sv" style="color:var(--gold-hi)">${mvpCount}</span><span class="pc-sl">MVP</span></div><div class="pc-stat"><span class="pc-sv">${p.majorAwards.length}</span><span class="pc-sl">Major</span></div><div class="pc-stat"><span class="pc-sv pur">${p.fmvpAwards.length}</span><span class="pc-sl">FMVP</span></div><div class="pc-stat"><span class="pc-sv">${p.allRPL}</span><span class="pc-sl">All-RPL</span></div><div class="pc-stat"><span class="pc-sv or">${peakCount}</span><span class="pc-sl">Peak</span></div><div class="pc-stat"><span class="pc-sv" style="color:var(--tx2)">${p.rings}</span><span class="pc-sl">Rings</span></div></div><div class="pc-badges">${miniBadges}</div></div>`;
   }).join('');
-  gridEl.querySelectorAll('.player-card').forEach(el=>{
-    const p=playerMap[el.dataset.name];
-    el.addEventListener('click',()=>openPlayerModal(p));
-    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openPlayerModal(p);});
-  });
-  const pagerEl=document.getElementById('pager-players');
-  if(pp>=999999){pagerEl.style.display='none';return;}
-  pagerEl.style.display='flex';
-  document.getElementById('pg-info-players').textContent=`${start+1}–${Math.min(start+pp,filt.length)} of ${filt.length}`;
+  gridEl.querySelectorAll('.player-card').forEach(el=>{const p=playerMap[el.dataset.name];el.addEventListener('click',()=>openPlayerModal(p));el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openPlayerModal(p);});});
+  const pagerEl=document.getElementById('pager-players');if(pp>=999999){pagerEl.style.display='none';return;}
+  pagerEl.style.display='flex';document.getElementById('pg-info-players').textContent=`${start+1}–${Math.min(start+pp,filt.length)} of ${filt.length}`;
   renderPagerBtns('pg-btns-players','p-prev-pl','p-next-pl',pgPlayers,total,p=>{pgPlayers=p;renderPlayers();});
   document.getElementById('pg-jump-players').max=total;document.getElementById('pg-jump-players').value=pgPlayers;
 }
 ['f-player','f-player-sort','f-player-pp'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{pgPlayers=1;renderPlayers();}));
 document.getElementById('pg-jump-players').addEventListener('change',e=>{const v=parseInt(e.target.value,10),tot=Math.max(1,Math.ceil(getPlayerFilters().length/getPPPlayers()));if(v>=1&&v<=tot){pgPlayers=v;renderPlayers();}else e.target.value=pgPlayers;});
 
-// ═══════════════════════════════════════════════
-// PLAYER PROFILE MODAL
-// ═══════════════════════════════════════════════
 function openPlayerModal(p){
   if(!p)return;
-  const hofEntry=hofInductees.find(h=>h.name===p.name);
-  const hofScore=getHofScore(p);
-  const {breakdown}=computeHofScore(p);
-  const tier=hofEntry?hofEntry.hofTier:hofTier(hofScore,p,hofManualInductions[p.name]?.tier);
-  const as=allStarData[p.name]||{apps:0,wins:0,mvps:0,dunk:0,skills:0,threepoint:0};
-  const showHofBadge=tier==='hof'||tier==='ring-of-honor';
-  const mvpCount=p.majorAwards.filter(a=>a.award==='MVP').length;
-  const peakCount=countPeakSeasons(p);
+  const hofEntry=hofInductees.find(h=>h.name===p.name);const hofScore=getHofScore(p);const{breakdown}=computeHofScore(p);const tier=hofEntry?hofEntry.hofTier:hofTier(hofScore,p,hofManualInductions[p.name]?.tier);const as=allStarData[p.name]||{apps:0,wins:0,mvps:0,dunk:0,skills:0,threepoint:0};const showHofBadge=tier==='hof'||tier==='ring-of-honor';const mvpCount=p.majorAwards.filter(a=>a.award==='MVP').length;const peakCount=countPeakSeasons(p);
   document.getElementById('pm-header').innerHTML=`<div><div class="prf-name">${p.name}</div><div class="prf-sub">${p.seasonLog.length} season${p.seasonLog.length!==1?'s':''} active · ${p.allRPL} All-RPL selections${peakCount?` · ⚡ ${peakCount} peak season${peakCount!==1?'s':''}`:''}${p.rings>0?` · ${p.rings} ring${p.rings!==1?'s':''}`:''}${p.rings===0?' · No rings':''}</div>${showHofBadge?`<div class="prf-hof-badge${tier==='ring-of-honor'?' roh':''}">${tier==='hof'?'⭐ Hall of Fame':'🏅 Ring of Honor'} · ${hofScore} pts</div>`:''}</div>`;
   document.getElementById('pm-badge').textContent=p.rings>0?`${p.rings} Ring${p.rings!==1?'s':''}`:'No Rings';
-  const bigStats=`<div class="prf-stat-row">
-    <div class="prf-big-stat"><span class="prf-bsv" style="color:var(--gold-hi)">${mvpCount}</span><span class="prf-bsl">MVPs</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv">${p.majorAwards.length}</span><span class="prf-bsl">Major</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv pur">${p.fmvpAwards.length}</span><span class="prf-bsl">FMVP</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv">${p.allRPL}</span><span class="prf-bsl">All-RPL</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv or">${peakCount}</span><span class="prf-bsl">Peak Ssn</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv cy">${p.statLeads.length}</span><span class="prf-bsl">Stat Ttls</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv pink">${as.wins}</span><span class="prf-bsl">AS Wins</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv" style="color:var(--tx2);font-size:22px">${p.rings}</span><span class="prf-bsl">Rings</span></div>
-    <div class="prf-big-stat"><span class="prf-bsv" style="color:${scoreColor(hofScore)}">${hofScore}</span><span class="prf-bsl">HOF Pts</span></div>
-  </div>`;
-  const majorHtml=p.majorAwards.length?p.majorAwards.map(a=>{
-    const isPeakSeason = a.award==='MVP' && p.seasonLog.find(sl=>sl.season===a.season&&sl.allRPLTeams.includes('1st'));
-    return`<div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}${isPeakSeason?' <span class="peak-badge">⚡ Peak</span>':''}</span><span class="award-win" style="color:var(--gold-hi)">${a.award}</span></div>`;
-  }).join(''):'<p style="font-size:12px;color:var(--mu)">None</p>';
+  const bigStats=`<div class="prf-stat-row"><div class="prf-big-stat"><span class="prf-bsv" style="color:var(--gold-hi)">${mvpCount}</span><span class="prf-bsl">MVPs</span></div><div class="prf-big-stat"><span class="prf-bsv">${p.majorAwards.length}</span><span class="prf-bsl">Major</span></div><div class="prf-big-stat"><span class="prf-bsv pur">${p.fmvpAwards.length}</span><span class="prf-bsl">FMVP</span></div><div class="prf-big-stat"><span class="prf-bsv">${p.allRPL}</span><span class="prf-bsl">All-RPL</span></div><div class="prf-big-stat"><span class="prf-bsv or">${peakCount}</span><span class="prf-bsl">Peak Ssn</span></div><div class="prf-big-stat"><span class="prf-bsv cy">${p.statLeads.length}</span><span class="prf-bsl">Stat Ttls</span></div><div class="prf-big-stat"><span class="prf-bsv pink">${as.wins}</span><span class="prf-bsl">AS Wins</span></div><div class="prf-big-stat"><span class="prf-bsv" style="color:var(--tx2);font-size:22px">${p.rings}</span><span class="prf-bsl">Rings</span></div><div class="prf-big-stat"><span class="prf-bsv" style="color:${scoreColor(hofScore)}">${hofScore}</span><span class="prf-bsl">HOF Pts</span></div></div>`;
+  const majorHtml=p.majorAwards.length?p.majorAwards.map(a=>{const isPeakSeason=a.award==='MVP'&&p.seasonLog.find(sl=>sl.season===a.season&&sl.allRPLTeams.includes('1st'));return`<div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}${isPeakSeason?' <span class="peak-badge">⚡ Peak</span>':''}</span><span class="award-win" style="color:var(--gold-hi)">${a.award}</span></div>`;}).join(''):'<p style="font-size:12px;color:var(--mu)">None</p>';
   const fmvpHtml=p.fmvpAwards.length?`<div style="margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--b2)"><div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pur);margin-bottom:6px">Finals MVP</div>${p.fmvpAwards.map(a=>`<div class="award-row"><span class="award-lbl">S${a.season} — proven THE guy</span><span class="award-win fmvp">⭐ FMVP</span></div>`).join('')}</div>`:'';
   const minorHtml=p.minorAwards.length?p.minorAwards.map(a=>`<div class="award-row"><span class="award-lbl">S${a.season} · ${a.label}</span><span class="award-win">${a.award}</span></div>`).join(''):'<p style="font-size:12px;color:var(--mu)">None</p>';
   const statHtml=p.statLeads.length?`<div class="stat-awards-section"><div class="stat-awards-label">📊 Stat Titles</div>${p.statLeads.map(sl=>`<div class="award-row"><span class="award-lbl">S${sl.season} · ${sl.cat}</span><span class="award-win stat">${statShort(sl.cat)}</span></div>`).join('')}</div>`:'';
   const hasAS=as.apps>0||as.dunk>0||as.skills>0||as.threepoint>0||as.mvps>0;
-  const allStarHtml=hasAS?`<div class="icard"><div class="ilbl">🌟 All-Star Career</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">${[as.apps?`<div class="pc-stat"><span class="pc-sv" style="color:var(--pink)">${as.apps}</span><span class="pc-sl">Appearances</span></div>`:'',as.wins?`<div class="pc-stat"><span class="pc-sv" style="color:var(--gr)">${as.wins}</span><span class="pc-sl">Wins</span></div>`:'',as.mvps?`<div class="pc-stat"><span class="pc-sv" style="color:var(--pur)">${as.mvps}</span><span class="pc-sl">MVPs</span></div>`:'',as.dunk?`<div class="pc-stat"><span class="pc-sv" style="color:var(--gold-hi)">${as.dunk}</span><span class="pc-sl">Dunk</span></div>`:'',as.skills?`<div class="pc-stat"><span class="pc-sv" style="color:var(--bl)">${as.skills}</span><span class="pc-sl">Skills</span></div>`:'',as.threepoint?`<div class="pc-stat"><span class="pc-sv" style="color:var(--cy)">${as.threepoint}</span><span class="pc-sl">3PT</span></div>`:''].filter(Boolean).join('')}</div></div>`:'';
-
-  // HOF Score Breakdown panel
+  const allStarHtml=hasAS?`<div class="icard"><div class="ilbl">🌟 All-Star Career</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">${[as.apps?`<div class="pc-stat"><span class="pc-sv" style="color:var(--pink)">${as.apps}</span><span class="pc-sl">Appearances</span></div>`'',as.wins?`<div class="pc-stat"><span class="pc-sv" style="color:var(--gr)">${as.wins}</span><span class="pc-sl">Wins</span></div>`'',as.mvps?`<div class="pc-stat"><span class="pc-sv" style="color:var(--pur)">${as.mvps}</span><span class="pc-sl">MVPs</span></div>`'',as.dunk?`<div class="pc-stat"><span class="pc-sv" style="color:var(--gold-hi)">${as.dunk}</span><span class="pc-sl">Dunk</span></div>`'',as.skills?`<div class="pc-stat"><span class="pc-sv" style="color:var(--bl)">${as.skills}</span><span class="pc-sl">Skills</span></div>`'',as.threepoint?`<div class="pc-stat"><span class="pc-sv" style="color:var(--cy)">${as.threepoint}</span><span class="pc-sl">3PT</span></div>`''].filter(Boolean).join('')}</div></div>`:'';
   const breakdownHtml=Object.keys(breakdown).length?`<div class="hof-breakdown"><div class="hof-breakdown-title">Score Breakdown</div>${Object.entries(breakdown).map(([k,v])=>`<div class="hof-breakdown-row"><span class="hof-breakdown-label">${k}</span><span class="hof-breakdown-pts" style="color:${scoreColor(hofScore)}">+${v}</span></div>`).join('')}<div class="hof-breakdown-row" style="border-top:1px solid var(--b);margin-top:4px;padding-top:4px"><span class="hof-breakdown-label" style="font-weight:700;color:var(--tx)">Total</span><span class="hof-breakdown-pts" style="color:${scoreColor(hofScore)};font-size:13px">${hofScore} pts</span></div></div>`:'';
-
   const hofBar=`<div class="icard"><div class="ilbl">⭐ HOF Score: <span style="color:${scoreColor(hofScore)}">${hofScore}</span> · <span class="hof-tier-badge ${tier}">${tierLabel(tier)}</span></div><div class="hof-score-bar" style="height:6px;margin-top:6px"><div class="hof-score-fill" style="width:${Math.min(100,hofScore*1.2)}%;background:${scoreColor(hofScore)}"></div></div>${breakdownHtml}</div>`;
-
   const logRows=p.seasonLog.sort((a,b)=>a.season-b.season).map(row=>{
     const isPeakSeason=row.awards.includes('MVP')&&row.allRPLTeams.includes('1st');
-    const chips=[
-      row.ring?`<span class="tl-award ring">🏆 Champ</span>`:'',
-      row.fmvp?`<span class="tl-award fmvp">⭐ FMVP</span>`:'',
-      isPeakSeason?`<span class="tl-award peak">⚡ Peak</span>`:'',
-      ...row.awards.filter(k=>MAJOR_AWARDS.includes(k)).map(k=>`<span class="tl-award major">${k}</span>`),
-      ...row.awards.filter(k=>MINOR_AWARDS.includes(k)).map(k=>`<span class="tl-award minor">${k}</span>`),
-      ...row.allRPLTeams.map(t=>`<span class="tl-award allrpl">${t}</span>`),
-      ...row.statLeads.map(c=>`<span class="tl-award stat">${statShort(c)}</span>`),
-    ].filter(Boolean).join('');
+    const chips=[row.ring?`<span class="tl-award ring">🏆 Champ</span>`'',row.fmvp?`<span class="tl-award fmvp">⭐ FMVP</span>`'',isPeakSeason?`<span class="tl-award peak">⚡ Peak</span>`'',...row.awards.filter(k=>MAJOR_AWARDS.includes(k)).map(k=>`<span class="tl-award major">${k}</span>`),...row.awards.filter(k=>MINOR_AWARDS.includes(k)).map(k=>`<span class="tl-award minor">${k}</span>`),...row.allRPLTeams.map(t=>`<span class="tl-award allrpl">${t}</span>`),...row.statLeads.map(c=>`<span class="tl-award stat">${statShort(c)}</span>`)].filter(Boolean).join('');
     return`<tr><td>S${row.season}</td><td style="text-align:left">${row.champion}</td><td style="text-align:left">${chips||'<span style="color:var(--mu);font-size:10px">—</span>'}</td></tr>`;
   }).join('');
   document.getElementById('pm-body').innerHTML=`${bigStats}${hofBar}<div class="minfo"><div class="icard"><div class="ilbl">🥇 Major Awards</div>${majorHtml}</div><div class="icard"><div class="ilbl">🎖 Minor & Finals</div>${fmvpHtml}${minorHtml}${statHtml}</div></div>${allStarHtml}<div class="icard"><div class="ilbl">📅 Season Log</div><div class="tbl-wrap"><table class="season-log-tbl"><thead><tr><th>Season</th><th style="text-align:left">Champion</th><th style="text-align:left">Achievements</th></tr></thead><tbody>${logRows||'<tr><td colspan="3" style="color:var(--mu)">No records</td></tr>'}</tbody></table></div></div>`;
-  document.getElementById('player-modal-bg').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.getElementById('player-modal-bg').classList.add('open');document.body.style.overflow='hidden';
 }
 function closePlayerModal(){document.getElementById('player-modal-bg').classList.remove('open');document.body.style.overflow='';}
 document.getElementById('pm-close').addEventListener('click',closePlayerModal);
 document.getElementById('player-modal-bg').addEventListener('click',e=>{if(e.target.id==='player-modal-bg')closePlayerModal();});
 
-// ═══════════════════════════════════════════════
-// TAB SWITCHING
-// ═══════════════════════════════════════════════
 function showTab(tab,el){
   currentTab=tab;
   ['seasons','records','allstar','hof','players','admin'].forEach(t=>document.getElementById('pane-'+t)?.classList.toggle('hidden',t!==tab));
   document.querySelectorAll('.kc[data-tab]').forEach(k=>k.classList.toggle('active',k.dataset.tab===tab));
-  if(tab==='records')renderRecords();
-  if(tab==='allstar')renderAllStar();
-  if(tab==='hof')renderHOF();
-  if(tab==='players')renderPlayers();
-  if(tab==='admin'&&isAdmin)renderAdminOverview();
+  if(tab==='records')renderRecords();if(tab==='allstar')renderAllStar();if(tab==='hof')renderHOF();if(tab==='players')renderPlayers();if(tab==='admin'&&isAdmin)renderAdminOverview();
 }
 
-// ═══════════════════════════════════════════════
-// ADMIN PANEL
-// ═══════════════════════════════════════════════
 function switchAdminPane(id,btn){
-  document.querySelectorAll('.admin-nav-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.admin-pane').forEach(p=>p.classList.remove('active'));
-  document.getElementById('apane-'+id)?.classList.add('active');
-  if(id==='overview')renderAdminOverview();
-  else if(id==='seasons-mgmt')renderAdminSeasons();
-  else if(id==='hof-mgmt')renderAdminHof();
-  else if(id==='records-mgmt')renderAdminRecords();
-  else if(id==='allstar-mgmt')renderAdminAllStar();
-  else if(id==='analytics')renderAdminAnalytics();
+  document.querySelectorAll('.admin-nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.admin-pane').forEach(p=>p.classList.remove('active'));document.getElementById('apane-'+id)?.classList.add('active');
+  if(id==='overview')renderAdminOverview();else if(id==='seasons-mgmt')renderAdminSeasons();else if(id==='hof-mgmt')renderAdminHof();else if(id==='records-mgmt')renderAdminRecords();else if(id==='allstar-mgmt')renderAdminAllStar();else if(id==='analytics')renderAdminAnalytics();
 }
-
 function renderAdminOverview(){
-  const hofCount=hofInductees.filter(p=>p.hofTier==='hof').length;
-  const rohCount=hofInductees.filter(p=>p.hofTier==='ring-of-honor').length;
-  document.getElementById('admin-overview-cards').innerHTML=`
-    <div class="admin-stat-card"><div class="admin-stat-card-val">${seasons.length}</div><div class="admin-stat-card-lbl">Seasons</div></div>
-    <div class="admin-stat-card"><div class="admin-stat-card-val">${allPlayers.length}</div><div class="admin-stat-card-lbl">Players</div></div>
-    <div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--gold-hi)">${hofCount}</div><div class="admin-stat-card-lbl">HOF Inductees</div></div>
-    <div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--silver)">${rohCount}</div><div class="admin-stat-card-lbl">Ring of Honor</div></div>
-    <div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--pink)">${Object.values(allStarData).reduce((a,v)=>a+(v.apps||0),0)}</div><div class="admin-stat-card-lbl">AS Appearances</div></div>
-    <div class="admin-stat-card"><div class="admin-stat-card-val">${new Set(seasons.map(s=>s.champion)).size}</div><div class="admin-stat-card-lbl">Unique Champs</div></div>`;
+  const hofCount=hofInductees.filter(p=>p.hofTier==='hof').length;const rohCount=hofInductees.filter(p=>p.hofTier==='ring-of-honor').length;
+  document.getElementById('admin-overview-cards').innerHTML=`<div class="admin-stat-card"><div class="admin-stat-card-val">${seasons.length}</div><div class="admin-stat-card-lbl">Seasons</div></div><div class="admin-stat-card"><div class="admin-stat-card-val">${allPlayers.length}</div><div class="admin-stat-card-lbl">Players</div></div><div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--gold-hi)">${hofCount}</div><div class="admin-stat-card-lbl">HOF Inductees</div></div><div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--silver)">${rohCount}</div><div class="admin-stat-card-lbl">Ring of Honor</div></div><div class="admin-stat-card"><div class="admin-stat-card-val" style="color:var(--pink)">${Object.values(allStarData).reduce((a,v)=>a+(v.apps||0),0)}</div><div class="admin-stat-card-lbl">AS Appearances</div></div><div class="admin-stat-card"><div class="admin-stat-card-val">${new Set(seasons.map(s=>s.champion)).size}</div><div class="admin-stat-card-lbl">Unique Champs</div></div>`;
   document.getElementById('admin-quick').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Quick Actions</div><div style="display:flex;flex-direction:column;gap:6px"><button class="admin-nav-btn" onclick="openAddSeason()" style="justify-content:flex-start">➕ Add New Season</button><button class="admin-nav-btn" onclick="switchAdminPane('hof-mgmt',document.querySelector('[onclick*=hof-mgmt]'))" style="justify-content:flex-start">⭐ Manage HOF</button><button class="admin-nav-btn" onclick="switchAdminPane('allstar-mgmt',document.querySelector('[onclick*=allstar-mgmt]'))" style="justify-content:flex-start">🌟 Update All-Star</button><button class="admin-nav-btn" onclick="switchAdminPane('records-mgmt',document.querySelector('[onclick*=records-mgmt]'))" style="justify-content:flex-start">📋 Update Records</button></div></div></div>`;
 }
-
-function renderAdminSeasons(){
-  document.getElementById('admin-seasons-tbody').innerHTML=[...seasons].reverse().map(s=>`<tr><td>S${s.id}</td><td>${s.champion}</td><td style="font-family:'JetBrains Mono',monospace">${s.record}</td><td style="color:var(--pur)">${s.fmvp?normName(s.fmvp):'—'}</td><td style="color:var(--gold-hi)">${s.awards?.MVP?normName(s.awards.MVP):'—'}</td><td><button class="admin-btn" onclick="openSeasonModal(seasons.find(x=>x.id===${s.id}))">View</button><button class="admin-btn danger" onclick="deleteSeason(${s.id})" style="margin-left:4px">Del</button></td></tr>`).join('');
-}
+function renderAdminSeasons(){document.getElementById('admin-seasons-tbody').innerHTML=[...seasons].reverse().map(s=>`<tr><td>S${s.id}</td><td>${s.champion}</td><td style="font-family:'JetBrains Mono',monospace">${s.record}</td><td style="color:var(--pur)">${s.fmvp?normName(s.fmvp):'—'}</td><td style="color:var(--gold-hi)">${s.awards?.MVP?normName(s.awards.MVP):'—'}</td><td><button class="admin-btn" onclick="openSeasonModal(seasons.find(x=>x.id===${s.id}))">View</button><button class="admin-btn danger" onclick="deleteSeason(${s.id})" style="margin-left:4px">Del</button></td></tr>`).join('');}
 function deleteSeason(id){if(!confirm(`Delete Season ${id}?`))return;seasons=seasons.filter(s=>s.id!==id);rebuildData();updateHeroStats();renderSeasons();renderAdminSeasons();toast(`Season ${id} deleted`,'amber');}
-
 function renderAdminHof(){
-  hofInductees=computeHOF(playerMap);
-  const hofMembers=hofInductees.filter(p=>p.hofTier==='hof');
-  const rohMembers=hofInductees.filter(p=>p.hofTier==='ring-of-honor');
-  document.getElementById('admin-hof-tbody').innerHTML=[
-    ...hofMembers.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge hof">Hall of Fame</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center;color:var(--gold-hi)">${p.majorAwards.filter(a=>a.award==='MVP').length}</td><td style="text-align:center">${p.majorAwards.length}</td><td style="text-align:center;color:var(--bl)">${p.allRPL}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`),
-    ...rohMembers.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge ring-of-honor">Ring of Honor</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center;color:var(--gold-hi)">${p.majorAwards.filter(a=>a.award==='MVP').length}</td><td style="text-align:center">${p.majorAwards.length}</td><td style="text-align:center;color:var(--bl)">${p.allRPL}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`),
-  ].join('');
-  const inducted=new Set(hofInductees.map(p=>p.name));
-  const candidates=Object.values(playerMap).filter(p=>!inducted.has(p.name)&&!hofManualRemovals.has(p.name)).map(p=>({...p,hofScore:getHofScore(p)})).filter(p=>p.hofScore>=15).sort((a,b)=>b.hofScore-a.hofScore).slice(0,15);
+  hofInductees=computeHOF(playerMap);const hofMembers=hofInductees.filter(p=>p.hofTier==='hof');const rohMembers=hofInductees.filter(p=>p.hofTier==='ring-of-honor');
+  document.getElementById('admin-hof-tbody').innerHTML=[...hofMembers.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge hof">Hall of Fame</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center;color:var(--gold-hi)">${p.majorAwards.filter(a=>a.award==='MVP').length}</td><td style="text-align:center">${p.majorAwards.length}</td><td style="text-align:center;color:var(--bl)">${p.allRPL}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`),...rohMembers.map(p=>`<tr><td>${p.name}</td><td><span class="hof-tier-badge ring-of-honor">Ring of Honor</span></td><td style="color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace;text-align:center">${p.hofScore}</td><td style="text-align:center;color:var(--gold-hi)">${p.majorAwards.filter(a=>a.award==='MVP').length}</td><td style="text-align:center">${p.majorAwards.length}</td><td style="text-align:center;color:var(--bl)">${p.allRPL}</td><td><button class="admin-btn danger" onclick="removeFromHof('${p.name}')">Remove</button></td></tr>`)].join('');
+  const inducted=new Set(hofInductees.map(p=>p.name));const candidates=Object.values(playerMap).filter(p=>!inducted.has(p.name)&&!hofManualRemovals.has(p.name)).map(p=>({...p,hofScore:getHofScore(p)})).filter(p=>p.hofScore>=15).sort((a,b)=>b.hofScore-a.hofScore).slice(0,15);
   document.getElementById('hof-candidates-list').innerHTML=candidates.map(p=>`<div class="hof-candidate-row"><span>${p.name}</span><span style="text-align:center;color:${scoreColor(p.hofScore)};font-family:'JetBrains Mono',monospace">${p.hofScore}</span><span style="text-align:center"><span class="hof-tier-badge not-eligible">Not Yet</span></span></div>`).join('');
 }
 function removeFromHof(name){if(!confirm(`Remove ${name} from HOF/Ring of Honor?`))return;hofManualRemovals.add(name);delete hofManualInductions[name];hofInductees=computeHOF(playerMap);renderAdminHof();toast(`${name} removed`,'amber');}
 function openHofInductModal(){document.getElementById('hof-induct-overlay').classList.add('show');}
-function manualHofInduct(){
-  const name=document.getElementById('hof-induct-name').value.trim();
-  const tier=document.getElementById('hof-induct-tier').value;
-  if(!name)return toast('Enter a player name','amber');
-  hofManualRemovals.delete(name);
-  hofManualInductions[name]={tier,notes:document.getElementById('hof-induct-notes').value.trim()};
-  if(!playerMap[name]){playerMap[name]={name,rings:0,allRPL:0,majorAwards:[],minorAwards:[],fmvpAwards:[],statLeads:[],seasonLog:[]};allPlayers.push(playerMap[name]);}
-  hofInductees=computeHOF(playerMap);
-  document.getElementById('hof-induct-overlay').classList.remove('show');
-  renderAdminHof();
-  toast(`${name} → ${tierLabel(tier)}`,'green');
-}
-
-function renderAdminRecords(){
-  document.getElementById('admin-records-tbody').innerHTML=Object.entries(records).map(([key,r])=>`<tr><td>${r.label}</td><td style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--gold-hi)">${r.value}</td><td>${r.holder}</td><td>${r.team}</td><td><button class="admin-btn" onclick="openRecordEdit('${key}')">Edit</button></td></tr>`).join('');
-}
+function manualHofInduct(){const name=document.getElementById('hof-induct-name').value.trim();const tier=document.getElementById('hof-induct-tier').value;if(!name)return toast('Enter a player name','amber');hofManualRemovals.delete(name);hofManualInductions[name]={tier,notes:document.getElementById('hof-induct-notes').value.trim()};if(!playerMap[name]){playerMap[name]={name,rings:0,allRPL:0,majorAwards:[],minorAwards:[],fmvpAwards:[],statLeads:[],seasonLog:[]};allPlayers.push(playerMap[name]);}hofInductees=computeHOF(playerMap);document.getElementById('hof-induct-overlay').classList.remove('show');renderAdminHof();toast(`${name} → ${tierLabel(tier)}`,'green');}
+function renderAdminRecords(){document.getElementById('admin-records-tbody').innerHTML=Object.entries(records).map(([key,r])=>`<tr><td>${r.label}</td><td style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--gold-hi)">${r.value}</td><td>${r.holder}</td><td>${r.team}</td><td><button class="admin-btn" onclick="openRecordEdit('${key}')">Edit</button></td></tr>`).join('');}
 function openRecordEdit(key){const r=records[key];if(!r)return;document.getElementById('edit-rec-key').value=key;document.getElementById('edit-rec-value').value=r.value;document.getElementById('edit-rec-holder').value=r.holder;document.getElementById('edit-rec-team').value=r.team;document.getElementById('edit-record-overlay').classList.add('show');}
 function saveRecordEdit(){const key=document.getElementById('edit-rec-key').value;if(!records[key])return;records[key].value=parseInt(document.getElementById('edit-rec-value').value)||records[key].value;records[key].holder=document.getElementById('edit-rec-holder').value.trim()||records[key].holder;records[key].team=document.getElementById('edit-rec-team').value.trim()||records[key].team;document.getElementById('edit-record-overlay').classList.remove('show');renderAdminRecords();toast('Record updated','green');}
-
-function renderAdminAllStar(){
-  const tq=(document.getElementById('admin-allstar-search')?.value||'').trim().toLowerCase();
-  const data=Object.entries(allStarData).filter(([name])=>!tq||name.toLowerCase().includes(tq));
-  document.getElementById('admin-allstar-tbody').innerHTML=data.map(([name,d])=>`<tr><td>${name}</td><td style="text-align:center;color:var(--pink)">${d.apps}</td><td style="text-align:center;color:var(--gr)">${d.wins}</td><td style="text-align:center;color:var(--pur)">${d.mvps}</td><td style="text-align:center;color:var(--gold-hi)">${d.dunk}</td><td style="text-align:center;color:var(--bl)">${d.skills}</td><td style="text-align:center;color:var(--cy)">${d.threepoint}</td><td><button class="admin-btn" onclick="openAllStarEdit('${name}')">Edit</button></td></tr>`).join('');
-}
+function renderAdminAllStar(){const tq=(document.getElementById('admin-allstar-search')?.value||'').trim().toLowerCase();const data=Object.entries(allStarData).filter(([name])=>!tq||name.toLowerCase().includes(tq));document.getElementById('admin-allstar-tbody').innerHTML=data.map(([name,d])=>`<tr><td>${name}</td><td style="text-align:center;color:var(--pink)">${d.apps}</td><td style="text-align:center;color:var(--gr)">${d.wins}</td><td style="text-align:center;color:var(--pur)">${d.mvps}</td><td style="text-align:center;color:var(--gold-hi)">${d.dunk}</td><td style="text-align:center;color:var(--bl)">${d.skills}</td><td style="text-align:center;color:var(--cy)">${d.threepoint}</td><td><button class="admin-btn" onclick="openAllStarEdit('${name}')">Edit</button></td></tr>`).join('');}
 function openAllStarEdit(name){const d=allStarData[name]||{apps:0,wins:0,mvps:0,dunk:0,skills:0,threepoint:0};document.getElementById('eas-player').value=name;document.getElementById('eas-apps').value=d.apps;document.getElementById('eas-wins').value=d.wins;document.getElementById('eas-mvps').value=d.mvps;document.getElementById('eas-dunk').value=d.dunk;document.getElementById('eas-skills').value=d.skills;document.getElementById('eas-threepoint').value=d.threepoint;document.getElementById('edit-allstar-overlay').classList.add('show');}
 function saveAllStarEdit(){const name=document.getElementById('eas-player').value;allStarData[name]={apps:parseInt(document.getElementById('eas-apps').value)||0,wins:parseInt(document.getElementById('eas-wins').value)||0,mvps:parseInt(document.getElementById('eas-mvps').value)||0,dunk:parseInt(document.getElementById('eas-dunk').value)||0,skills:parseInt(document.getElementById('eas-skills').value)||0,threepoint:parseInt(document.getElementById('eas-threepoint').value)||0};document.getElementById('edit-allstar-overlay').classList.remove('show');rebuildData();updateHeroStats();renderAdminAllStar();toast(`${name} updated`,'green');}
 function addNewAllStar(){const name=prompt('Player name:');if(!name?.trim())return;allStarData[name.trim()]={apps:0,wins:0,mvps:0,dunk:0,skills:0,threepoint:0};renderAdminAllStar();openAllStarEdit(name.trim());}
-
 function renderAdminAnalytics(){
-  const pl=Object.values(playerMap);
-  const champMap={};seasons.forEach(s=>{champMap[s.champion]=(champMap[s.champion]||0)+1;});
-  const champSorted=Object.entries(champMap).sort((a,b)=>b[1]-a[1]);
+  const pl=Object.values(playerMap);const champMap={};seasons.forEach(s=>{champMap[s.champion]=(champMap[s.champion]||0)+1;});const champSorted=Object.entries(champMap).sort((a,b)=>b[1]-a[1]);
   const topMvp=[...pl].sort((a,b)=>b.majorAwards.filter(x=>x.award==='MVP').length-a.majorAwards.filter(x=>x.award==='MVP').length).slice(0,5);
   const topFmvp=[...pl].sort((a,b)=>b.fmvpAwards.length-a.fmvpAwards.length).slice(0,5);
   const topAllRpl=[...pl].sort((a,b)=>b.allRPL-a.allRPL).slice(0,5);
   const topPeak=[...pl].sort((a,b)=>countPeakSeasons(b)-countPeakSeasons(a)).filter(p=>countPeakSeasons(p)>0).slice(0,5);
-  document.getElementById('analytics-content').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-    <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Championships</div><table class="allstar-leader-tbl">${champSorted.slice(0,5).map(([team,n],i)=>`<tr><td>${i+1}</td><td>${team}</td><td style="color:var(--gold-hi)">${n}</td></tr>`).join('')}</table></div>
-    <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Season MVPs</div><table class="allstar-leader-tbl">${topMvp.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--gold-hi)">${p.majorAwards.filter(x=>x.award==='MVP').length}</td></tr>`).join('')}</table></div>
-    <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Finals MVPs</div><table class="allstar-leader-tbl">${topFmvp.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--pur)">${p.fmvpAwards.length}</td></tr>`).join('')}</table></div>
-    <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most All-RPL Selections</div><table class="allstar-leader-tbl">${topAllRpl.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--bl)">${p.allRPL}</td></tr>`).join('')}</table></div>
-    <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-bottom:8px">⚡ Peak Seasons (MVP + 1st All-RPL)</div><table class="allstar-leader-tbl">${topPeak.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--or)">${countPeakSeasons(p)}</td></tr>`).join('')}</table></div>
-    <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">HOF Score Leaders</div><table class="allstar-leader-tbl">${hofInductees.filter(p=>p.hofTier==='hof').slice(0,5).map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:${scoreColor(p.hofScore)}">${p.hofScore}</td></tr>`).join('')}</table></div>
-  </div>`;
+  document.getElementById('analytics-content').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px"><div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Championships</div><table class="allstar-leader-tbl">${champSorted.slice(0,5).map(([team,n],i)=>`<tr><td>${i+1}</td><td>${team}</td><td style="color:var(--gold-hi)">${n}</td></tr>`).join('')}</table></div><div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Season MVPs</div><table class="allstar-leader-tbl">${topMvp.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--gold-hi)">${p.majorAwards.filter(x=>x.award==='MVP').length}</td></tr>`).join('')}</table></div><div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most Finals MVPs</div><table class="allstar-leader-tbl">${topFmvp.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--pur)">${p.fmvpAwards.length}</td></tr>`).join('')}</table></div><div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">Most All-RPL Selections</div><table class="allstar-leader-tbl">${topAllRpl.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--bl)">${p.allRPL}</td></tr>`).join('')}</table></div><div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-bottom:8px">⚡ Peak Seasons (MVP + 1st All-RPL)</div><table class="allstar-leader-tbl">${topPeak.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:var(--or)">${countPeakSeasons(p)}</td></tr>`).join('')}</table></div><div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px">HOF Score Leaders</div><table class="allstar-leader-tbl">${hofInductees.filter(p=>p.hofTier==='hof').slice(0,5).map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td style="color:${scoreColor(p.hofScore)}">${p.hofScore}</td></tr>`).join('')}</table></div></div>`;
 }
 
-// ═══════════════════════════════════════════════
-// AUTH
-// ═══════════════════════════════════════════════
-function adminClick(){
-  if(isAdmin){logoutAdmin();return;}
-  document.getElementById('login-overlay').classList.add('show');
-  setTimeout(()=>document.getElementById('pw-input').focus(),80);
-}
+function adminClick(){if(isAdmin){logoutAdmin();return;}document.getElementById('login-overlay').classList.add('show');setTimeout(()=>document.getElementById('pw-input').focus(),80);}
 async function doLogin(){
-  const pw=document.getElementById('pw-input').value;
-  document.getElementById('login-err').classList.remove('show');
+  const pw=document.getElementById('pw-input').value;document.getElementById('login-err').classList.remove('show');
   const HASH='b42f12b1540564489141a4277a848aade59609c6bcec49259941a52c064b5a20';
   const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
   const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-  if(hex===HASH){
-    isAdmin=true;
-    document.getElementById('login-overlay').classList.remove('show');
-    document.getElementById('pw-input').value='';
-    document.getElementById('admin-bar').classList.add('on');
-    document.getElementById('admin-kc-lbl').textContent='Active';
-    showTab('admin',null);
-    toast('Admin mode activated','green',3000);
-  }else{document.getElementById('login-err').classList.add('show');}
+  if(hex===HASH){isAdmin=true;document.getElementById('login-overlay').classList.remove('show');document.getElementById('pw-input').value='';document.getElementById('admin-bar').classList.add('on');document.getElementById('admin-kc-lbl').textContent='Active';showTab('admin',null);toast('Admin mode activated','green',3000);}else{document.getElementById('login-err').classList.add('show');}
 }
 function logoutAdmin(){isAdmin=false;document.getElementById('admin-bar').classList.remove('on');document.getElementById('admin-kc-lbl').textContent='Admin';toast('Logged out','amber',2500);}
 function openAddSeason(){if(!isAdmin){toast('Login as admin first','amber');return;}document.getElementById('add-overlay').classList.add('show');}
 function saveNewSeason(){
-  const g=id=>document.getElementById(id).value.trim();
-  const statsRaw=g('f-stats'),statLeaders={};
+  const g=id=>document.getElementById(id).value.trim();const statsRaw=g('f-stats'),statLeaders={};
   if(statsRaw)statsRaw.split(',').forEach(part=>{const[k,v]=part.split(':');if(k&&v)statLeaders[k.trim()]=v.trim();});
   const newS={id:parseInt(g('f-id'))||seasons.length+1,champion:g('f-champ'),record:g('f-rec'),defeated:g('f-def'),defeatedRecord:g('f-drec'),seriesResult:g('f-series'),owners:g('f-owners').split(',').map(s=>s.trim()).filter(Boolean),toty:g('f-toty'),fmvp:g('f-fmvp')||null,awards:{MVP:g('f-mvp'),OPOTY:g('f-opoty'),DPOY:g('f-dpoy'),PMOTY:g('f-pmoty'),ROTY:g('f-roty'),MIP:g('f-mip'),CPOTY:g('f-cpoty'),'4MOTY':g('f-4moty')},...(Object.keys(statLeaders).length?{statLeaders}:{}),allRPL:{first:[]}};
   Object.keys(newS.awards).forEach(k=>{if(!newS.awards[k])delete newS.awards[k];});
-  seasons.push(newS);
-  document.getElementById('add-overlay').classList.remove('show');
-  rebuildData();updateHeroStats();renderSeasons();
+  seasons.push(newS);document.getElementById('add-overlay').classList.remove('show');rebuildData();updateHeroStats();renderSeasons();
   ['f-id','f-champ','f-rec','f-def','f-drec','f-series','f-owners','f-toty','f-fmvp','f-mvp','f-opoty','f-dpoy','f-pmoty','f-roty','f-mip','f-cpoty','f-4moty','f-stats'].forEach(id=>{document.getElementById(id).value='';});
   toast(`Season ${newS.id} added`,'green');
 }
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closePlayerModal();['login-overlay','add-overlay','hof-induct-overlay','edit-record-overlay','edit-allstar-overlay'].forEach(id=>document.getElementById(id)?.classList.remove('show'));}});
 
-// ═══════════════════════════════════════════════
-// KEYBOARD SHORTCUTS
-// ═══════════════════════════════════════════════
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){
-    closeModal();closePlayerModal();
-    ['login-overlay','add-overlay','hof-induct-overlay','edit-record-overlay','edit-allstar-overlay'].forEach(id=>document.getElementById(id)?.classList.remove('show'));
-  }
-});
-
-// ═══════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════
-rebuildData();
-updateHeroStats();
-renderSeasons();
+rebuildData();updateHeroStats();renderSeasons();
 </script>
 </body>
 </html>
