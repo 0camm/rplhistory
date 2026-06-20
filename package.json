@@ -1,0 +1,9 @@
+{
+  "name": "rpl-history-book",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RPL History Book — season archive with a database-backed admin panel.",
+  "engines": {
+    "node": ">=18"
+  }
+}
